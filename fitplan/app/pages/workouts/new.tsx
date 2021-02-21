@@ -8,34 +8,42 @@ const NewWorkoutPage: BlitzPage = () => {
   const [createWorkoutMutation] = useMutation(createWorkout)
 
   return (
-    <div>
-      {/* <h1>Create New Workout</h1> */}
+    <div className="card-container-parent">
+      <div className="card-container">
+        <div className="card">
+          {/* <h1>Create New Workout</h1> */}
 
-      <WorkoutForm
-        submitText="Create Workout"
-        // TODO use a zod schema for form validation
-        //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-        //         then import and use it here
-        // schema={CreateWorkout}
-        // initialValues={{}}
-        onSubmit={async (values) => {
-          try {
-            const workout = await createWorkoutMutation(values)
-            router.push(`/workouts/${workout.id}`)
-          } catch (error) {
-            console.error(error)
-            return {
-              [FORM_ERROR]: error.toString(),
-            }
-          }
-        }}
-      />
+          <WorkoutForm
+            submitText="Save"
+            // TODO use a zod schema for form validation
+            //  - Tip: extract mutation's schema into a shared `validations.ts` file and
+            //         then import and use it here
+            // schema={CreateWorkout}
+            // initialValues={{}}
+            onSubmit={async (values) => {
+              try {
+                const workout = await createWorkoutMutation(values)
+                router.push(`/workouts/${workout.id}`)
+              } catch (error) {
+                console.error(error)
+                return {
+                  [FORM_ERROR]: error.toString(),
+                }
+              }
+            }}
+          />
+          {/* <div className="grid justify-between"> */}
+          <div className="rdiv">
+            <button className="btn cancel">
+              <Link href="/workouts">
+                <a>Discard</a>
+              </Link>
+            </button>
+          </div>
 
-      <p className="w-full lg:w-4/12 px-4">
-        <Link href="/workouts">
-          <a>Workouts</a>
-        </Link>
-      </p>
+          {/* </div> */}
+        </div>
+      </div>
     </div>
   )
 }

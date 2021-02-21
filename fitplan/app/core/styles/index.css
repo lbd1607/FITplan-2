@@ -2,14 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Color palette
+background: gray-200
+brand: gray-900
+Menu-items: gray-400
+h1, h2, h3: gray-600
+p: gray-800
+textfield-outline: gray-400
+
+green: green-500
+orange: yellow-500
+blue: blue-500
+purple: purple-700
+pink: pink-500 
+*/
+
+/* Fonts
+primary-family: Montserrat
+h1: text-2xl, normal, bold
+h2: text-xl, normal, bold
+h3: text-lg, normal, medium
+body: text-base, normal, regular
+*/
+
+/* Tailwind Styles */
 @layer base {
+  /*----------------------- Standard Text -----------------------*/
+  /* Heading 1 */
   h1 {
-    @apply text-4xl;
+    @apply text-2xl font-sans not-italic font-bold text-gray-600;
   }
+  /* Heading 2 */
   h2 {
-    @apply text-2xl;
+    @apply text-xl font-sans not-italic font-bold text-gray-600;
   }
-  .hero {
+  /* Heading 3 */
+  h3 {
+    @apply text-lg font-sans not-italic font-medium text-gray-600;
+  }
+  /* Body text */
+  p {
+    @apply text-sm font-sans not-italic font-normal text-gray-800;
+  }
+
+  /*------------------------------ Cards ------------------------*/
+  /* Parent div for card container, wraps card-container and card */
+  .card-container-parent {
+    @apply flex content-center items-center  h-full;
+  }
+  /* Parent div for cards */
+  .card-container {
+    @apply w-full lg:w-4/12 px-4 m-6;
+  }
+  /* Cards */
+  .card {
+    @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 mb-6 mt-6 p-6;
+  }
+  /*-------------------------- Form Fields -----------------------*/
+  /* Div that wraps label and input or textarea */
+  .input-container {
+    @apply mt-24 mb-20;
+  }
+  /* Input and textarea boxes */
+  input,
+  textarea {
+    @apply rounded-md border border-gray-400 px-3 py-3 bg-white  w-full;
+  }
+  /* Input and textarea focus behavior */
+  input:focus,
+  textarea:focus {
+    @apply border-green-500;
+  }
+  /* Form field labels */
+  label {
+    @apply text-base font-sans not-italic font-medium text-gray-600 pb-4;
+  }
+  /**/
+  select {
+    @apply m-4 inline-block; /* inline-grid grid-cols-3 */ /* md:grid-flow-col */
+  }
+  /* Option selection */
+  option {
+    @apply w-40 px-4 py-4 rounded-md outline-none sm:mr-2 mb-1  bg-gray-100 font-medium text-sm inline;
+  }
+  /* Active style for selected option */
+  option:active {
+  }
+  /*--------------------- Buttons and Links ---------------------*/
+  /* Link that goes back to the main component page */
+  .back-link {
+    @apply w-full lg:w-4/12 px-4;
+  }
+  /* Button container */
+  .btn {
+    @apply w-40 px-4 py-2 rounded-md outline-none sm:mr-2 mb-1 shadow;
+  }
+  /* Button for submit/save */
+  .btn.save {
+    @apply bg-green-500 text-white font-bold  text-sm;
+  }
+  /* Active styles for submit/save button  */
+  .btn.save:active {
+    @apply shadow-lg;
+  }
+  /* Hover styles for submit/save button  */
+  .btn.save:hover {
+    @apply bg-green-600;
+  }
+  /* Button for cancel/discard */
+  .btn.cancel {
+    @apply bg-pink-500 text-white font-bold  text-sm;
+  }
+  /* Active styles for cancel/discard button  */
+  .btn.cancel:active {
+    @apply shadow-lg;
+  }
+  /* Hover styles for cancel/discard  button  */
+  .btn.cancel:hover {
+    @apply bg-pink-600;
+  }
+
+  /*  .hero {
     width: 100%;
     color: #333;
   }
@@ -25,5 +138,5 @@
   .title,
   .description {
     text-align: center;
-  }
+  } */
 }

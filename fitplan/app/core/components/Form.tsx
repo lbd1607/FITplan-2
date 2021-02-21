@@ -1,6 +1,7 @@
 import { ReactNode, PropsWithoutRef } from "react"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 import * as z from "zod"
+
 export { FORM_ERROR } from "final-form"
 
 export interface FormProps<S extends z.ZodType<any, any>>
@@ -46,22 +47,12 @@ export function Form<S extends z.ZodType<any, any>>({
           )}
 
           {submitText && (
-            <div className="w-full lg:w-4/12 px-4">
-              <button
-                className="bg-green-500 active:bg-green-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
-                type="submit"
-                disabled={submitting}
-              >
+            <div className="ldiv">
+              <button className="btn save" type="submit" disabled={submitting}>
                 {submitText}
               </button>
             </div>
           )}
-
-          <style global jsx>{`
-            .form > * + * {
-              margin-top: 1rem;
-            }
-          `}</style>
         </form>
       )}
     />
