@@ -1,6 +1,7 @@
 import { ReactNode, PropsWithoutRef } from "react"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 import * as z from "zod"
+import { Link } from "blitz"
 
 export { FORM_ERROR } from "final-form"
 
@@ -10,17 +11,25 @@ export interface FormProps<S extends z.ZodType<any, any>>
   children?: ReactNode
   /** Text to display in the submit button */
   submitText?: string
+  /* Text to display in the cancel button*/
+  cancelText?: string
+  /** URL to page for returning to parent on cancel */
+  cancelURL?: string
   schema?: S
   onSubmit: FinalFormProps<z.infer<S>>["onSubmit"]
+  onCancel: FinalFormProps<z.infer<S>>["onCancel"]
   initialValues?: FinalFormProps<z.infer<S>>["initialValues"]
 }
 
 export function Form<S extends z.ZodType<any, any>>({
   children,
   submitText,
+  cancelText,
+  cancelURL,
   schema,
   initialValues,
   onSubmit,
+  onCancel,
   ...props
 }: FormProps<S>) {
   return (
@@ -35,24 +44,34 @@ export function Form<S extends z.ZodType<any, any>>({
         }
       }}
       onSubmit={onSubmit}
+      onCancel={onCancel}
       render={({ handleSubmit, submitting, submitError }) => (
         <form onSubmit={handleSubmit} className="form" {...props}>
           {/* Form fields supplied as children are rendered here */}
           {children}
-
           {submitError && (
             <div role="alert" style={{ color: "red" }}>
               {submitError}
             </div>
           )}
-
-          {submitText && (
-            <div className="ldiv">
-              <button className="btn save" type="submit" disabled={submitting}>
-                {submitText}
-              </button>
-            </div>
-          )}
+          <div className="flex flex-row justify-between">
+            {submitText && (
+              <div>
+                <button className="btn save" type="submit" disabled={submitting}>
+                  {submitText}
+                </button>
+              </div>
+            )}
+            {cancelText && cancelURL && (
+              <div>
+                <Link href={`${cancelURL}`}>
+                  <button className="btn cancel">
+                    <a>{cancelText}</a>
+                  </button>
+                </Link>
+              </div>
+            )}
+          </div>
         </form>
       )}
     />

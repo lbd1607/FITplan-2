@@ -61,32 +61,34 @@ body: text-base, normal, regular
   /*-------------------------- Form Fields -----------------------*/
   /* Div that wraps label and input or textarea */
   .input-container {
-    @apply mt-24 mb-20;
+    @apply mb-16;
   }
   /* Input and textarea boxes */
-  input,
-  textarea {
-    @apply rounded-md border border-gray-400 px-3 py-3 bg-white  w-full;
+  .inputbox {
+    @apply rounded-md border border-gray-400 px-3 py-3 bg-white  w-full text-gray-800;
   }
   /* Input and textarea focus behavior */
-  input:focus,
-  textarea:focus {
-    @apply border-green-500;
+  .inputbox:focus {
+    @apply bg-purple-100; /* border-green-500 */
   }
   /* Form field labels */
-  label {
-    @apply text-base font-sans not-italic font-medium text-gray-600 pb-4;
+  .formfieldlabel {
+    @apply text-base leading-8 font-sans not-italic font-medium text-gray-600 pb-4;
   }
-  /**/
-  select {
-    @apply m-4 inline-block; /* inline-grid grid-cols-3 */ /* md:grid-flow-col */
+  /* Select button */
+  .btn.selectbtn {
+    @apply border-gray-300 font-medium text-sm inline border;
   }
-  /* Option selection */
-  option {
-    @apply w-40 px-4 py-4 rounded-md outline-none sm:mr-2 mb-1  bg-gray-100 font-medium text-sm inline;
+  /* Hover style for selected select button */
+  .btn.selectbtn:hover {
+    @apply bg-gray-200;
   }
-  /* Active style for selected option */
-  option:active {
+  /* Active style for selected select button */
+  .btn.selectbtn:active,
+  .btn.selectbtn:focus,
+  .btn.selectbtn:checked,
+  .selectedOption {
+    @apply bg-green-100;
   }
   /*--------------------- Buttons and Links ---------------------*/
   /* Link that goes back to the main component page */
@@ -95,7 +97,7 @@ body: text-base, normal, regular
   }
   /* Button container */
   .btn {
-    @apply w-40 px-4 py-2 rounded-md outline-none sm:mr-2 mb-1 shadow;
+    @apply w-40 px-4 py-2 rounded-md outline-none sm:mr-2 mb-1;
   }
   /* Button for submit/save */
   .btn.save {

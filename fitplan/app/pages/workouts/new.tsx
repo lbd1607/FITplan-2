@@ -15,6 +15,8 @@ const NewWorkoutPage: BlitzPage = () => {
 
           <WorkoutForm
             submitText="Save"
+            cancelText="Discard"
+            cancelURL="/workouts"
             // TODO use a zod schema for form validation
             //  - Tip: extract mutation's schema into a shared `validations.ts` file and
             //         then import and use it here
@@ -31,17 +33,17 @@ const NewWorkoutPage: BlitzPage = () => {
                 }
               }
             }}
+            onCancel={async () => {
+              try {
+                router.back()
+              } catch (error) {
+                console.error(error)
+                return {
+                  [FORM_ERROR]: error.toString(),
+                }
+              }
+            }}
           />
-          {/* <div className="grid justify-between"> */}
-          <div className="rdiv">
-            <button className="btn cancel">
-              <Link href="/workouts">
-                <a>Discard</a>
-              </Link>
-            </button>
-          </div>
-
-          {/* </div> */}
         </div>
       </div>
     </div>

@@ -14,9 +14,9 @@ import "app/core/styles/index.css"
 import ReactDOM from "react-dom"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
-import { faHeartbeat } from "@fortawesome/free-solid-svg-icons"
+import { faBurn, faDumbbell, faHeartbeat } from "@fortawesome/free-solid-svg-icons"
 
-library.add(fab, faHeartbeat)
+library.add(fab, faHeartbeat, faDumbbell, faBurn)
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
