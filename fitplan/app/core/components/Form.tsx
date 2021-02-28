@@ -1,4 +1,4 @@
-import { ReactNode, PropsWithoutRef } from "react"
+import { ReactNode, PropsWithoutRef, useRef } from "react"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 import * as z from "zod"
 import { Link } from "blitz"
@@ -32,6 +32,7 @@ export function Form<S extends z.ZodType<any, any>>({
   onCancel,
   ...props
 }: FormProps<S>) {
+  const a11yRef = useRef(null)
   return (
     <FinalForm
       initialValues={initialValues}
@@ -55,20 +56,20 @@ export function Form<S extends z.ZodType<any, any>>({
             </div>
           )}
           <div className="flex flex-row justify-between">
-            {submitText && (
-              <div>
-                <button className="btn save" type="submit" disabled={submitting}>
-                  {submitText}
-                </button>
-              </div>
-            )}
             {cancelText && cancelURL && (
               <div>
                 <Link href={`${cancelURL}`}>
-                  <button className="btn cancel">
+                  <button className="btn cancel" ref={a11yRef}>
                     <a>{cancelText}</a>
                   </button>
                 </Link>
+              </div>
+            )}
+            {submitText && (
+              <div>
+                <button className="btn save" type="submit" disabled={submitting} ref={a11yRef}>
+                  {submitText}
+                </button>
               </div>
             )}
           </div>

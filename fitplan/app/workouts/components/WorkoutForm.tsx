@@ -1,3 +1,4 @@
+import { useRef, useState } from "react"
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
@@ -8,6 +9,10 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 export { FORM_ERROR } from "app/core/components/Form"
 
 export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
+  const a11yRef = useRef(null)
+  //Set which button is selected onClickCapture, default is the default selection "resistance"; state is lifted to parent
+  const [isSelected, setSelected] = useState("resistance")
+
   return (
     <>
       <Form<S> {...props}>
@@ -22,37 +27,39 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
             <div className="input-container">
               <label className="formfieldlabel">Type</label>
 
-              {/* <Field component="select" name="workoutType" label="Type" defaultValue={"resistance"}>
-                <option value="resistance">Resistance</option>
-                <option value="cardio">Cardio</option>
-                <option value="endurance">Endurance</option>
-              </Field> */}
-
               <Field name="workoutType" defaultValue={"resistance"}>
                 {(props) => {
                   return (
                     <div>
-                      {/* className={
-                          props.selected === true ? "btn selectbtn selectedOption" : "btn selectbtn"
-                        } */}
                       <button
                         {...props.input}
-                        className="btn selectbtn"
-                        name="cardio"
+                        className={
+                          isSelected === "resistance"
+                            ? "btn selectbtn selectedOption"
+                            : "btn selectbtn"
+                        }
+                        name="resistance"
                         value="resistance"
                         type="button"
                         onClick={props.input.onChange}
+                        onClickCapture={() => setSelected("resistance")}
+                        ref={a11yRef}
                       >
                         <FontAwesomeIcon icon="dumbbell" size="lg" className="text-cyan-500 mr-1" />{" "}
                         Resistance
                       </button>
+
                       <button
                         {...props.input}
-                        className="btn selectbtn"
+                        className={
+                          isSelected === "cardio" ? "btn selectbtn selectedOption" : "btn selectbtn"
+                        }
                         name="cardio"
                         value="cardio"
                         type="button"
                         onClick={props.input.onChange}
+                        onClickCapture={() => setSelected("cardio")}
+                        ref={a11yRef}
                       >
                         <FontAwesomeIcon
                           icon="heartbeat"
@@ -63,11 +70,17 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                       </button>
                       <button
                         {...props.input}
-                        className="btn selectbtn"
-                        name="cardio"
+                        className={
+                          isSelected === "endurance"
+                            ? "btn selectbtn selectedOption"
+                            : "btn selectbtn"
+                        }
+                        name="endurance"
                         value="endurance"
                         type="button"
                         onClick={props.input.onChange}
+                        onClickCapture={() => setSelected("endurance")}
+                        ref={a11yRef}
                       >
                         <FontAwesomeIcon icon="burn" size="lg" className="text-orange-500 mr-1" />{" "}
                         Endurance

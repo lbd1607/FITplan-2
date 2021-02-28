@@ -97,11 +97,15 @@ body: text-base, normal, regular
   }
   /* Button container */
   .btn {
-    @apply w-40 px-4 py-2 rounded-md outline-none sm:mr-2 mb-1;
+    @apply w-40 px-4 py-2 rounded-md sm:mr-2 mb-1;
+  }
+  /* A11y: Set focusring for custom buttons */
+  .btn:focus-visible {
+    outline: 1px dotted #000;
   }
   /* Button for submit/save */
   .btn.save {
-    @apply bg-green-500 text-white font-bold  text-sm;
+    @apply bg-purple-600 text-white font-bold  text-base;
   }
   /* Active styles for submit/save button  */
   .btn.save:active {
@@ -109,11 +113,11 @@ body: text-base, normal, regular
   }
   /* Hover styles for submit/save button  */
   .btn.save:hover {
-    @apply bg-green-600;
+    @apply bg-purple-700;
   }
   /* Button for cancel/discard */
   .btn.cancel {
-    @apply bg-pink-500 text-white font-bold  text-sm;
+    @apply bg-pink-600 text-white font-bold  text-base;
   }
   /* Active styles for cancel/discard button  */
   .btn.cancel:active {
@@ -121,7 +125,40 @@ body: text-base, normal, regular
   }
   /* Hover styles for cancel/discard  button  */
   .btn.cancel:hover {
-    @apply bg-pink-600;
+    @apply bg-pink-700;
+  }
+  /* Styles for add (plus-circle) icon */
+  .addicon {
+    @apply text-green-500 mx-3 cursor-pointer;
+  }
+  /* On hover styles for add (plus-circle) icon */
+  .addicon:hover {
+    @apply text-green-600;
+  }
+  /* Styles for edit (pen) icon */
+  .editicon {
+    @apply text-purple-600 mx-3 cursor-pointer;
+  }
+  /* On hover styles for edit (pen) icon */
+  .editicon:hover {
+    @apply text-purple-700;
+  }
+  /* Styles for add (plus-circle) icon */
+  .deleteicon {
+    @apply text-pink-500 mx-3 cursor-pointer;
+  }
+  /* On hover styles for add (plus-circle) icon */
+  .deleteicon:hover {
+    @apply text-pink-600;
+  }
+
+  /* Item rows on master pages */
+  .itemrow {
+    @apply relative flex-col min-w-0 break-words w-full bg-white cursor-pointer p-3 my-1 border border-gray-300;
+  }
+  /* On hover for item rows on master pages */
+  .itemrow:hover {
+    @apply bg-gray-100;
   }
 
   /*  .hero {

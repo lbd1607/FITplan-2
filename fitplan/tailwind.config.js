@@ -5,7 +5,12 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
-      colors: { orange: colors.orange, cyan: colors.cyan },
+      colors: {
+        orange: colors.orange,
+        cyan: colors.cyan,
+        teal: colors.teal,
+        emerald: colors.emerald,
+      },
     },
     fontFamily: {
       sans: [

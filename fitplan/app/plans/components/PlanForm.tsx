@@ -12,7 +12,7 @@ export { FORM_ERROR } from "app/core/components/Form"
 // const [workouts] = useQuery(getWorkouts, { where: { id: workoutId } })
 
 export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S>) {
-  console.log(props)
+  //console.log(props)
   const [{ workouts }] = usePaginatedQuery(getWorkouts, {
     orderBy: { id: "asc" },
   })
