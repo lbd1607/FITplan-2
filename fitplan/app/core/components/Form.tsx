@@ -56,6 +56,13 @@ export function Form<S extends z.ZodType<any, any>>({
             </div>
           )}
           <div className="flex flex-row justify-between">
+            {submitText && (
+              <div>
+                <button className="btn save" type="submit" disabled={submitting} ref={a11yRef}>
+                  {submitText}
+                </button>
+              </div>
+            )}
             {cancelText && cancelURL && (
               <div>
                 <Link href={`${cancelURL}`}>
@@ -63,13 +70,6 @@ export function Form<S extends z.ZodType<any, any>>({
                     <a>{cancelText}</a>
                   </button>
                 </Link>
-              </div>
-            )}
-            {submitText && (
-              <div>
-                <button className="btn save" type="submit" disabled={submitting} ref={a11yRef}>
-                  {submitText}
-                </button>
               </div>
             )}
           </div>

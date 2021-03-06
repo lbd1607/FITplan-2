@@ -34,8 +34,20 @@ export const Workout = () => {
       <div className="card-container-parent">
         <div className="card-container">
           <div className="card">
-            <div className="rounded-t mb-0 px-6 px-6 py-6">
-              <h1 className="mb-10">{workout.workoutName}</h1>
+            <div className="rounded-t mb-0 px-6 py-6">
+              <div className="grid grid-cols-8">
+                <h1 className="mb-10 col-span-7">{workout.workoutName}</h1>
+                <Link href="/workouts">
+                  <span className="col-span-1 justify-end text-right">
+                    <FontAwesomeIcon
+                      icon="times"
+                      size="lg"
+                      className="text-gray-500 cursor-pointer mr-1"
+                    />
+                  </span>
+                </Link>
+              </div>
+
               <p className="formfieldlabel">ID: {workout.id}</p>
               <p className="capitalize formfieldlabel">
                 Type: {getWorkoutIcon(workout.workoutType)} {workout.workoutType}
@@ -46,12 +58,12 @@ export const Workout = () => {
               {/* <pre>{JSON.stringify(workout, null, 2)}</pre> */}
 
               <div className="flex flex-row justify-between mt-10">
-                <button className="btn save">
-                  {" "}
-                  <Link href={`/workouts/${workout.id}/edit`}>
+                <Link href={`/workouts/${workout.id}/edit`}>
+                  <button className="btn save">
+                    {" "}
                     <a>Edit</a>
-                  </Link>
-                </button>
+                  </button>
+                </Link>
 
                 <button
                   className="btn cancel"
@@ -78,12 +90,6 @@ export const Workout = () => {
 const ShowWorkoutPage: BlitzPage = () => {
   return (
     <div>
-      <p>
-        <Link href="/workouts">
-          <a>Workouts</a>
-        </Link>
-      </p>
-
       <Suspense fallback={<div>Loading...</div>}>
         <Workout />
       </Suspense>

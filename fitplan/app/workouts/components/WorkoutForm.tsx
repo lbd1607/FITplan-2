@@ -3,6 +3,8 @@ import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
+import { useQuery, useParam, BlitzPage } from "blitz"
+import getWorkout from "app/workouts/queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 
@@ -10,17 +12,22 @@ export { FORM_ERROR } from "app/core/components/Form"
 
 export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const a11yRef = useRef(null)
+  const editingId = useParam("workoutId", "number")
+  //Must check editingId first, otherwise validation assumes undefined id and fails on create new
+  if (!editingId) {
+    var currentState = "resistance"
+  } else {
+    const [editWorkout] = useQuery(getWorkout, { id: editingId })
+    var currentState = `${editWorkout.workoutType}` || "resistance"
+  }
   //Set which button is selected onClickCapture, default is the default selection "resistance"; state is lifted to parent
-  const [isSelected, setSelected] = useState("resistance")
+  const [isSelected, setSelected] = useState(currentState)
 
   return (
     <>
       <Form<S> {...props}>
         <div className="rounded-t mb-0 px-6 py-6">
           <div className="mb-3">
-            <div>
-              <h1 className="mb-10">Create a New Workout</h1>
-            </div>
             <div className="input-container">
               <LabeledTextField name="workoutName" label="Workout Name" className="inputbox" />
             </div>
