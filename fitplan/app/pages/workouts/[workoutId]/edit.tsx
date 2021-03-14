@@ -60,9 +60,15 @@ export const EditWorkout = () => {
                   await setQueryData(updated)
                   router.push(`/workouts/${updated.id}`)
                 } catch (error) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
+                  //console.error(error)
+                  if (!values.workoutName) {
+                    return { [FORM_ERROR]: "Workout name is required" }
+                  } else if (!values.workoutType) {
+                    return { [FORM_ERROR]: "Workout type is required" }
+                  } else {
+                    return {
+                      [FORM_ERROR]: error.toString(),
+                    }
                   }
                 }
               }}
@@ -90,12 +96,6 @@ const EditWorkoutPage: BlitzPage = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <EditWorkout />
       </Suspense>
-
-      <p>
-        <Link href="/workouts">
-          <a>Workouts</a>
-        </Link>
-      </p>
     </div>
   )
 }

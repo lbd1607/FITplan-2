@@ -2,32 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Color palette
-background: gray-200
-brand: gray-900
-Menu-items: gray-400
-h1, h2, h3: gray-600
-p: gray-800
-textfield-outline: gray-400
-
-green: green-500
-orange: yellow-500
-blue: blue-500
-purple: purple-700
-pink: pink-500 
-*/
-
-/* Fonts
-primary-family: Montserrat
-h1: text-2xl, normal, bold
-h2: text-xl, normal, bold
-h3: text-lg, normal, medium
-body: text-base, normal, regular
-*/
-
 /* Tailwind Styles */
 @layer base {
-  /*----------------------- Standard Text -----------------------*/
+  /*---------------------------------- Standard Text ------------------------------------*/
   /* Heading 1 */
   h1 {
     @apply text-2xl font-sans not-italic font-bold text-gray-600;
@@ -44,11 +21,10 @@ body: text-base, normal, regular
   p {
     @apply text-sm font-sans not-italic font-normal text-gray-800;
   }
-
-  /*------------------------------ Cards ------------------------*/
+  /*---------------------------------------- Cards --------------------------------------*/
   /* Parent div for card container, wraps card-container and card */
   .card-container-parent {
-    @apply flex content-center items-center  h-full;
+    @apply justify-center flex content-center items-center h-full;
   }
   /* Parent div for cards */
   .card-container {
@@ -58,7 +34,15 @@ body: text-base, normal, regular
   .card {
     @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 mb-6 mt-6 p-6;
   }
-  /*-------------------------- Form Fields -----------------------*/
+  /* Item rows on master pages */
+  .itemrow {
+    @apply relative flex-col min-w-0 break-words w-full bg-white cursor-pointer p-3 my-1 border border-gray-300;
+  }
+  /* On hover for item rows on master pages */
+  .itemrow:hover {
+    @apply bg-gray-100;
+  }
+  /*---------------------------------- Form Fields --------------------------------------*/
   /* Div that wraps label and input or textarea */
   .input-container {
     @apply mb-16;
@@ -90,10 +74,14 @@ body: text-base, normal, regular
   .selectedOption {
     @apply bg-green-100;
   }
-  /*--------------------- Buttons and Links ---------------------*/
+  /*--------------------------------- Buttons and Links ---------------------------------*/
   /* Link that goes back to the main component page */
   .back-link {
     @apply w-full lg:w-4/12 px-4;
+  }
+  /* Div that contains the save/cancel or edit/delete buttons */
+  .btn-div {
+    @apply flex flex-row justify-between px-6 pb-6;
   }
   /* Button container */
   .btn {
@@ -105,7 +93,7 @@ body: text-base, normal, regular
   }
   /* Button for submit/save */
   .btn.save {
-    @apply bg-purple-600 text-white font-bold  text-base;
+    @apply bg-purple-600 text-white font-bold text-base;
   }
   /* Active styles for submit/save button  */
   .btn.save:active {
@@ -115,9 +103,21 @@ body: text-base, normal, regular
   .btn.save:hover {
     @apply bg-purple-700;
   }
+  /* Button for edit */
+  .btn.edit {
+    @apply bg-white border border-purple-600 text-purple-600 font-bold text-base;
+  }
+  /* Active styles for edit button  */
+  .btn.edit:active {
+    @apply shadow-lg;
+  }
+  /* Hover styles for edit button  */
+  .btn.edit:hover {
+    @apply bg-purple-700 text-white;
+  }
   /* Button for cancel/discard */
   .btn.cancel {
-    @apply bg-pink-600 text-white font-bold  text-base;
+    @apply bg-pink-600 text-white font-bold text-base;
   }
   /* Active styles for cancel/discard button  */
   .btn.cancel:active {
@@ -127,6 +127,19 @@ body: text-base, normal, regular
   .btn.cancel:hover {
     @apply bg-pink-700;
   }
+  /* Button for delete */
+  .btn.delete {
+    @apply bg-white text-pink-600 border border-pink-600 font-bold text-base;
+  }
+  /* Active styles for delete button  */
+  .btn.delete:active {
+    @apply shadow-lg;
+  }
+  /* Hover styles for delete  button  */
+  .btn.delete:hover {
+    @apply bg-pink-700 text-white;
+  }
+  /*---------------------------------------- Icons --------------------------------------*/
   /* Styles for add (plus-circle) icon */
   .addicon {
     @apply text-green-500 mx-3 cursor-pointer;
@@ -151,14 +164,15 @@ body: text-base, normal, regular
   .deleteicon:hover {
     @apply text-pink-600;
   }
-
-  /* Item rows on master pages */
-  .itemrow {
-    @apply relative flex-col min-w-0 break-words w-full bg-white cursor-pointer p-3 my-1 border border-gray-300;
+  /*------------------------------- Error Handling and Alerts ----------------------------*/
+  /* Error message text */
+  .error {
+    @apply text-red-600 font-medium mb-5 pb-6;
   }
-  /* On hover for item rows on master pages */
-  .itemrow:hover {
-    @apply bg-gray-100;
+  /* Red asterisk for required fields wrapped in div with this class */
+  .required-field::before {
+    content: "* ";
+    color: red;
   }
 
   /*  .hero {

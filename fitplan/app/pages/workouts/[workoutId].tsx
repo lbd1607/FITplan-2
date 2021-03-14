@@ -59,14 +59,17 @@ export const Workout = () => {
 
               <div className="flex flex-row justify-between mt-10">
                 <Link href={`/workouts/${workout.id}/edit`}>
-                  <button className="btn save">
+                  <button className="btn edit">
                     {" "}
-                    <a>Edit</a>
+                    <a>
+                      <FontAwesomeIcon icon="pen" size="1x" className="cursor-pointer mr-2" />
+                      Edit
+                    </a>
                   </button>
                 </Link>
 
                 <button
-                  className="btn cancel"
+                  className="btn delete"
                   type="button"
                   onClick={async () => {
                     if (window.confirm("This will be deleted")) {
@@ -74,8 +77,8 @@ export const Workout = () => {
                       router.push("/workouts")
                     }
                   }}
-                  style={{ marginLeft: "0.5rem" }}
                 >
+                  <FontAwesomeIcon icon="trash" size="1x" className="cursor-pointer mr-2" />
                   Delete
                 </button>
               </div>

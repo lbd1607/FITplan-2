@@ -28,13 +28,19 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
       <Form<S> {...props}>
         <div className="rounded-t mb-0 px-6 py-6">
           <div className="mb-3">
-            <div className="input-container">
-              <LabeledTextField name="workoutName" label="Workout Name" className="inputbox" />
+            <div className="input-container required-field">
+              <label className="formfieldlabel">Workout Name</label>
+              <LabeledTextField
+                name="workoutName"
+                label=""
+                className="inputbox "
+                aria-required="true"
+              />
             </div>
-            <div className="input-container">
+            <div className="input-container required-field">
               <label className="formfieldlabel">Type</label>
 
-              <Field name="workoutType" defaultValue={"resistance"}>
+              <Field name="workoutType" defaultValue={"resistance"} aria-required="true">
                 {(props) => {
                   return (
                     <div>

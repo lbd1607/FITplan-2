@@ -51,11 +51,11 @@ export function Form<S extends z.ZodType<any, any>>({
           {/* Form fields supplied as children are rendered here */}
           {children}
           {submitError && (
-            <div role="alert" style={{ color: "red" }}>
-              {submitError}
+            <div role="alert">
+              <p className="error">{submitError}</p>
             </div>
           )}
-          <div className="flex flex-row justify-between">
+          <div className="btn-div">
             {submitText && (
               <div>
                 <button className="btn save" type="submit" disabled={submitting} ref={a11yRef}>

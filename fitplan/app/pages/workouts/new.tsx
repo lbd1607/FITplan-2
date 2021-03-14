@@ -44,9 +44,15 @@ const NewWorkoutPage: BlitzPage = () => {
                   const workout = await createWorkoutMutation(values)
                   router.push(`/workouts/${workout.id}`)
                 } catch (error) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
+                  //console.error(error)
+                  if (!values.workoutName) {
+                    return { [FORM_ERROR]: "Workout name is required" }
+                  } else if (!values.workoutType) {
+                    return { [FORM_ERROR]: "Workout type is required" }
+                  } else {
+                    return {
+                      [FORM_ERROR]: error.toString(),
+                    }
                   }
                 }
               }}

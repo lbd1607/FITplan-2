@@ -1,4 +1,4 @@
-import { AuthenticationError, Link, useMutation } from "blitz"
+import { AuthenticationError, Link, useMutation, useRouter } from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import login from "app/auth/mutations/login"
@@ -9,6 +9,7 @@ type LoginFormProps = {
 }
 
 export const LoginForm = (props: LoginFormProps) => {
+  const router = useRouter()
   const [loginMutation] = useMutation(login)
 
   return (
@@ -31,6 +32,16 @@ export const LoginForm = (props: LoginFormProps) => {
                 [FORM_ERROR]:
                   "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
               }
+            }
+          }
+        }}
+        onCancel={async () => {
+          try {
+            router.back()
+          } catch (error) {
+            console.error(error)
+            return {
+              [FORM_ERROR]: error.toString(),
             }
           }
         }}

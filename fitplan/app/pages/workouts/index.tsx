@@ -45,15 +45,15 @@ export const WorkoutsList = () => {
               <a>
                 {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
               </a>
-              {/*  <span className="justify-evenly">
+              {/* <span className="justify-evenly">
                 <Link href={`/workouts/${workout.id}/edit`}>
-                  <span className="mx-5">
-                    <FontAwesomeIcon icon="pen" size="lg" className="editicon" />
+                  <span className="mx-5 rounded-full h-8 w-8 flex items-center justify-center border border-purple-600">
+                    <FontAwesomeIcon icon="pen" size="sm" className="editicon" />
                   </span>
                 </Link>
 
                 <button
-                  className=""
+                  className="rounded-full h-8 w-8 flex items-center justify-center border border-pink-600"
                   type="button"
                   onClick={async () => {
                     if (window.confirm("This will be deleted")) {
@@ -64,7 +64,7 @@ export const WorkoutsList = () => {
                   style={{ marginLeft: "0.5rem" }}
                 >
                   <span className="mx-5">
-                    <FontAwesomeIcon icon="trash" size="lg" className="deleteicon" />
+                    <FontAwesomeIcon icon="trash" size="sm" className="deleteicon" />
                   </span>
                 </button>
               </span> */}
