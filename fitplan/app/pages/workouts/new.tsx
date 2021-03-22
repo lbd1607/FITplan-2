@@ -12,7 +12,7 @@ const NewWorkoutPage: BlitzPage = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="card-container-parent">
+      <div>
         <div className="card-container">
           <div className="card">
             <div className="rounded-t mb-0 px-6 py-6">
@@ -42,7 +42,8 @@ const NewWorkoutPage: BlitzPage = () => {
               onSubmit={async (values) => {
                 try {
                   const workout = await createWorkoutMutation(values)
-                  router.push(`/workouts/${workout.id}`)
+                  router.push(`/exercises/new`)
+                  //router.push(`/workouts/${workout.id}`)
                 } catch (error) {
                   //console.error(error)
                   if (!values.workoutName) {

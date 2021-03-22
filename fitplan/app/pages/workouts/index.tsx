@@ -1,10 +1,14 @@
-import { Suspense } from "react"
+import { Fragment, Suspense, useState } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, useMutation } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getWorkouts from "app/workouts/queries/getWorkouts"
 import deleteWorkout from "app/workouts/mutations/deleteWorkout"
+import NewWorkoutPage from "./new"
+import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+
+Modal.setAppElement("#__next")
 
 const ITEMS_PER_PAGE = 100
 
@@ -84,27 +88,45 @@ export const WorkoutsList = () => {
 }
 
 const WorkoutsPage: BlitzPage = () => {
+  const [modalIsOpen, modalSetIsOpen] = useState(false)
+  function openModal() {
+    modalSetIsOpen(true)
+  }
+  function closeModal() {
+    modalSetIsOpen(false)
+    // router.push("/")
+    return <Link href="/" />
+  }
   return (
     <>
       <Head>
         <title>Workouts</title>
       </Head>
       <div className="card-container-parent">
-        <div className="card mx-20 h-screen mb-14">
+        <div className="list-container">
           <h1 className="mb-10">
-            Workouts{" "}
-            <Link href="/workouts/new">
-              {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
-              <span>
-                <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
-              </span>
-            </Link>
+            Workouts {/* original link without modal <Link href="/workouts/new"> */}
+            {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
+            <button onClick={openModal}>
+              <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
+            </button>
+            {/* </Link> */}
           </h1>
 
           <Suspense fallback={<div>Loading...</div>}>
             <WorkoutsList />
           </Suspense>
         </div>
+      </div>
+      <div>
+        <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
+          <Link href="/workouts/new">
+            {/* Must wrap workout page in fragment to avoid ref error */}
+            <Fragment>
+              <NewWorkoutPage />
+            </Fragment>
+          </Link>
+        </Modal>
       </div>
     </>
   )
