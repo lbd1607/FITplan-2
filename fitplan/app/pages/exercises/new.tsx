@@ -29,6 +29,16 @@ const NewExercisePage: BlitzPage = () => {
             }
           }
         }}
+        onCancel={async () => {
+          try {
+            router.back()
+          } catch (error) {
+            console.error(error)
+            return {
+              [FORM_ERROR]: error.toString(),
+            }
+          }
+        }}
       />
 
       <p>

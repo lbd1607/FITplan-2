@@ -4,6 +4,7 @@ import Layout from "app/core/layouts/Layout"
 import getWorkouts from "app/workouts/queries/getWorkouts"
 import deleteWorkout from "app/workouts/mutations/deleteWorkout"
 import NewWorkoutPage from "./new"
+import ShowWorkoutPage from "./[workoutId]"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
@@ -26,6 +27,17 @@ export const WorkoutsList = () => {
 
   const [deleteWorkoutMutation] = useMutation(deleteWorkout)
 
+  /* Setup modal, contain modal open and close functions */
+  /* const [modalIsOpen, modalSetIsOpen] = useState(false)
+  const openModal = () => {
+    modalSetIsOpen(true)
+  }
+  const closeModal = () => {
+    modalSetIsOpen(false)
+    // router.push("/")
+    return <Link href="/" />
+  } */
+
   //Determine which icon to display according to workout type
   function getWorkoutIcon(worktype) {
     switch (worktype) {
@@ -45,34 +57,22 @@ export const WorkoutsList = () => {
       <ul>
         {workouts.map((workout) => (
           <Link href={`/workouts/${workout.id}`} key={workout.id}>
+            {/* <div onClick={openModal} key={workout.id}> */}
             <li className="itemrow">
               <a>
                 {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
               </a>
-              {/* <span className="justify-evenly">
-                <Link href={`/workouts/${workout.id}/edit`}>
-                  <span className="mx-5 rounded-full h-8 w-8 flex items-center justify-center border border-purple-600">
-                    <FontAwesomeIcon icon="pen" size="sm" className="editicon" />
-                  </span>
-                </Link>
-
-                <button
-                  className="rounded-full h-8 w-8 flex items-center justify-center border border-pink-600"
-                  type="button"
-                  onClick={async () => {
-                    if (window.confirm("This will be deleted")) {
-                      await deleteWorkoutMutation({ id: workout.id })
-                      router.push("/workouts")
-                    }
-                  }}
-                  style={{ marginLeft: "0.5rem" }}
-                >
-                  <span className="mx-5">
-                    <FontAwesomeIcon icon="trash" size="sm" className="deleteicon" />
-                  </span>
-                </button>
-              </span> */}
             </li>
+            {/*  <div>
+              <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
+                <Link href={`/workouts/${workout.id}`}>
+                  
+                  <Fragment>
+                    <ShowWorkoutPage />
+                  </Fragment>
+                </Link>
+              </Modal>
+            </div> */}
           </Link>
         ))}
       </ul>
@@ -88,11 +88,12 @@ export const WorkoutsList = () => {
 }
 
 const WorkoutsPage: BlitzPage = () => {
+  /* Setup modal, contain modal open and close functions */
   const [modalIsOpen, modalSetIsOpen] = useState(false)
-  function openModal() {
+  const openModal = () => {
     modalSetIsOpen(true)
   }
-  function closeModal() {
+  const closeModal = () => {
     modalSetIsOpen(false)
     // router.push("/")
     return <Link href="/" />

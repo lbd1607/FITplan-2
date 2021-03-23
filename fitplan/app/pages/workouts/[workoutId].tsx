@@ -1,16 +1,30 @@
-import { Suspense } from "react"
+import { Fragment, Suspense, useState } from "react"
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getWorkout from "app/workouts/queries/getWorkout"
 import deleteWorkout from "app/workouts/mutations/deleteWorkout"
+import EditWorkoutPage from "./[workoutId]/edit"
+import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+
+Modal.setAppElement("#__next")
 
 export const Workout = () => {
   const router = useRouter()
   const workoutId = useParam("workoutId", "number")
   const [deleteWorkoutMutation] = useMutation(deleteWorkout)
   const [workout] = useQuery(getWorkout, { id: workoutId })
+
+  const [modalIsOpen, modalSetIsOpen] = useState(false)
+  function openModal() {
+    modalSetIsOpen(true)
+  }
+  function closeModal() {
+    modalSetIsOpen(false)
+    // router.push("/")
+    return <Link href="/" />
+  }
 
   //Determine which icon to display according to workout type
   function getWorkoutIcon(worktype) {
@@ -58,15 +72,15 @@ export const Workout = () => {
               {/* <pre>{JSON.stringify(workout, null, 2)}</pre> */}
 
               <div className="flex flex-row justify-between mt-10">
-                <Link href={`/workouts/${workout.id}/edit`}>
-                  <button className="btn edit">
-                    {" "}
-                    <a>
-                      <FontAwesomeIcon icon="pen" size="1x" className="cursor-pointer mr-2" />
-                      Edit
-                    </a>
-                  </button>
-                </Link>
+                {/* <Link href={`/workouts/${workout.id}/edit`}> */}
+                <button className="btn edit" onClick={openModal}>
+                  {" "}
+                  <a>
+                    <FontAwesomeIcon icon="pen" size="1x" className="cursor-pointer mr-2" />
+                    Edit
+                  </a>
+                </button>
+                {/* </Link> */}
 
                 <button
                   className="btn delete"
@@ -85,6 +99,16 @@ export const Workout = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
+          <Link href={`/workouts/${workout.id}/edit`}>
+            {/* Must wrap workout page in fragment to avoid ref error */}
+            <Fragment>
+              <EditWorkoutPage />
+            </Fragment>
+          </Link>
+        </Modal>
       </div>
     </>
   )

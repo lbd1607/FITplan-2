@@ -1,14 +1,27 @@
-import { Suspense } from "react"
+import { Fragment, Suspense, useState } from "react"
 import { Link, useRouter, useMutation, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createWorkout from "app/workouts/mutations/createWorkout"
 import { WorkoutForm, FORM_ERROR } from "app/workouts/components/WorkoutForm"
+// import NewExercisePage from "../exercises/new"
+import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+
+Modal.setAppElement("#__next")
 
 const NewWorkoutPage: BlitzPage = () => {
   const router = useRouter()
   const [createWorkoutMutation] = useMutation(createWorkout)
+
+  /* const [modalIsOpen, modalSetIsOpen] = useState(false)
+  function openExerciseModal() {
+    modalSetIsOpen(true)
+  }
+  function closeModal() {
+    modalSetIsOpen(false)
+    return <Link href="/" />
+  } */
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -42,7 +55,10 @@ const NewWorkoutPage: BlitzPage = () => {
               onSubmit={async (values) => {
                 try {
                   const workout = await createWorkoutMutation(values)
-                  router.push(`/exercises/new`)
+                  /* closeModal()
+                  openExerciseModal() */
+                  router.push(`/workouts`)
+                  // router.push(`/exercises/new`)
                   //router.push(`/workouts/${workout.id}`)
                 } catch (error) {
                   //console.error(error)
@@ -71,6 +87,16 @@ const NewWorkoutPage: BlitzPage = () => {
           </div>
         </div>
       </div>
+      {/* <div>
+        <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
+          <Link href="/exercises/new">
+            Must wrap workout page in fragment to avoid ref error
+            <Fragment>
+              <NewExercisePage />
+            </Fragment>
+          </Link>
+        </Modal>
+      </div> */}
     </Suspense>
   )
 }
