@@ -1,7 +1,10 @@
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
+import { useQuery, useParam, useMutation } from "blitz"
+import getWorkout from "app/workouts/queries/getWorkout"
 import * as z from "zod"
 import { Field } from "react-final-form"
+import { Workout } from "app/pages/workouts/[workoutId]"
 export { FORM_ERROR } from "app/core/components/Form"
 
 export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
@@ -11,9 +14,21 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
       {({ input: { value } }) => (value === is ? children : null)}
     </Field>
   )
+  const workoutId = useParam("workoutId", "number")
+  const [workout] = useQuery(getWorkout, { id: workoutId })
   return (
     <Form<S> {...props}>
       <div className="card">
+        <p>Workout Id: {workout.id || "none"}</p>
+
+        {/* Pass the current workout id to exercises */}
+        <Field
+          name="workoutId"
+          defaultValue={workoutId || "none"}
+          component="input"
+          hidden="true"
+        />
+
         <LabeledTextField name="exName" label="Exercise Name" />
 
         <div className="div">

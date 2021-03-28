@@ -4,9 +4,11 @@ import Layout from "app/core/layouts/Layout"
 import getWorkout from "app/workouts/queries/getWorkout"
 import deleteWorkout from "app/workouts/mutations/deleteWorkout"
 import EditWorkoutPage from "./[workoutId]/edit"
+import getExercises from "app/exercises/queries/getExercises"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import ExerciseForm from "../exercises/new"
 
 Modal.setAppElement("#__next")
 
@@ -15,6 +17,8 @@ export const Workout = () => {
   const workoutId = useParam("workoutId", "number")
   const [deleteWorkoutMutation] = useMutation(deleteWorkout)
   const [workout] = useQuery(getWorkout, { id: workoutId })
+  /*   const exerciseId = useParam("exerciseId", "number")
+  const [exercise] = useQuery(getExercise, { id: exerciseId }) */
 
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   function openModal() {
@@ -25,6 +29,43 @@ export const Workout = () => {
     // router.push("/")
     return <Link href="/" />
   }
+
+  const page = Number(router.query.page) || 0
+  const [{ exercises }] = useQuery(getExercises, {
+    orderBy: { id: "asc" },
+  })
+
+  /* const allEx = exercises.map((exercise) => {
+    return exercise.id === workout.id ? (
+      <li key={exercise.id}>
+        <p>{exercise.exName}</p>
+      </li>
+    ) : (
+      ""
+    )
+  }) */
+  /*  const allEx = exercises.map((exercise) => (
+    <li key={exercise.id}>
+      <p>{exercise.exName}</p>
+    </li>
+  )) */
+  /*  const [exModalIsOpen, exModalSetIsOpen] = useState(false)
+  function addExercise() {
+    exModalSetIsOpen(true)
+  }
+  function exCloseModal() {
+    exModalSetIsOpen(false)
+    // router.push("/")
+    return <Link href="/" />
+  } */
+
+  /* function addExercise() {
+    return (
+      <div>
+        <NewExercisePage />
+      </div>
+    )
+  } */
 
   //Determine which icon to display according to workout type
   function getWorkoutIcon(worktype) {
@@ -45,8 +86,8 @@ export const Workout = () => {
       <Head>
         <title>{workout.workoutName}</title>
       </Head>
-      <div className="card-container-parent">
-        <div className="card-container">
+      <div className="card-container-parent ">
+        <div className="card-container w-2/6">
           <div className="card">
             <div className="rounded-t mb-0 px-6 py-6">
               <div className="grid grid-cols-8">
@@ -68,6 +109,59 @@ export const Workout = () => {
               </p>
               <p className="formfieldlabel">Notes: {workout.workoutNotes || "None"}</p>
               <p className="formfieldlabel">Plan: {workout.planId || "None"}</p>
+              {/* <p className="formfieldlabel">Exercises: {exercise.workoutId === workout.id}</p> */}
+              <p className="formfieldlabel">Workouts: </p>
+              {/*  <ul>
+                {exercises.map((exercise) => {
+                  if (exercise.id === workout.id) {
+                    return (
+                      <li key={exercise.id}>
+                        <p>{exercise.exName}</p>
+                      </li>
+                    )
+                  }
+                })}
+              </ul> */}
+              {/* <ul>
+                {exercises.map((exercise) => {
+                  return exercise.id === workout.id ? (
+                    <li key={exercise.id}>
+                      <p>{exercise.exName}</p>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                })}
+              </ul> */}
+              <ul>
+                {exercises.map((exercise) =>
+                  exercise.id === workout.id ? (
+                    <li key={exercise.id}>
+                      <p>{exercise.exName}</p>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+              {/* <ul>
+                {allEx.map((exercise) => (
+                  <p>{exercise}</p>
+                ))}
+              </ul> */}
+
+              <div className="border-t-2 border-b-2 pt-2 pb-2 left-0">
+                {/* <Link href="/exercises/new"> */}
+
+                {/* <button className="formfieldlabel" onClick={addExercise}>
+                  <FontAwesomeIcon icon="plus-circle" size="2x" className="addicon ml-0" />
+                  Exercise
+                </button> */}
+                <Fragment>
+                  <ExerciseForm />
+                </Fragment>
+                {/*  </Link> */}
+              </div>
 
               {/* <pre>{JSON.stringify(workout, null, 2)}</pre> */}
 
@@ -110,6 +204,16 @@ export const Workout = () => {
           </Link>
         </Modal>
       </div>
+      {/*   <div>
+        <Modal isOpen={exModalIsOpen} onRequestClose={exCloseModal}>
+          <Link href={`/exercises/new`}>
+          
+            <Fragment>
+              <ExerciseForm />
+            </Fragment>
+          </Link>
+        </Modal>
+      </div> */}
     </>
   )
 }

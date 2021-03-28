@@ -27,17 +27,6 @@ export const WorkoutsList = () => {
 
   const [deleteWorkoutMutation] = useMutation(deleteWorkout)
 
-  /* Setup modal, contain modal open and close functions */
-  /* const [modalIsOpen, modalSetIsOpen] = useState(false)
-  const openModal = () => {
-    modalSetIsOpen(true)
-  }
-  const closeModal = () => {
-    modalSetIsOpen(false)
-    // router.push("/")
-    return <Link href="/" />
-  } */
-
   //Determine which icon to display according to workout type
   function getWorkoutIcon(worktype) {
     switch (worktype) {
@@ -57,22 +46,11 @@ export const WorkoutsList = () => {
       <ul>
         {workouts.map((workout) => (
           <Link href={`/workouts/${workout.id}`} key={workout.id}>
-            {/* <div onClick={openModal} key={workout.id}> */}
             <li className="itemrow">
               <a>
                 {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
               </a>
             </li>
-            {/*  <div>
-              <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
-                <Link href={`/workouts/${workout.id}`}>
-                  
-                  <Fragment>
-                    <ShowWorkoutPage />
-                  </Fragment>
-                </Link>
-              </Modal>
-            </div> */}
           </Link>
         ))}
       </ul>

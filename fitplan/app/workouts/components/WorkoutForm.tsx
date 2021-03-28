@@ -3,7 +3,7 @@ import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
-import { useQuery, useParam, BlitzPage } from "blitz"
+import { useQuery, useParam, BlitzPage, Link } from "blitz"
 import getWorkout from "app/workouts/queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
@@ -26,7 +26,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
   return (
     <>
       <Form<S> {...props}>
-        <div className="rounded-t mb-0 px-6 py-6">
+        <div className="cardcol">
           <div className="mb-3">
             <div className="input-container required-field">
               <label className="formfieldlabel">Workout Name</label>

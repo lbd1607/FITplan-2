@@ -1,3 +1,4 @@
+import { Workout } from "app/pages/workouts/[workoutId]"
 import { resolver } from "blitz"
 import db from "db"
 import * as z from "zod"

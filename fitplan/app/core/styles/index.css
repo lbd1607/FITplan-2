@@ -40,6 +40,10 @@
   .card {
     @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 mb-6 mt-6 p-6;
   }
+  /* Main column for cards */
+  .cardcol {
+    @apply rounded-t mb-0 px-6 py-6;
+  }
   /* Item rows on master pages */
   .itemrow {
     @apply relative flex-col min-w-0 break-words w-full bg-white cursor-pointer p-3 my-1 border border-gray-300;

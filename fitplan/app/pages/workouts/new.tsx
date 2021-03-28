@@ -14,21 +14,12 @@ const NewWorkoutPage: BlitzPage = () => {
   const router = useRouter()
   const [createWorkoutMutation] = useMutation(createWorkout)
 
-  /* const [modalIsOpen, modalSetIsOpen] = useState(false)
-  function openExerciseModal() {
-    modalSetIsOpen(true)
-  }
-  function closeModal() {
-    modalSetIsOpen(false)
-    return <Link href="/" />
-  } */
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
         <div className="card-container">
           <div className="card">
-            <div className="rounded-t mb-0 px-6 py-6">
+            <div className="cardcol">
               <div className="grid grid-cols-8">
                 <h1 className="mb-5 col-span-7">Create New Workout</h1>
                 <Link href="/workouts">
@@ -55,11 +46,7 @@ const NewWorkoutPage: BlitzPage = () => {
               onSubmit={async (values) => {
                 try {
                   const workout = await createWorkoutMutation(values)
-                  /* closeModal()
-                  openExerciseModal() */
                   router.push(`/workouts`)
-                  // router.push(`/exercises/new`)
-                  //router.push(`/workouts/${workout.id}`)
                 } catch (error) {
                   //console.error(error)
                   if (!values.workoutName) {
@@ -87,16 +74,6 @@ const NewWorkoutPage: BlitzPage = () => {
           </div>
         </div>
       </div>
-      {/* <div>
-        <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
-          <Link href="/exercises/new">
-            Must wrap workout page in fragment to avoid ref error
-            <Fragment>
-              <NewExercisePage />
-            </Fragment>
-          </Link>
-        </Modal>
-      </div> */}
     </Suspense>
   )
 }
