@@ -2,6 +2,8 @@ import { Link, useRouter, useMutation, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createExercise from "app/exercises/mutations/createExercise"
 import { ExerciseForm, FORM_ERROR } from "app/exercises/components/ExerciseForm"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "@fortawesome/fontawesome-svg-core/styles.css"
 
 const NewExercisePage: BlitzPage = () => {
   const router = useRouter()
@@ -9,10 +11,12 @@ const NewExercisePage: BlitzPage = () => {
 
   return (
     <div>
-      <h1>Create New Exercise</h1>
+      <h2>Create New Exercise</h2>
 
       <ExerciseForm
-        submitText="Create Exercise"
+        submitText="OK"
+        /*         cancelText="NO"
+        cancelURL="/exercises" */
         // TODO use a zod schema for form validation
         //  - Tip: extract mutation's schema into a shared `validations.ts` file and
         //         then import and use it here
@@ -41,11 +45,11 @@ const NewExercisePage: BlitzPage = () => {
         }}
       />
 
-      <p>
+      {/*  <p>
         <Link href="/exercises">
           <a>Exercises</a>
         </Link>
-      </p>
+      </p> */}
     </div>
   )
 }
