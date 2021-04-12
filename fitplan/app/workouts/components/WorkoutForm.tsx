@@ -43,7 +43,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
               <Field name="workoutType" defaultValue={"resistance"} aria-required="true">
                 {(props) => {
                   return (
-                    <div>
+                    <div className="workoutTypeGrid">
                       <button
                         {...props.input}
                         className={
@@ -97,6 +97,23 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                       >
                         <FontAwesomeIcon icon="burn" size="lg" className="text-orange-500 mr-1" />{" "}
                         Endurance
+                      </button>
+                      <button
+                        {...props.input}
+                        className={
+                          isSelected === "flexibility"
+                            ? "btn selectbtn selectedOption"
+                            : "btn selectbtn"
+                        }
+                        name="flexibility"
+                        value="flexibility"
+                        type="button"
+                        onClick={props.input.onChange}
+                        onClickCapture={() => setSelected("flexibility")}
+                        ref={a11yRef}
+                      >
+                        <FontAwesomeIcon icon="spa" size="lg" className="text-yellow-300 mr-1" />{" "}
+                        Flexibility
                       </button>
                     </div>
                   )

@@ -4,11 +4,6 @@ import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
-
 const UserInfo = () => {
   const currentUser = useCurrentUser()
   const [logoutMutation] = useMutation(logout)
@@ -25,9 +20,13 @@ const UserInfo = () => {
           Logout
         </button>
         <div>
-          User id: <code>{currentUser.id}</code>
+          Username: <code>{currentUser.name || "None"}</code>
           <br />
-          User role: <code>{currentUser.role}</code>
+          Email: <code>{currentUser.email || "None"}</code>
+          <br />
+          User id: <code>{currentUser.id || "None"}</code>
+          <br />
+          User role: <code>{currentUser.role || "None"}</code>
         </div>
       </>
     )
@@ -56,41 +55,13 @@ const Home: BlitzPage = () => {
         <div className="logo">
           <img src="/logo.png" alt="blitz.js" />
         </div>
-        <p>
-          <strong>Congrats!</strong> Your app is ready, including user sign-up and log-in.
-        </p>
+
         <div className="buttons" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
           <Suspense fallback="Loading...">
             <UserInfo />
           </Suspense>
         </div>
-        <p>
-          <strong>
-            To add a new model to your app, <br />
-            run the following in your terminal:
-          </strong>
-        </p>
-        <pre>
-          <code>blitz generate all project name:string</code>
-        </pre>
-        <div style={{ marginBottom: "1rem" }}>(And select Yes to run prisma migrate)</div>
-        <div>
-          <p>
-            Then <strong>restart the server</strong>
-          </p>
-          <pre>
-            <code>Ctrl + c</code>
-          </pre>
-          <pre>
-            <code>blitz dev</code>
-          </pre>
-          <p>
-            and go to{" "}
-            <Link href="/projects">
-              <a>/projects</a>
-            </Link>
-          </p>
-        </div>
+
         <div className="buttons" style={{ marginTop: "5rem" }}>
           <a
             className="button"
@@ -107,14 +78,6 @@ const Home: BlitzPage = () => {
             rel="noopener noreferrer"
           >
             Github Repo
-          </a>
-          <a
-            className="button-outline"
-            href="https://discord.blitzjs.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Discord Community
           </a>
         </div>
       </main>
@@ -147,6 +110,7 @@ const Home: BlitzPage = () => {
         }
         .container {
           min-height: 100vh;
+          min-width: 100%;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -163,11 +127,22 @@ const Home: BlitzPage = () => {
         }
 
         main p {
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
 
         p {
           text-align: center;
+          font-size: 1rem;
+        }
+
+        .pagelink {
+          text-decoration: underline;
+          color: #6700eb;
+          line-height: 2rem;
+        }
+
+        .pagelink:hover {
+          color: #45009d;
         }
 
         footer {

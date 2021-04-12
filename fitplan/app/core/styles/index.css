@@ -5,21 +5,42 @@
 /* Tailwind Styles */
 @layer base {
   /*---------------------------------- Standard Text ------------------------------------*/
-  /* Heading 1 */
   h1 {
     @apply text-2xl font-sans not-italic font-bold text-gray-600;
   }
-  /* Heading 2 */
   h2 {
     @apply text-xl font-sans not-italic font-bold text-gray-600;
   }
-  /* Heading 3 */
   h3 {
     @apply text-lg font-sans not-italic font-medium text-gray-600;
   }
-  /* Body text */
   p {
     @apply text-sm font-sans not-italic font-normal text-gray-800;
+  }
+  /* ---------------------------------------------------- Navs --------------------------------------------------*/
+  Nav {
+    @apply p-20;
+  }
+  .navbar {
+    @apply w-full h-16 flex mb-2 pb-1 bg-white;
+  }
+  .navbar ul {
+    @apply pl-4;
+  }
+  .navbar li {
+    @apply float-left;
+  }
+  .navbar a {
+    @apply py-6 px-6 text-gray-400 no-underline text-base font-sans font-medium text-left;
+  }
+  .navbar a:hover {
+    @apply text-gray-500;
+  }
+  .navbar .brand {
+    @apply font-sans text-xl font-bold text-left p-4 ml-3;
+  }
+  .avatar {
+    @apply m-4 object-center;
   }
   /*---------------------------------------- Cards, Containers, and Modals --------------------------------------*/
   /* Parent container of fullscreen list */
@@ -32,8 +53,6 @@
   }
   /* Parent div for cards */
   .card-container {
-    /* @applypx-4 m-6 lg:w-4/12; */
-    /* w-full */
     @apply overflow-y-auto;
   }
   /* Cards */
@@ -55,15 +74,6 @@
   /* Modals */
   .modal {
     @apply max-h-full flex;
-    /* inset-x-1/2 inset-y-1/2 transform translate-x-1/2 translate-y-1/2 
-    top: '50%';
-    left:'50%';
-    right: 'auto';
-    bottom: 'auto';
-    margin-right: '-50%';
-    transform: 'translate(-50%, -50%)';
-    overflow-y: auto;
-    max-height: 100vh; */
   }
   /* Styles for modal container that renders content */
   .ReactModal__Content {
@@ -94,11 +104,11 @@
   }
   /* Select button */
   .btn.selectbtn {
-    @apply border-gray-300 font-medium text-sm inline border;
+    @apply border-gray-300 font-medium text-sm inline border w-64;
   }
   /* Hover style for selected select button */
   .btn.selectbtn:hover {
-    @apply bg-gray-200;
+    @apply bg-gray-100;
   }
   /* Active style for selected select button */
   .btn.selectbtn:active,
@@ -106,6 +116,10 @@
   .btn.selectbtn:checked,
   .selectedOption {
     @apply bg-green-100;
+  }
+  /* For 2 x 2 workout type button grid layout */
+  .workoutTypeGrid {
+    @apply grid grid-cols-2 gap-2 place-content-center;
   }
   /*--------------------------------- Buttons and Links ---------------------------------*/
   /* Link that goes back to the main component page */
@@ -207,22 +221,4 @@
     content: "* ";
     color: red;
   }
-
-  /*  .hero {
-    width: 100%;
-    color: #333;
-  }
-
-  .title {
-    margin: 0;
-    width: 100%;
-    padding-top: 80px;
-    line-height: 1.15;
-    font-size: 48px;
-  }
-
-  .title,
-  .description {
-    text-align: center;
-  } */
 }
