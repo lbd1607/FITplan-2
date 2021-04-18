@@ -3,6 +3,8 @@ import { Link, BlitzPage, useMutation } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
+import { WorkoutsList } from "./workouts/index"
+import { PlansList } from "./plans/index"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -11,23 +13,15 @@ const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <button
-          className="button small"
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </button>
-        <div>
-          Username: <code>{currentUser.name || "None"}</code>
+        {/*  <div>
+          <code>{currentUser.name || "None"}</code>
           <br />
-          Email: <code>{currentUser.email || "None"}</code>
+          <code>{currentUser.email || "None"}</code>
           <br />
-          User id: <code>{currentUser.id || "None"}</code>
+          <code>{currentUser.id || "None"}</code>
           <br />
-          User role: <code>{currentUser.role || "None"}</code>
-        </div>
+          <code>{currentUser.role || "None"}</code>
+        </div> */}
       </>
     )
   } else {
@@ -50,192 +44,45 @@ const UserInfo = () => {
 
 const Home: BlitzPage = () => {
   return (
-    <div className="container">
+    <div className="">
       <main>
-        <div className="logo">
-          <img src="/logo.png" alt="blitz.js" />
-        </div>
+        <Suspense fallback="Loading...">
+          <UserInfo />
+        </Suspense>
 
-        <div className="buttons" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-          <Suspense fallback="Loading...">
-            <UserInfo />
-          </Suspense>
-        </div>
-
-        <div className="buttons" style={{ marginTop: "5rem" }}>
-          <a
-            className="button"
-            href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-          <a
-            className="button-outline"
-            href="https://github.com/blitz-js/blitz"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github Repo
-          </a>
+        <div className="grid gap-4 grid-cols-12 ">
+          {/* Column 1 */}
+          <div className="col-span-7">
+            <div className="card-container-parent">
+              {/* Current Workout */}
+              <div className="dash-container ml-20">
+                <h1 className="m-3">Current Workout</h1>
+              </div>
+            </div>
+          </div>
+          {/* Column 2 */}
+          <div className="card-container-parent col-span-5 ">
+            <div className="dash-container mr-20  ">
+              <div className="grid grid-rows-2 h-full gap-4">
+                {/* Workouts */}
+                <div className="row-span-1 overflow-y-scroll">
+                  <h1 className="m-3">Workouts</h1>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <WorkoutsList />
+                  </Suspense>
+                </div>
+                {/* Weekly Plans */}
+                <div className="row-span-1 overflow-y-scroll">
+                  <h1 className="m-3">Weekly Plans</h1>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <PlansList />
+                  </Suspense>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-
-      <footer>
-        <a
-          href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by Blitz.js
-        </a>
-      </footer>
-
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;700&display=swap");
-
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: "Libre Franklin", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-        }
-
-        * {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          box-sizing: border-box;
-        }
-        .container {
-          min-height: 100vh;
-          min-width: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main p {
-          font-size: 1rem;
-        }
-
-        p {
-          text-align: center;
-          font-size: 1rem;
-        }
-
-        .pagelink {
-          text-decoration: underline;
-          color: #6700eb;
-          line-height: 2rem;
-        }
-
-        .pagelink:hover {
-          color: #45009d;
-        }
-
-        footer {
-          width: 100%;
-          height: 60px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #45009d;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer a {
-          color: #f4f4f4;
-          text-decoration: none;
-        }
-
-        .logo {
-          margin-bottom: 2rem;
-        }
-
-        .logo img {
-          width: 300px;
-        }
-
-        .buttons {
-          display: grid;
-          grid-auto-flow: column;
-          grid-gap: 0.5rem;
-        }
-        .button {
-          font-size: 1rem;
-          background-color: #6700eb;
-          padding: 1rem 2rem;
-          color: #f4f4f4;
-          text-align: center;
-        }
-
-        .button.small {
-          padding: 0.5rem 1rem;
-        }
-
-        .button:hover {
-          background-color: #45009d;
-        }
-
-        .button-outline {
-          border: 2px solid #6700eb;
-          padding: 1rem 2rem;
-          color: #6700eb;
-          text-align: center;
-        }
-
-        .button-outline:hover {
-          border-color: #45009d;
-          color: #45009d;
-        }
-
-        pre {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          text-align: center;
-        }
-        code {
-          font-size: 0.9rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-            Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
     </div>
   )
 }

@@ -136,7 +136,12 @@ export const Workout = () => {
         </div>
       </div>
       <div>
-        <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <Modal
+          className="modal"
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          portalClassName="reg-modal"
+        >
           <Link href={`/workouts/${workout.id}/edit`}>
             {/* Must wrap workout page in fragment to avoid ref error */}
             <Fragment>

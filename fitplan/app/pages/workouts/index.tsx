@@ -100,7 +100,12 @@ const WorkoutsPage: BlitzPage = () => {
         </div>
       </div>
       <div>
-        <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <Modal
+          className="modal"
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          portalClassName="reg-modal"
+        >
           <Link href="/workouts/new">
             {/* Must wrap workout page in fragment to avoid ref error */}
             <Fragment>
