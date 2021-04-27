@@ -23,9 +23,21 @@ import {
   faTrash,
   faTimes,
   faSpa,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
 
-library.add(fab, faHeartbeat, faDumbbell, faBurn, faPlusCircle, faPen, faTrash, faTimes, faSpa)
+library.add(
+  fab,
+  faHeartbeat,
+  faDumbbell,
+  faBurn,
+  faPlusCircle,
+  faPen,
+  faTrash,
+  faTimes,
+  faSpa,
+  faChevronRight
+)
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)

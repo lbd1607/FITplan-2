@@ -5,6 +5,8 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import { WorkoutsList } from "./workouts/index"
 import { PlansList } from "./plans/index"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "@fortawesome/fontawesome-svg-core/styles.css"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -50,13 +52,25 @@ const Home: BlitzPage = () => {
           <UserInfo />
         </Suspense>
 
-        <div className="grid gap-4 grid-cols-12 data-simplebar">
+        <div className="grid gap-4 grid-cols-12">
           {/* Column 1 */}
           <div className="col-span-7">
             <div className="card-container-parent">
               {/* Current Workout */}
               <div className="dash-container ml-20">
-                <h1 className="m-3">Current Workout</h1>
+                <h1 className="m-3">
+                  Current Workout
+                  <Link href="/">
+                    {/* In Link, wrap icon in span to avoid ref error */}
+                    <span>
+                      <FontAwesomeIcon
+                        icon="chevron-right"
+                        size="sm"
+                        className="chevronicon float-right m-1"
+                      />
+                    </span>
+                  </Link>
+                </h1>
               </div>
             </div>
           </div>
@@ -66,17 +80,42 @@ const Home: BlitzPage = () => {
               <div className="grid grid-rows-2 h-full gap-6 divide-y">
                 {/* Workouts */}
                 <div className="row-span-1 overflow-y-scroll ">
-                  <h1 className="m-3">Workouts</h1>
+                  <div>
+                    <h1 className="m-3">
+                      Workouts
+                      <Link href="/workouts">
+                        {/* In Link, wrap icon in span to avoid ref error */}
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+
                   <Suspense fallback={<div>Loading...</div>}>
-                    <WorkoutsList />
-                    <WorkoutsList />
                     <WorkoutsList />
                   </Suspense>
                 </div>
 
                 {/* Weekly Plans */}
                 <div className="row-span-1 overflow-y-scroll">
-                  <h1 className="m-3">Weekly Plans</h1>
+                  <h1 className="m-3">
+                    Weekly Plans
+                    <Link href="/plans">
+                      {/* In Link, wrap icon in span to avoid ref error */}
+                      <span>
+                        <FontAwesomeIcon
+                          icon="chevron-right"
+                          size="sm"
+                          className="chevronicon float-right m-1"
+                        />
+                      </span>
+                    </Link>
+                  </h1>
                   <Suspense fallback={<div>Loading...</div>}>
                     <PlansList />
                   </Suspense>
@@ -88,9 +127,9 @@ const Home: BlitzPage = () => {
       </main>
       <style jsx global>{`
         /*Firefox*/
-        /*
+
         * {
-          scrollbar-width: thin;
+          scrollbar-width: none;
           scrollbar-color: #333;
         }
         /* Chrome, Safari, Edge */
@@ -99,7 +138,7 @@ const Home: BlitzPage = () => {
         }
 
         *::-webkit-scrollbar-track {
-          background: #888;
+          display: none;
         }
 
         *::-webkit-scrollbar-thumb {
@@ -107,7 +146,6 @@ const Home: BlitzPage = () => {
           border-radius: 20px;
           border: none;
         }
-        */
       `}</style>
     </div>
   )

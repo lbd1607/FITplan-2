@@ -257,6 +257,14 @@
   .deleteicon:hover {
     @apply text-pink-600;
   }
+  /* Styles for chevron icon */
+  .chevronicon {
+    @apply text-gray-400 mx-3 cursor-pointer opacity-75;
+  }
+  /* On hover styles for add (plus-circle) icon */
+  .chevronicon:hover {
+    @apply text-gray-600 opacity-100;
+  }
   /*------------------------------- Error Handling and Alerts ----------------------------*/
   /* Error message text */
   .error {
