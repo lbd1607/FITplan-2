@@ -60,7 +60,7 @@ export const Avatar = (props) => {
     }
     return (
       <>
-        <button className="p-3 ml-44" onClick={openModal}>
+        <button className="p-2 ml-48" onClick={openModal}>
           <canvas className="avatar-canvas" ref={canvasRef} {...props} />
         </button>
         <div>

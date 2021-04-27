@@ -4,6 +4,11 @@
 
 /* Tailwind Styles */
 @layer base {
+  body,
+  html {
+    @apply min-h-screen m-0 p-0;
+  }
+
   /*---------------------------------- Standard Text ------------------------------------*/
   h1 {
     @apply text-2xl font-sans not-italic font-bold text-gray-600;
@@ -49,15 +54,16 @@
   /*---------------------------------------- Cards, Containers, and Modals --------------------------------------*/
   /* Parent container of fullscreen list */
   .list-container {
-    @apply card mx-20 h-screen mb-14;
+    @apply card mx-20 mb-14;
   }
   /* Parent container for dashboard cards */
   .dash-container {
-    @apply card h-screen mb-14;
+    @apply card;
   }
   /* Parent div for card container, wraps card-container and card */
   .card-container-parent {
     @apply flex justify-center w-full;
+    height: calc(100vh - 5rem);
   }
   /* Parent div for cards */
   .card-container {
@@ -65,7 +71,7 @@
   }
   /* Cards */
   .card {
-    @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 mb-6 mt-6 p-6;
+    @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 mb-6 mt-6 p-6 overflow-y-auto;
   }
   /* Main column for cards */
   .cardcol {

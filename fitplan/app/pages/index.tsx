@@ -50,7 +50,7 @@ const Home: BlitzPage = () => {
           <UserInfo />
         </Suspense>
 
-        <div className="grid gap-4 grid-cols-12 ">
+        <div className="grid gap-4 grid-cols-12 data-simplebar">
           {/* Column 1 */}
           <div className="col-span-7">
             <div className="card-container-parent">
@@ -63,14 +63,17 @@ const Home: BlitzPage = () => {
           {/* Column 2 */}
           <div className="card-container-parent col-span-5 ">
             <div className="dash-container mr-20  ">
-              <div className="grid grid-rows-2 h-full gap-4">
+              <div className="grid grid-rows-2 h-full gap-6 divide-y">
                 {/* Workouts */}
-                <div className="row-span-1 overflow-y-scroll">
+                <div className="row-span-1 overflow-y-scroll ">
                   <h1 className="m-3">Workouts</h1>
                   <Suspense fallback={<div>Loading...</div>}>
                     <WorkoutsList />
+                    <WorkoutsList />
+                    <WorkoutsList />
                   </Suspense>
                 </div>
+
                 {/* Weekly Plans */}
                 <div className="row-span-1 overflow-y-scroll">
                   <h1 className="m-3">Weekly Plans</h1>
@@ -83,6 +86,29 @@ const Home: BlitzPage = () => {
           </div>
         </div>
       </main>
+      <style jsx global>{`
+        /*Firefox*/
+        /*
+        * {
+          scrollbar-width: thin;
+          scrollbar-color: #333;
+        }
+        /* Chrome, Safari, Edge */
+        *::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        *::-webkit-scrollbar-track {
+          background: #888;
+        }
+
+        *::-webkit-scrollbar-thumb {
+          background-color: #333;
+          border-radius: 20px;
+          border: none;
+        }
+        */
+      `}</style>
     </div>
   )
 }
