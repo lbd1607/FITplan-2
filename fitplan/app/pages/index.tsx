@@ -127,11 +127,12 @@ const Home: BlitzPage = () => {
         </div>
 
         {/*  */}
-
-        <div className="grid grid-cols-5 grid-rows-5 gap-5 grid-flow-row grid-flow-col h-screen">
+        {/* <div className="min-h-screen items-center"> */}
+        {/* <div className="flex-1 max-w-4xl mx-auto p-10"> */}
+        <div className="grid grid-cols-5 grid-rows-4 gap-5 grid-flow-row grid-flow-col">
           <div className="col-start-1 col-span-3 row-start-1 row-span-4">
-            <div className="card-container-parent overflow-y-scroll">
-              <div className="dash-container ml-20">
+            <div className="card-container-parent">
+              <div className="dash-container ml-20 h-full">
                 {/* Current Workout */}
 
                 <h1 className="m-3">
@@ -173,8 +174,8 @@ const Home: BlitzPage = () => {
                 </Suspense>
               </div>
             </div>
-          </div>
-          <div className="row-span-2 col-span-2 mr-20">
+            {/*  </div>
+          <div className="row-span-2 col-span-2 mr-20"> */}
             <div className="dash-container overflow-y-scroll h-full">
               <h1 className="m-3">
                 Weekly Plans
@@ -195,8 +196,8 @@ const Home: BlitzPage = () => {
             </div>
           </div>
         </div>
-        {/* </div>
-        </div> */}
+        {/* </div> */}
+        {/* </div> */}
 
         {/*  <div className="min-h-screen flex items-center">
           <div className="flex-1 max-w-4xl mx-auto p-10">
