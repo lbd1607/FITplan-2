@@ -23,26 +23,28 @@ export const PlansList = () => {
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
 
-  return (
-    <div>
-      <ul>
-        {plans.map((plan) => (
-          <Link href={`/plans/${plan.id}`} key={plan.id}>
-            <li className="itemrow">
-              <a>{plan.planName}</a>
-            </li>
-          </Link>
-        ))}
-      </ul>
-
-      {/* <button disabled={page === 0} onClick={goToPreviousPage}>
+  if (plans.length <= 0) {
+    return <div className="m-4">No plans to show ...</div>
+  } else
+    return (
+      <div>
+        <ul>
+          {plans.map((plan) => (
+            <Link href={`/plans/${plan.id}`} key={plan.id}>
+              <li className="itemrow">
+                <a>{plan.planName}</a>
+              </li>
+            </Link>
+          ))}
+        </ul>
+        {/* <button disabled={page === 0} onClick={goToPreviousPage}>
         Previous
       </button>
       <button disabled={!hasMore} onClick={goToNextPage}>
         Next
       </button> */}
-    </div>
-  )
+      </div>
+    )
 }
 
 const PlansPage: BlitzPage = () => {
@@ -65,11 +67,9 @@ const PlansPage: BlitzPage = () => {
         <div className="list-container">
           <h1 className="mb-10">
             Weekly Plans {/* original link without modal <Link href="/exercises/new"> */}
-            {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
             <button onClick={openModal}>
               <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
             </button>
-            {/* </Link> */}
           </h1>
 
           <Suspense fallback={<div>Loading...</div>}>

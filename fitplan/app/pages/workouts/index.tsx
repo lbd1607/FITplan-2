@@ -43,28 +43,31 @@ export const WorkoutsList = () => {
     }
   }
 
-  return (
-    <div>
-      <ul>
-        {workouts.map((workout) => (
-          <Link href={`/workouts/${workout.id}`} key={workout.id}>
-            <li className="itemrow">
-              <a>
-                {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
-              </a>
-            </li>
-          </Link>
-        ))}
-      </ul>
+  if (workouts.length <= 0) {
+    return <div className="m-4">No workouts to show ...</div>
+  } else
+    return (
+      <div>
+        <ul>
+          {workouts.map((workout) => (
+            <Link href={`/workouts/${workout.id}`} key={workout.id}>
+              <li className="itemrow">
+                <a>
+                  {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
+                </a>
+              </li>
+            </Link>
+          ))}
+        </ul>
 
-      {/* <button disabled={page === 0} onClick={goToPreviousPage}>
+        {/* <button disabled={page === 0} onClick={goToPreviousPage}>
         Previous
       </button>
       <button disabled={!hasMore} onClick={goToNextPage}>
         Next
       </button> */}
-    </div>
-  )
+      </div>
+    )
 }
 
 const WorkoutsPage: BlitzPage = () => {

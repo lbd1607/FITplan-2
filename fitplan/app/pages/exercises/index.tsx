@@ -23,26 +23,29 @@ export const ExercisesList = () => {
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
 
-  return (
-    <div>
-      <ul>
-        {exercises.map((exercise) => (
-          <Link href={`/exercises/${exercise.id}`} key={exercise.id}>
-            <li className="itemrow">
-              <a>{exercise.exName}</a>
-            </li>
-          </Link>
-        ))}
-      </ul>
+  if (exercises.length <= 0) {
+    return <div className="m-4">No exercises to show ...</div>
+  } else
+    return (
+      <div>
+        <ul>
+          {exercises.map((exercise) => (
+            <Link href={`/exercises/${exercise.id}`} key={exercise.id}>
+              <li className="itemrow">
+                <a>{exercise.exName}</a>
+              </li>
+            </Link>
+          ))}
+        </ul>
 
-      {/*  <button disabled={page === 0} onClick={goToPreviousPage}>
+        {/*  <button disabled={page === 0} onClick={goToPreviousPage}>
         Previous
       </button>
       <button disabled={!hasMore} onClick={goToNextPage}>
         Next
       </button> */}
-    </div>
-  )
+      </div>
+    )
 }
 
 const ExercisesPage: BlitzPage = () => {
