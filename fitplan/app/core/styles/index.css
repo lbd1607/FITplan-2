@@ -8,6 +8,25 @@
   html {
     @apply min-h-screen m-0 p-0;
   }
+  /* Scrollbar behavior */
+  * {
+    scrollbar-width: none;
+    scrollbar-color: #333;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 20px;
+    border: none;
+  }
 
   /*---------------------------------- Standard Text ------------------------------------*/
   h1 {
@@ -53,12 +72,12 @@
 
   /*---------------------------------------- Cards, Containers, and Modals --------------------------------------*/
   /* Parent container of fullscreen list */
-  .list-container {
+  .list-card {
     @apply card mx-20 mb-14;
   }
   /* Parent container for dashboard cards */
   .dash-card {
-    @apply card mx-0 my-0;
+    @apply card mx-0 my-0 px-8;
   }
   /* Parent div for card container, wraps card-container and card */
   .card-container-parent {
@@ -71,11 +90,23 @@
   }
   /* Cards */
   .card {
-    @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 my-6 p-6 overflow-y-auto;
+    @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 my-6 p-6 overflow-hidden pb-6;
   }
   /* Main column for cards */
   .cardcol {
     @apply rounded-t mb-0 px-6 py-6;
+  }
+  /* Parent for card inner scroll container */
+  .inner-scroll-parent {
+    @apply relative h-full fade-bottom;
+  }
+  /* Heading section for inner scroll container */
+  .inner-scroll-heading {
+    @apply absolute left-0 right-0 top-0 bg-white z-10 py-3;
+  }
+  /* Card inner scroll container */
+  .inner-scroll {
+    @apply absolute inset-0 overflow-auto pt-16 pb-4 space-y-4;
   }
   /* Item rows on master pages */
   .itemrow {
@@ -129,6 +160,19 @@
   .no-overlay-modal .ReactModal__Overlay,
   .no-overlay-modal .ReactModal__Overlay--after-open {
     @apply bg-transparent !important;
+  }
+  /* Styles for bottom card fade */
+  .fade-bottom {
+    -webkit-mask-image: -webkit-gradient(
+      linear,
+      left 90%,
+      left-bottom,
+      to bottom,
+      white 98%,
+      transparent
+    );
+
+    mask-image: linear-gradient(to bottom, white 98%, transparent);
   }
 
   /*---------------------------------- Form Fields --------------------------------------*/

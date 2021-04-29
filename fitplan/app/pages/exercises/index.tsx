@@ -64,22 +64,44 @@ const ExercisesPage: BlitzPage = () => {
       <Head>
         <title>Exercises</title>
       </Head>
+
       <div className="card-container-parent">
-        <div className="list-container">
+        <div className="list-card">
+          <div className="inner-scroll-parent">
+            <div className="inner-scroll-heading">
+              <h1>
+                Exercises {/* original link without modal <Link href="/exercises/new"> */}
+                {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
+                <button onClick={openModal}>
+                  <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
+                </button>
+                {/* </Link> */}
+              </h1>
+            </div>
+            <div className="inner-scroll mt-3">
+              <div className="">
+                <Suspense fallback={<div>Loading...</div>}>
+                  <ExercisesList />
+                </Suspense>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="card-container-parent">
+        <div className="list-card">
           <h1 className="mb-10">
-            Exercises {/* original link without modal <Link href="/exercises/new"> */}
-            {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
+            Exercises
             <button onClick={openModal}>
               <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
             </button>
-            {/* </Link> */}
           </h1>
-
           <Suspense fallback={<div>Loading...</div>}>
             <ExercisesList />
           </Suspense>
         </div>
-      </div>
+      </div> */}
       <div>
         <Modal
           className="modal"

@@ -56,24 +56,80 @@ const Home: BlitzPage = () => {
           <div className="flex-1 mx-14 my-0 mb-8 p-6 ">
             <div className="grid grid-cols-12 grid-rows-4 gap-4 grid-flow-row grid-flow-col h-full">
               <div className="col-start-1 col-span-7 row-start-1 row-span-4 dash-card">
-                <div>
-                  <h1 className="m-3">
-                    Current Workout
-                    <Link href="/">
-                      <span>
-                        <FontAwesomeIcon
-                          icon="chevron-right"
-                          size="sm"
-                          className="chevronicon float-right m-1"
-                        />
-                      </span>
-                    </Link>
-                  </h1>
-                  <div className="m-4">No workouts to show ...</div>
+                <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1>
+                      Current Workout
+                      <Link href="/">
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">No workouts to show ...</div>
+                  </div>
                 </div>
               </div>
 
               <div className="dash-card col-span-5 row-span-2">
+                <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1>
+                      Workouts
+                      <Link href="/workouts">
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <WorkoutsList />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="dash-card col-span-5 row-span-2">
+                <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1>
+                      Weekly Plans
+                      <Link href="/plans">
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <PlansList />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/*  <div className="dash-card col-span-5 row-span-2">
                 <div className="fade-bottom">
                   <h1 className="m-3">
                     Workouts
@@ -90,11 +146,12 @@ const Home: BlitzPage = () => {
 
                   <Suspense fallback={<div>Loading...</div>}>
                     <WorkoutsList />
+                    <WorkoutsList />
                   </Suspense>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="dash-card col-span-5 row-span-2">
+              {/* <div className="dash-card col-span-5 row-span-2">
                 <div>
                   <h1 className="m-3">
                     Weekly Plans
@@ -112,7 +169,7 @@ const Home: BlitzPage = () => {
                     <PlansList />
                   </Suspense>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -135,40 +192,9 @@ const Home: BlitzPage = () => {
           </div>
         </div> */}
       </main>
-      <style jsx global>{`
-        /*Firefox*/
-
-        * {
-          scrollbar-width: none;
-          scrollbar-color: #333;
-        }
-        /* Chrome, Safari, Edge */
-        *::-webkit-scrollbar {
-          width: 10px;
-        }
-
-        *::-webkit-scrollbar-track {
-          display: none;
-        }
-
-        *::-webkit-scrollbar-thumb {
-          background-color: #333;
-          border-radius: 20px;
-          border: none;
-        }
-
-        .fade-bottom {
-          -webkit-mask-image: -webkit-gradient(
-            linear,
-            left 90%,
-            left-bottom,
-            from(rgba(0, 0, 0, 1)),
-            to(rgba(0, 0, 0, 0))
-          );
-
-          mask-image: linear-gradient(to bottom, white 90%, transparent);
-        }
-      `}</style>
+      {/*       <style jsx global>{`
+        
+      `}</style> */}
     </div>
   )
 }
