@@ -154,7 +154,7 @@
   /* Styles for standard modal overlay background */
   .reg-modal .ReactModal__Overlay,
   .reg-modal .ReactModal__Overlay--after-open {
-    @apply bg-gray-300 bg-opacity-50 !important;
+    @apply bg-gray-100 bg-opacity-75 !important;
   }
   /* Styles for logout modal overlay background */
   .no-overlay-modal .ReactModal__Overlay,

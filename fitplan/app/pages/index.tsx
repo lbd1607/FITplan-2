@@ -48,7 +48,7 @@ const Home: BlitzPage = () => {
   return (
     <div className="">
       <main>
-        <Suspense fallback="Loading...">
+        <Suspense fallback="">
           <UserInfo />
         </Suspense>
 
@@ -173,24 +173,6 @@ const Home: BlitzPage = () => {
             </div>
           </div>
         </div>
-
-        {/*  */}
-
-        {/* <div className="min-h-screen flex items-center">
-          <div className="flex-1 max-w-4xl mx-auto p-10">
-            <div className="grid grid-cols-6 grid-rows-4 gap-4 grid-flow-row grid-flow-col">
-              <div className="col-start-1 col-span-2 row-start-1 row-span-4 card">
-                <div></div>
-              </div>
-              <div className="card row-span-2">
-                <div></div>
-              </div>
-              <div className="card row-span-2">
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </main>
       {/*       <style jsx global>{`
         

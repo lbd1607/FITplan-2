@@ -13,45 +13,62 @@ const NewExercisePage: BlitzPage = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
-        <h2>Create New Exercise</h2>
+        <div className="card-container">
+          <div className="card">
+            <div className="cardcol">
+              <div className="grid grid-cols-8">
+                <h1 className="mb-5 col-span-7">Create New Exercise</h1>
+                <Link href="/exercises">
+                  <span className="col-span-1 justify-end text-right">
+                    <FontAwesomeIcon
+                      icon="times"
+                      size="lg"
+                      className="text-gray-500 cursor-pointer mr-1"
+                    />
+                  </span>
+                </Link>
+              </div>
+            </div>
 
-        <ExerciseForm
-          submitText="OK"
-          /*         cancelText="NO"
-        cancelURL="/exercises" */
-          // TODO use a zod schema for form validation
-          //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-          //         then import and use it here
-          // schema={CreateExercise}
-          // initialValues={{}}
-          onSubmit={async (values) => {
-            try {
-              const exercise = await createExerciseMutation(values)
-              router.push(`/exercises/${exercise.id}`)
-            } catch (error) {
-              console.error(error)
-              return {
-                [FORM_ERROR]: error.toString(),
-              }
-            }
-          }}
-          onCancel={async () => {
-            try {
-              router.back()
-            } catch (error) {
-              console.error(error)
-              return {
-                [FORM_ERROR]: error.toString(),
-              }
-            }
-          }}
-        />
+            <ExerciseForm
+              submitText="Save"
+              cancelText="Cancel"
+              cancelURL="/exercises"
+              // TODO use a zod schema for form validation
+              //  - Tip: extract mutation's schema into a shared `validations.ts` file and
+              //         then import and use it here
+              // schema={CreateExercise}
+              // initialValues={{}}
+              onSubmit={async (values) => {
+                try {
+                  const exercise = await createExerciseMutation(values)
+                  router.push(`/exercises/${exercise.id}`)
+                } catch (error) {
+                  console.error(error)
+                  return {
+                    [FORM_ERROR]: error.toString(),
+                  }
+                }
+              }}
+              onCancel={async () => {
+                try {
+                  router.back()
+                } catch (error) {
+                  console.error(error)
+                  return {
+                    [FORM_ERROR]: error.toString(),
+                  }
+                }
+              }}
+            />
 
-        {/*  <p>
+            {/*  <p>
         <Link href="/exercises">
           <a>Exercises</a>
         </Link>
       </p> */}
+          </div>
+        </div>
       </div>
     </Suspense>
   )

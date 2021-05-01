@@ -21,7 +21,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
 
   return (
     <Form<S> {...props}>
-      <div className="card">
+      <div className="cardcol">
         <LabeledTextField name="planName" label="Plan Name" />
         <div>
           <label>Days of the Week</label>
