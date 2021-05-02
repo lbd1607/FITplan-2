@@ -10,7 +10,7 @@ const NewPlanPage: BlitzPage = () => {
   const [createPlanMutation] = useMutation(createPlan)
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="items-center justify-center">
       <div className="card-container">
         <div className="modal-card">
           <div className="cardcol">

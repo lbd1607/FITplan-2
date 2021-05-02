@@ -48,7 +48,7 @@ export const Exercise = () => {
         <title>{exercise.exName}</title>
       </Head>
 
-      <div className="card-container-parent ">
+      <div className="card-container-parent">
         <div className="card-container w-2/6">
           <div className="card">
             <div className="rounded-t mb-0 px-6 py-6">

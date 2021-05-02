@@ -91,7 +91,7 @@ export const Workout = () => {
                 )}
               </ul>
 
-              <div className="border-t-2 border-b-2 pt-2 pb-2 left-0">
+              <div className="w-full border-0 shadow-none pt-2 pb-2 flex object-center justify-center">
                 {/* <Link href="/exercises/new"> */}
 
                 {/* <button className="formfieldlabel" onClick={addExercise}>

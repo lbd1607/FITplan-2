@@ -16,7 +16,7 @@ const NewWorkoutPage: BlitzPage = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="flex items-center justify-center">
+      <div className="grid items-center justify-center">
         <div className="card-container">
           <div className="modal-card">
             <div className="cardcol">
