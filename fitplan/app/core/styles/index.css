@@ -124,9 +124,13 @@
   .itemrow-dark:hover {
     @apply bg-gray-500;
   }
-  /* Modals */
+  /* Cards */
+  .modal-card {
+    @apply relative flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0 my-6 p-6 overflow-hidden pb-6 border border-gray-300;
+  }
+  /* Modal container */
   .modal {
-    @apply max-h-full flex;
+    @apply max-h-full;
   }
   /* Logout Modal */
   .logout-modal {
@@ -154,8 +158,11 @@
   /* Styles for standard modal overlay background */
   .reg-modal .ReactModal__Overlay,
   .reg-modal .ReactModal__Overlay--after-open {
-    @apply bg-gray-100 bg-opacity-75 !important;
+    /* bg-gray-100 bg-opacity-75 !important; */
+    /* background-blend-mode: lighten; */
+    @apply flex items-center justify-center bg-gray-800 bg-opacity-50 !important;
   }
+
   /* Styles for logout modal overlay background */
   .no-overlay-modal .ReactModal__Overlay,
   .no-overlay-modal .ReactModal__Overlay--after-open {
@@ -210,6 +217,25 @@
   /* For 2 x 2 workout type button grid layout */
   .workoutTypeGrid {
     @apply grid grid-cols-2 gap-2 place-content-center;
+  }
+  /* Main container for dropdown */
+  .dropdown-parent {
+    @apply w-full rounded-md border border-gray-400 px-2 py-2 bg-blue-100 text-gray-800 grid;
+  }
+  /* Custom field styling for dropdown */
+  .dropdown-field {
+    @apply w-full row-start-1 col-start-1 z-40 bg-transparent;
+  }
+  /* Styling for caret square icon */
+  .dropdown-caret {
+    @apply text-gray-500 row-start-1 col-start-1 z-0 justify-self-end;
+  }
+  /* Override existing select style */
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
   }
   /*--------------------------------- Buttons and Links ---------------------------------*/
   /* Link that goes back to the main component page */

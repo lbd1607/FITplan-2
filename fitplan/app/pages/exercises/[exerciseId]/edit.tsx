@@ -22,7 +22,9 @@ export const EditExercise = () => {
         <pre>{JSON.stringify(exercise)}</pre>
 
         <ExerciseForm
-          submitText="Update Exercise"
+          submitText="Save"
+          cancelText="Cancel"
+          cancelURL="/exercises"
           // TODO use a zod schema for form validation
           //  - Tip: extract mutation's schema into a shared `validations.ts` file and
           //         then import and use it here
@@ -36,6 +38,16 @@ export const EditExercise = () => {
               })
               await setQueryData(updated)
               router.push(`/exercises/${updated.id}`)
+            } catch (error) {
+              console.error(error)
+              return {
+                [FORM_ERROR]: error.toString(),
+              }
+            }
+          }}
+          onCancel={async () => {
+            try {
+              router.back()
             } catch (error) {
               console.error(error)
               return {

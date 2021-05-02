@@ -12,10 +12,10 @@ const NewExercisePage: BlitzPage = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div>
+      <div className="flex items-center justify-center">
         <div className="card-container">
-          <div className="card">
-            <div className="cardcol">
+          <div className="modal-card">
+            <div className="cardcol ">
               <div className="grid grid-cols-8">
                 <h1 className="mb-5 col-span-7">Create New Exercise</h1>
                 <Link href="/exercises">
