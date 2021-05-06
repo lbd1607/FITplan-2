@@ -3,6 +3,8 @@ import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation } fro
 import Layout from "app/core/layouts/Layout"
 import getExercise from "app/exercises/queries/getExercise"
 import deleteExercise from "app/exercises/mutations/deleteExercise"
+import getWorkout from "app/workouts/queries/getWorkout"
+import getWorkouts from "app/workouts/queries/getWorkouts"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
@@ -16,6 +18,28 @@ export const Exercise = () => {
   const [deleteExerciseMutation] = useMutation(deleteExercise)
   const [exercise] = useQuery(getExercise, { id: exerciseId })
 
+  const workoutId = useParam("workoutId", "number")
+
+  const [{ workouts }] = useQuery(getWorkouts, {
+    orderBy: { id: "asc" },
+  })
+
+  //Must check to see if workoutId exists first or validation throws undefined id error
+  if (!workoutId) {
+    var thisWorkoutId = 0
+  } else {
+    const [workout] = useQuery(getWorkout, { id: workoutId })
+
+    var thisWorkoutId = workout.id
+  }
+  //Must check editingId first, otherwise validation assumes undefined id and fails on create new
+  /*   if (!workoutId) {
+    var currentState = "resistance"
+  } else {
+    const [editWorkout] = useQuery(getWorkout, { id: workoutId })
+    var currentState = `${editWorkout.workoutType}` || "resistance"
+  }
+ */
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   function openModal() {
     modalSetIsOpen(true)
@@ -75,6 +99,20 @@ export const Exercise = () => {
               <div></div>
               <p className="formfieldlabel">Notes: {exercise.exNotes || "None"}</p>
               <p className="formfieldlabel">Workout ID: {exercise.workoutId || "None"}</p>
+              <ul>
+                {workouts.map((workout) =>
+                  exercise.workoutId === workout.id ? (
+                    <li className="formfieldlabel" key={thisWorkoutId}>
+                      Workout: {workout.workoutName}
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+              {/*   <p className="formfieldlabel" id={exercise.workoutId}>
+                Workout: {workout.workoutName || "None"}
+              </p> */}
 
               {/* 
               <p className="formfieldlabel">Exercises: </p>
