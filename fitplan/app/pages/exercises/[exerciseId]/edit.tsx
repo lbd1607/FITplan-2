@@ -40,7 +40,7 @@ export const EditExercise = () => {
       <div className="card-container-parent">
         <div className="card-container">
           <div className="card">
-            <div className="my-6 px-6">
+            <div className="my-6 px-6 ">
               <div className="grid grid-cols-8">
                 <h1 className="mb-10 col-span-7">Edit {exercise.exName}</h1>
                 <Link href="/exercises">

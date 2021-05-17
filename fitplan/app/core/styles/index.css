@@ -10,8 +10,8 @@
   }
   /* Scrollbar behavior */
   * {
-    scrollbar-width: none;
-    scrollbar-color: #333;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(96, 96, 96, 0.5) #fff;
   }
 
   *::-webkit-scrollbar {
@@ -26,6 +26,9 @@
     background-color: #333;
     border-radius: 20px;
     border: none;
+  }
+  .scrollbar-hidden {
+    scrollbar-width: none;
   }
 
   /*---------------------------------- Standard Text ------------------------------------*/
@@ -46,7 +49,7 @@
     @apply p-20;
   }
   .navbar {
-    @apply w-full h-16 flex mb-2 pb-1 bg-white;
+    @apply w-full h-16 flex mb-8 pb-1 bg-white;
   }
   .navbar ul {
     @apply pl-4;
@@ -81,16 +84,16 @@
   }
   /* Parent div for card container, wraps card-container and card */
   .card-container-parent {
-    @apply flex justify-center w-full;
-    height: calc(100vh - 5rem);
+    @apply flex w-full mx-auto justify-center;
+    height: calc(100vh - 6rem);
   }
   /* Parent div for cards */
   .card-container {
-    @apply overflow-y-auto flex-auto mx-10;
+    @apply flex-auto mx-10 overflow-y-auto scrollbar-hidden rounded-lg;
   }
   /* Cards */
   .card {
-    @apply relative flex-col break-words w-full shadow-lg rounded-lg bg-white border-0 my-6 p-6 overflow-hidden pb-6;
+    @apply relative flex-col break-words w-full shadow-lg rounded-lg bg-white border-0 p-6 overflow-hidden pb-8 mb-8;
   }
   /* Main column for cards */
   .cardcol {
@@ -98,15 +101,16 @@
   }
   /* Parent for card inner scroll container */
   .inner-scroll-parent {
-    @apply relative h-full fade-bottom;
+    @apply relative h-full;
+    /* fade-bottom */
   }
   /* Heading section for inner scroll container */
   .inner-scroll-heading {
-    @apply absolute left-0 right-0 top-0 bg-white z-10 py-3;
+    @apply absolute left-0 right-0 top-0 bg-white py-3;
   }
   /* Card inner scroll container */
   .inner-scroll {
-    @apply absolute inset-0 overflow-auto pt-16 pb-4 space-y-4;
+    @apply absolute inset-0 overflow-auto mt-16 pb-4 space-y-4;
   }
   /* Item rows on master pages */
   .itemrow {
@@ -130,7 +134,7 @@
   }
   /* Logout Modal */
   .logout-modal {
-    @apply relative float-right min-w-0 bg-gray-600 shadow border rounded-md mb-6 mr-10 mt-14 p-1 w-32 h-24;
+    @apply relative float-right min-w-0 bg-gray-600 shadow  rounded-md mb-6 mr-10 mt-14 p-1 w-32 h-24;
   }
   /* Style link for Log Out */
   .logout-link {
@@ -186,7 +190,7 @@
   }
   /* Select button */
   .btn.selectbtn {
-    @apply border-gray-300 font-medium text-sm inline border w-64;
+    @apply border-gray-300 font-medium text-sm inline border w-48;
   }
   /* Hover style for selected select button */
   .btn.selectbtn:hover {
@@ -209,7 +213,7 @@
   }
   /* Custom field styling for dropdown */
   .dropdown-field {
-    @apply w-full row-start-1 col-start-1 z-40 bg-transparent;
+    @apply w-full row-start-1 col-start-1 bg-transparent;
   }
   /* Styling for caret square icon */
   .dropdown-caret {
@@ -222,6 +226,7 @@
     -webkit-user-select: none;
     -moz-user-select: none;
   }
+
   /*--------------------------------- Buttons and Links ---------------------------------*/
   /* Link that goes back to the main component page */
   .back-link {

@@ -100,7 +100,7 @@ const WorkoutsPage: BlitzPage = () => {
                 {/* </Link> */}
               </h1>
             </div>
-            <div className="inner-scroll mt-3">
+            <div className="inner-scroll">
               <div className="">
                 <Suspense fallback={<div>Loading...</div>}>
                   <WorkoutsList />

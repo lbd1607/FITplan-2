@@ -53,8 +53,8 @@ const Home: BlitzPage = () => {
         </Suspense>
 
         <div className="card-container-parent">
-          <div className="flex-1 mx-14 my-0 mb-8 p-6 ">
-            <div className="grid grid-cols-12 grid-rows-4 gap-4 grid-flow-row grid-flow-col h-full">
+          <div className="flex-1 mx-14 my-0 mb-8 px-6 pb-6 ">
+            <div className="grid grid-cols-12 grid-rows-4 gap-4 grid-flow-row h-full">
               <div className="col-start-1 col-span-7 row-start-1 row-span-4 dash-card">
                 <div className="inner-scroll-parent">
                   <div className="inner-scroll-heading">
@@ -93,6 +93,7 @@ const Home: BlitzPage = () => {
                       </Link>
                     </h1>
                   </div>
+
                   <div className="inner-scroll">
                     <div className="">
                       <Suspense fallback={<div>Loading...</div>}>

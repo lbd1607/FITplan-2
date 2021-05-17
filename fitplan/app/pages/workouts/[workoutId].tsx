@@ -55,10 +55,10 @@ export const Workout = () => {
         <title>{workout.workoutName}</title>
       </Head>
 
-      <div className="card-container-parent ">
-        <div className="card-container w-2/6">
-          <div className="card">
-            <div className="rounded-t mb-0 px-6 py-6">
+      <div className="card-container-parent w-2/6">
+        <div className="card-container ">
+          <div className="card ">
+            <div className="rounded-t px-6 py-6">
               <div className="grid grid-cols-8">
                 <h1 className="mb-10 col-span-7">{workout.workoutName}</h1>
                 <Link href="/workouts">
