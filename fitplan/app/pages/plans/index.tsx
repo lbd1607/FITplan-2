@@ -6,6 +6,7 @@ import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import NewPlanPage from "./new"
+import { array } from "zod"
 
 Modal.setAppElement("#__next")
 
@@ -23,6 +24,28 @@ export const PlansList = () => {
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
 
+  //Determine chip for day based on day passed in during sub-map
+  function getDayChip(days) {
+    switch (days) {
+      case "Monday":
+        return <div className="daysChip daySelected daysChipSm">M</div>
+      case "Tuesday":
+        return <div className="daysChip daySelected daysChipSm">Tu</div>
+      case "Wednesday":
+        return <div className="daysChip daySelected daysChipSm">W</div>
+      case "Thursday":
+        return <div className="daysChip daySelected daysChipSm">Th</div>
+      case "Friday":
+        return <div className="daysChip daySelected daysChipSm">F</div>
+      case "Saturday":
+        return <div className="daysChip daySelected daysChipSm">Sa</div>
+      case "Sunday":
+        return <div className="daysChip daySelected daysChipSm">Su</div>
+      default:
+        break
+    }
+  }
+
   if (plans.length <= 0) {
     return <div className="m-4">No plans to show ...</div>
   } else
@@ -33,10 +56,15 @@ export const PlansList = () => {
             <Link href={`/plans/${plan.id}`} key={plan.id}>
               <li className="itemrow">
                 <a>{plan.planName}</a>
+                <div className="grid grid-flow-col float-right mr-4 gap-2">
+                  {/* Map though days array so each is displayed here as chip */}
+                  {plan.days.map((day) => getDayChip(day))}
+                </div>
               </li>
             </Link>
           ))}
         </ul>
+
         {/* <button disabled={page === 0} onClick={goToPreviousPage}>
         Previous
       </button>

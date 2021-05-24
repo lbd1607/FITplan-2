@@ -114,7 +114,7 @@
   }
   /* Item rows on master pages */
   .itemrow {
-    @apply relative flex-col min-w-0 break-words w-full bg-white cursor-pointer p-3 my-1 border border-gray-300;
+    @apply relative flex-col min-w-0 break-words w-full bg-white cursor-pointer p-3 pb-4 my-1 border border-gray-300;
   }
   /* On hover for item rows on master pages */
   .itemrow:hover {
@@ -291,6 +291,26 @@
   /* Hover styles for delete  button  */
   .btn.delete:hover {
     @apply bg-pink-700 text-white;
+  }
+  /* Style for days chip (Weekly Plans), default unchecked bg gray */
+  .daysChip {
+    @apply rounded-full h-10 w-10 flex items-center justify-center bg-gray-500 text-white font-bold;
+  }
+  /* Make days chip smaller */
+  .daysChipSm {
+    @apply h-8 w-8 text-sm;
+  }
+  /* Style for days chip (Weekly Plans) if checked */
+  .daySelected {
+    @apply bg-purple-700 text-white font-bold;
+  }
+  /* Remove checkbox from input to allow custom styling*/
+  input.noCheckbox {
+    display: none;
+  }
+  /* Style background if input is checked */
+  input.noCheckbox:checked + label {
+    @apply daySelected;
   }
   /*---------------------------------------- Icons --------------------------------------*/
   /* Styles for add (plus-circle) icon */

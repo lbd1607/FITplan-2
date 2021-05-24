@@ -42,9 +42,15 @@ const NewPlanPage: BlitzPage = () => {
                 const plan = await createPlanMutation(values)
                 router.push(`/plans/${plan.id}`)
               } catch (error) {
-                console.error(error)
-                return {
-                  [FORM_ERROR]: error.toString(),
+                //console.error(error)
+                if (!values.planName) {
+                  return { [FORM_ERROR]: "Enter a plan name." }
+                } else if (!values.workouts) {
+                  return { [FORM_ERROR]: "Select a workout." }
+                } else {
+                  return {
+                    [FORM_ERROR]: error.toString(),
+                  }
                 }
               }
             }}

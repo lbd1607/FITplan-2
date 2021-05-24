@@ -44,9 +44,15 @@ const NewExercisePage: BlitzPage = () => {
                   const exercise = await createExerciseMutation(values)
                   router.push(`/exercises/${exercise.id}`)
                 } catch (error) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
+                  //console.error(error)
+                  if (!values.exName) {
+                    return { [FORM_ERROR]: "Enter an exercise name." }
+                  } else if (!values.exType) {
+                    return { [FORM_ERROR]: "Select an exercise type." }
+                  } else {
+                    return {
+                      [FORM_ERROR]: error.toString(),
+                    }
                   }
                 }
               }}

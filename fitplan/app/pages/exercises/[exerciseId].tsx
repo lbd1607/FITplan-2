@@ -32,21 +32,13 @@ export const Exercise = () => {
 
     var thisWorkoutId = workout.id
   }
-  //Must check editingId first, otherwise validation assumes undefined id and fails on create new
-  /*   if (!workoutId) {
-    var currentState = "resistance"
-  } else {
-    const [editWorkout] = useQuery(getWorkout, { id: workoutId })
-    var currentState = `${editWorkout.workoutType}` || "resistance"
-  }
- */
+
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   function openModal() {
     modalSetIsOpen(true)
   }
   function closeModal() {
     modalSetIsOpen(false)
-    // router.push("/")
     return <Link href="/" />
   }
   //Get rate, such as time, reps, or distance, based on the exercise type passed from
@@ -88,15 +80,9 @@ export const Exercise = () => {
                   </span>
                 </Link>
               </div>
-
               <p className="formfieldlabel">ID: {exercise.id}</p>
               <p className="formfieldlabel capitalize">Type: {exercise.exType}</p>
               <span>{getExTypeRates(exercise.exType) || "None"}</span>
-              {/* <p className="capitalize formfieldlabel">
-                Type: {getWorkoutIcon(workout.workoutType)} {workout.workoutType}
-              </p> */}
-
-              <div></div>
               <p className="formfieldlabel">Notes: {exercise.exNotes || "None"}</p>
               <p className="formfieldlabel">Workout ID: {exercise.workoutId || "None"}</p>
               <ul>
@@ -110,27 +96,7 @@ export const Exercise = () => {
                   )
                 )}
               </ul>
-              {/*   <p className="formfieldlabel" id={exercise.workoutId}>
-                Workout: {workout.workoutName || "None"}
-              </p> */}
-
-              {/* 
-              <p className="formfieldlabel">Exercises: </p>
-
-              <ul>
-                {exercises.map((exercise) =>
-                  exercise.workoutId === workout.id ? (
-                    <li key={exercise.id}>{exercise.exName}</li>
-                  ) : (
-                    ""
-                  )
-                )}
-              </ul> */}
-
-              {/* <pre>{JSON.stringify(workout, null, 2)}</pre> */}
-
               <div className="flex flex-row justify-between mt-10">
-                {/* <Link href={`/workouts/${workout.id}/edit`}> */}
                 <button className="btn edit" onClick={openModal}>
                   {" "}
                   <a>
@@ -144,7 +110,7 @@ export const Exercise = () => {
                   className="btn delete"
                   type="button"
                   onClick={async () => {
-                    if (window.confirm("This will be deleted")) {
+                    if (window.confirm("Delete from Exercises?")) {
                       await deleteExerciseMutation({ id: exercise.id })
                       router.push("/exercises")
                     }
@@ -173,28 +139,6 @@ export const Exercise = () => {
           </Link>
         </Modal>
       </div>
-
-      {/* <div>
-        <h1>{exercise.exName}</h1>
-        <pre>{JSON.stringify(exercise, null, 2)}</pre>
-
-        <Link href={`/exercises/${exercise.id}/edit`}>
-          <a>Edit</a>
-        </Link>
-
-        <button
-          type="button"
-          onClick={async () => {
-            if (window.confirm("This will be deleted")) {
-              await deleteExerciseMutation({ id: exercise.id })
-              router.push("/exercises")
-            }
-          }}
-          style={{ marginLeft: "0.5rem" }}
-        >
-          Delete
-        </button>
-      </div> */}
     </>
   )
 }
@@ -202,12 +146,6 @@ export const Exercise = () => {
 const ShowExercisePage: BlitzPage = () => {
   return (
     <div>
-      {/* <p>
-        <Link href="/exercises">
-          <a>Exercises</a>
-        </Link>
-      </p> */}
-
       <Suspense fallback={<div>Loading...</div>}>
         <Exercise />
       </Suspense>

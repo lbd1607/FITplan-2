@@ -1,8 +1,14 @@
-import { Suspense } from "react"
+import { Fragment, Suspense, useState } from "react"
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getPlan from "app/plans/queries/getPlan"
 import deletePlan from "app/plans/mutations/deletePlan"
+import Modal from "react-modal"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import EditPlanPage from "./[planId]/edit"
+
+Modal.setAppElement("#__next")
 
 export const Plan = () => {
   const router = useRouter()
@@ -10,32 +16,110 @@ export const Plan = () => {
   const [deletePlanMutation] = useMutation(deletePlan)
   const [plan] = useQuery(getPlan, { id: planId })
 
+  const [modalIsOpen, modalSetIsOpen] = useState(false)
+  function openModal() {
+    modalSetIsOpen(true)
+  }
+  function closeModal() {
+    modalSetIsOpen(false)
+    return <Link href="/" />
+  }
+
+  //Determine chip for day based on day passed in during sub-map
+  function getDayChip(days) {
+    switch (days) {
+      case "Monday":
+        return <div className="daysChip daySelected daysChipSm">M</div>
+      case "Tuesday":
+        return <div className="daysChip daySelected daysChipSm">Tu</div>
+      case "Wednesday":
+        return <div className="daysChip daySelected daysChipSm">W</div>
+      case "Thursday":
+        return <div className="daysChip daySelected daysChipSm">Th</div>
+      case "Friday":
+        return <div className="daysChip daySelected daysChipSm">F</div>
+      case "Saturday":
+        return <div className="daysChip daySelected daysChipSm">Sa</div>
+      case "Sunday":
+        return <div className="daysChip daySelected daysChipSm">Su</div>
+      default:
+        break
+    }
+  }
+
   return (
     <>
       <Head>
         <title>{plan.planName}</title>
       </Head>
+      <div className="card-container-parent w-2/6">
+        <div className="card-container">
+          <div className="card py-6 ">
+            <div className="rounded-t mb-0 px-6 py-6 ">
+              <div className="grid grid-cols-8">
+                <h1 className="mb-10 col-span-7">{plan.planName}</h1>
+                <Link href="/plans">
+                  <span className="col-span-1 justify-end text-right">
+                    <FontAwesomeIcon
+                      icon="times"
+                      size="lg"
+                      className="text-gray-500 cursor-pointer mr-1"
+                    />
+                  </span>
+                </Link>
+              </div>
+              <p className="formfieldlabel">ID: {plan.id}</p>
 
+              <span>
+                <div className="flex flex-row space-x-3">
+                  <p className="formfieldlabel">Days: </p>
+                  {/* <p className="formfieldlabel">Days: {plan.days.join(", ") || "None"}</p> */}
+                  {/* Map though days array so each is displayed here as chip */}
+                  {plan.days.map((day) => getDayChip(day))}
+                </div>
+              </span>
+              <p className="formfieldlabel">Workouts: {plan.workouts || "None"}</p>
+
+              <div className="flex flex-row justify-between mt-10">
+                <button className="btn edit" onClick={openModal}>
+                  {" "}
+                  <a>
+                    <FontAwesomeIcon icon="pen" size="1x" className="cursor-pointer mr-2" />
+                    Edit
+                  </a>
+                </button>
+                <button
+                  className="btn delete"
+                  type="button"
+                  onClick={async () => {
+                    if (window.confirm("Delete from Plans?")) {
+                      await deletePlanMutation({ id: plan.id })
+                      router.push("/plans")
+                    }
+                  }}
+                >
+                  <FontAwesomeIcon icon="trash" size="1x" className="cursor-pointer mr-2" />
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div>
-        <h1>{plan.planName}</h1>
-        <pre>{JSON.stringify(plan, null, 2)}</pre>
-
-        <Link href={`/plans/${plan.id}/edit`}>
-          <a>Edit</a>
-        </Link>
-
-        <button
-          type="button"
-          onClick={async () => {
-            if (window.confirm("This will be deleted")) {
-              await deletePlanMutation({ id: plan.id })
-              router.push("/plans")
-            }
-          }}
-          style={{ marginLeft: "0.5rem" }}
+        <Modal
+          className="modal"
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          portalClassName="reg-modal"
         >
-          Delete
-        </button>
+          <Link href={`/plans/${plan.id}/edit`}>
+            {/* Must wrap plan page in fragment to avoid ref error */}
+            <Fragment>
+              <EditPlanPage />
+            </Fragment>
+          </Link>
+        </Modal>
       </div>
     </>
   )
@@ -44,12 +128,6 @@ export const Plan = () => {
 const ShowPlanPage: BlitzPage = () => {
   return (
     <div>
-      <p>
-        <Link href="/plans">
-          <a>Plans</a>
-        </Link>
-      </p>
-
       <Suspense fallback={<div>Loading...</div>}>
         <Plan />
       </Suspense>

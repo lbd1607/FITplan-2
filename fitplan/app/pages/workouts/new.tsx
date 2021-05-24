@@ -50,9 +50,9 @@ const NewWorkoutPage: BlitzPage = () => {
                 } catch (error) {
                   //console.error(error)
                   if (!values.workoutName) {
-                    return { [FORM_ERROR]: "Workout name is required" }
+                    return { [FORM_ERROR]: "Enter a workout name." }
                   } else if (!values.workoutType) {
-                    return { [FORM_ERROR]: "Workout type is required" }
+                    return { [FORM_ERROR]: "Select a workout type." }
                   } else {
                     return {
                       [FORM_ERROR]: error.toString(),

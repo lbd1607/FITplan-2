@@ -121,7 +121,7 @@ export const Workout = () => {
                   className="btn delete"
                   type="button"
                   onClick={async () => {
-                    if (window.confirm("This will be deleted")) {
+                    if (window.confirm("Delete from Workouts?")) {
                       await deleteWorkoutMutation({ id: workout.id })
                       router.push("/workouts")
                     }

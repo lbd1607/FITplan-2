@@ -1,14 +1,13 @@
-import React, { Suspense, useState } from "react"
+import React, { Suspense } from "react"
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
 import getWorkouts from "app/workouts/queries/getWorkouts"
-import { useQuery, useParam, usePaginatedQuery, useRouter } from "blitz"
+import { usePaginatedQuery } from "blitz"
 export { FORM_ERROR } from "app/core/components/Form"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { check } from "prettier"
 
 // Use these to get workouts after .map bug fixed for useQuery
 // const workoutId = useParam("workoutId", "number")
@@ -22,6 +21,26 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
 
   let defaultWorkout = workouts.map((workout) => workout.workoutName)
 
+  function addAnotherWorkout() {
+    return (
+      <div className="dropdown-parent">
+        <Field
+          component="select"
+          name="workouts"
+          defaultValue={defaultWorkout[0]}
+          className="dropdown-field"
+        >
+          {workouts.map((workout) => (
+            <option key={workout.id} value={workout.workoutName}>
+              {workout.workoutName}
+            </option>
+          ))}
+        </Field>
+        <FontAwesomeIcon icon="caret-down" size="lg" className="dropdown-caret" />{" "}
+      </div>
+    )
+  }
+
   return (
     <Form<S> {...props}>
       <div className="cardcol">
@@ -31,62 +50,122 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
             <LabeledTextField name="planName" label="" className="inputbox " aria-required="true" />
           </div>
 
-          <div>
+          <div className="input-container">
             <label className="formfieldlabel">Days of the Week</label>
-            <fieldset className="grid grid-rows-1 grid-flow-col">
-              {/* {"Monday"} */}
-              <div className="input-container rounded-full h-10 w-10 flex items-center justify-center bg-purple-700 text-white font-bold cust-checkbox">
+            <fieldset className="grid grid-flow-col">
+              {/* Monday */}
+              <div className="dayParent">
                 <Field
                   name="days"
-                  component="input"
                   value="Monday"
+                  id="mon"
+                  component="input"
                   type="checkbox"
                   className="noCheckbox"
                 />
-                <label>M</label>
+                <label htmlFor="mon" className="daysChip ">
+                  {" "}
+                  M
+                </label>
               </div>
-
-              {/* {"Tuesday"} */}
-              <div className="rounded-full h-10 w-10 flex items-center justify-center bg-purple-700 text-white font-bold">
-                Tu
-                <Field name="days" value="Tuesday" component="input" type="checkbox" />
+              {/* Tuesday */}
+              <div className="dayParent">
+                <Field
+                  name="days"
+                  value="Tuesday"
+                  id="tue"
+                  component="input"
+                  type="checkbox"
+                  className="noCheckbox"
+                />
+                <label htmlFor="tue" className="daysChip ">
+                  {" "}
+                  Tu
+                </label>
               </div>
-
-              {/* {"Wednesday"} */}
-              <div className="rounded-full h-10 w-10 flex items-center justify-center bg-purple-700 text-white font-bold">
-                W
-                <Field name="days" value="Wednesday" component="input" type="checkbox" />
+              {/* Wednesday */}
+              <div className="dayParent">
+                <Field
+                  name="days"
+                  value="Wednesday"
+                  id="wed"
+                  component="input"
+                  type="checkbox"
+                  className="noCheckbox"
+                />
+                <label htmlFor="wed" className="daysChip ">
+                  {" "}
+                  W
+                </label>
               </div>
-
-              {/* {"Thursday"} */}
-              <div className="rounded-full h-10 w-10 flex items-center justify-center bg-purple-700 text-white font-bold">
-                Th
-                <Field name="days" value="Thursday" component="input" type="checkbox" />
+              {/* Thursday */}
+              <div className="dayParent">
+                <Field
+                  name="days"
+                  value="Thursday"
+                  id="thu"
+                  component="input"
+                  type="checkbox"
+                  className="noCheckbox"
+                />
+                <label htmlFor="thu" className="daysChip ">
+                  {" "}
+                  Th
+                </label>
               </div>
-
-              {/* {"Friday"} */}
-              <div className="rounded-full h-10 w-10 flex items-center justify-center bg-purple-700 text-white font-bold">
-                F
-                <Field name="days" value="Friday" component="input" type="checkbox" />
+              {/* Friday */}
+              <div className="dayParent">
+                <Field
+                  name="days"
+                  value="Friday"
+                  id="fri"
+                  component="input"
+                  type="checkbox"
+                  className="noCheckbox"
+                />
+                <label htmlFor="fri" className="daysChip ">
+                  {" "}
+                  F
+                </label>
               </div>
-
-              {/* {"Saturday"} */}
-              <div className="rounded-full h-10 w-10 flex items-center justify-center bg-purple-700 text-white font-bold">
-                Sa
-                <Field name="days" value="Saturday" component="input" type="checkbox" />
+              {/* Saturday */}
+              <div className="dayParent">
+                <Field
+                  name="days"
+                  value="Saturday"
+                  id="sat"
+                  component="input"
+                  type="checkbox"
+                  className="noCheckbox"
+                />
+                <label htmlFor="sat" className="daysChip ">
+                  {" "}
+                  Sa
+                </label>
               </div>
-
-              {/* {"Sunday"} */}
-              <div className="rounded-full h-10 w-10 flex items-center justify-center bg-purple-700 text-white font-bold">
-                Su
-                <Field name="days" value="Sunday" component="input" type="checkbox" />
+              {/* Sunday */}
+              <div className="dayParent">
+                <Field
+                  name="days"
+                  value="Sunday"
+                  id="sun"
+                  component="input"
+                  type="checkbox"
+                  className="noCheckbox"
+                />
+                <label htmlFor="sun" className="daysChip ">
+                  {" "}
+                  Su
+                </label>
               </div>
             </fieldset>
           </div>
           <div>
             <div className="input-container required-field">
               <label className="formfieldlabel">Workouts</label>
-
+              <button onClick={addAnotherWorkout}>
+                <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
+              </button>
               <div className="dropdown-parent">
                 <Field
                   component="select"
@@ -106,41 +185,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
           </div>
         </div>
       </div>
-      {
-        <style jsx global>{`
-          input.noCheckbox {
-            background: red;
-          }
-
-          /*  input.noCheckbox {
-            display: none;
-          }
-          input.noCheckbox + label {
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-          }
-          input.noCheckbox + label:hover {
-            background: red;
-          }
-          input.noCheckbox + label:active,
-          input.noCheckbox:checked + label,
-          input.noCheckbox + label:checked {
-            background: black;
-            border: 1px solid green;
-          } */
-
-          /*  .cust-checkbox:hover {
-            background: red;
-          }
-          .cust-checkbox:checked {
-            background: black;
-          }
-          input.noCheckbox:checked {
-            background: black;
-          } */
-        `}</style>
-      }
+      {<style jsx global>{``}</style>}
     </Form>
   )
 }
