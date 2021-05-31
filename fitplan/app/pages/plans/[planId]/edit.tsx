@@ -49,6 +49,18 @@ export const EditPlan = () => {
                 // schema={UpdatePlan}
                 initialValues={plan}
                 onSubmit={async (values) => {
+                  var daysList = values.days,
+                    dayOrder = [
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday",
+                      "Sunday",
+                    ]
+                  daysList.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
+                  //console.log(daysList)
                   try {
                     const updated = await updatePlanMutation({
                       id: plan.id,

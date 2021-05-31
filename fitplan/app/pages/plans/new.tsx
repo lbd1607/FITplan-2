@@ -38,8 +38,23 @@ const NewPlanPage: BlitzPage = () => {
             // schema={CreatePlan}
             // initialValues={{}}
             onSubmit={async (values) => {
+              //Sort days of week as Mon - Sun before posting data
+              var daysList = values.days,
+                dayOrder = [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ]
+              daysList.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
+              //console.log(daysList)
+
               try {
-                const plan = await createPlanMutation(values)
+                const plan = await createPlanMutation(values, daysList)
+
                 router.push(`/plans/${plan.id}`)
               } catch (error) {
                 //console.error(error)

@@ -8,6 +8,7 @@ import { usePaginatedQuery } from "blitz"
 export { FORM_ERROR } from "app/core/components/Form"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { Plan } from "app/pages/plans/[planId]"
 
 // Use these to get workouts after .map bug fixed for useQuery
 // const workoutId = useParam("workoutId", "number")
@@ -185,6 +186,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
           </div>
         </div>
       </div>
+
       {<style jsx global>{``}</style>}
     </Form>
   )

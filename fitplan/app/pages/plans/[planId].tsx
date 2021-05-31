@@ -16,6 +16,15 @@ export const Plan = () => {
   const [deletePlanMutation] = useMutation(deletePlan)
   const [plan] = useQuery(getPlan, { id: planId })
 
+  /*  const [confirmModalIsOpen, confirmModalSetIsOpen] = useState(false)
+  function confirmOpenModal() {
+    confirmModalSetIsOpen(true)
+  }
+
+  let confirm = false
+  function confirmDelete(choice) {
+    return (confirm = choice)
+  } */
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   function openModal() {
     modalSetIsOpen(true)
@@ -29,19 +38,47 @@ export const Plan = () => {
   function getDayChip(days) {
     switch (days) {
       case "Monday":
-        return <div className="daysChip daySelected daysChipSm">M</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={0}>
+            M
+          </div>
+        )
       case "Tuesday":
-        return <div className="daysChip daySelected daysChipSm">Tu</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={1}>
+            Tu
+          </div>
+        )
       case "Wednesday":
-        return <div className="daysChip daySelected daysChipSm">W</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={2}>
+            W
+          </div>
+        )
       case "Thursday":
-        return <div className="daysChip daySelected daysChipSm">Th</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={3}>
+            Th
+          </div>
+        )
       case "Friday":
-        return <div className="daysChip daySelected daysChipSm">F</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={4}>
+            F
+          </div>
+        )
       case "Saturday":
-        return <div className="daysChip daySelected daysChipSm">Sa</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={5}>
+            Sa
+          </div>
+        )
       case "Sunday":
-        return <div className="daysChip daySelected daysChipSm">Su</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={6}>
+            Su
+          </div>
+        )
       default:
         break
     }
@@ -92,6 +129,7 @@ export const Plan = () => {
                   className="btn delete"
                   type="button"
                   onClick={async () => {
+                    // confirmOpenModal
                     if (window.confirm("Delete from Plans?")) {
                       await deletePlanMutation({ id: plan.id })
                       router.push("/plans")
@@ -107,6 +145,16 @@ export const Plan = () => {
         </div>
       </div>
       <div>
+        {/*  <Modal
+          className="modal"
+          isOpen={confirmModalIsOpen}
+          onRequestClose={closeModal}
+          portalClassName="reg-modal"
+        >
+          Delete from Plans?
+          <button onClick={confirmDelete(false)}>Cancel</button>
+          <button onClick={confirmDelete(true)}>Delete</button>
+        </Modal> */}
         <Modal
           className="modal"
           isOpen={modalIsOpen}

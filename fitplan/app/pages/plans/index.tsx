@@ -28,19 +28,47 @@ export const PlansList = () => {
   function getDayChip(days) {
     switch (days) {
       case "Monday":
-        return <div className="daysChip daySelected daysChipSm">M</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={0}>
+            M
+          </div>
+        )
       case "Tuesday":
-        return <div className="daysChip daySelected daysChipSm">Tu</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={1}>
+            Tu
+          </div>
+        )
       case "Wednesday":
-        return <div className="daysChip daySelected daysChipSm">W</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={2}>
+            W
+          </div>
+        )
       case "Thursday":
-        return <div className="daysChip daySelected daysChipSm">Th</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={3}>
+            Th
+          </div>
+        )
       case "Friday":
-        return <div className="daysChip daySelected daysChipSm">F</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={4}>
+            F
+          </div>
+        )
       case "Saturday":
-        return <div className="daysChip daySelected daysChipSm">Sa</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={5}>
+            Sa
+          </div>
+        )
       case "Sunday":
-        return <div className="daysChip daySelected daysChipSm">Su</div>
+        return (
+          <div className="daysChip daySelected daysChipSm" key={6}>
+            Su
+          </div>
+        )
       default:
         break
     }
