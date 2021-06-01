@@ -89,6 +89,7 @@ export const Plan = () => {
       <Head>
         <title>{plan.planName}</title>
       </Head>
+      {/*  <pre>{JSON.stringify(plan, null, 2)}</pre> */}
       <div className="card-container-parent w-2/6">
         <div className="card-container">
           <div className="card py-6 ">

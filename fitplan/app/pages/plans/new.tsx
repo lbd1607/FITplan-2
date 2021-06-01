@@ -39,7 +39,7 @@ const NewPlanPage: BlitzPage = () => {
             // initialValues={{}}
             onSubmit={async (values) => {
               //Sort days of week as Mon - Sun before posting data
-              var daysList = values.days,
+              var daysList = values.days || [],
                 dayOrder = [
                   "Monday",
                   "Tuesday",
@@ -62,6 +62,8 @@ const NewPlanPage: BlitzPage = () => {
                   return { [FORM_ERROR]: "Enter a plan name." }
                 } else if (!values.workouts) {
                   return { [FORM_ERROR]: "Select a workout." }
+                } else if (!values.days) {
+                  return { [FORM_ERROR]: "Select days." }
                 } else {
                   return {
                     [FORM_ERROR]: error.toString(),

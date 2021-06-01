@@ -209,11 +209,11 @@
   }
   /* Main container for dropdown */
   .dropdown-parent {
-    @apply w-full rounded-md border border-gray-400 px-2 py-2 bg-blue-100 text-gray-800 grid;
+    @apply w-full rounded-md border border-gray-400 px-2 py-2 bg-blue-100 text-gray-800 grid mb-4;
   }
   /* Custom field styling for dropdown */
   .dropdown-field {
-    @apply w-full row-start-1 col-start-1 bg-transparent;
+    @apply w-full row-start-1 col-start-1 bg-transparent z-10;
   }
   /* Styling for caret square icon */
   .dropdown-caret {

@@ -78,7 +78,7 @@ model Workout {
 
 model Exercise {
   id         Int      @id @default(autoincrement())
-  exName     String
+  exName     String   @unique
   exType     String
   interval   String?
   exInterval String?
