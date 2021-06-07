@@ -14,62 +14,10 @@ import { Plan } from "app/pages/plans/[planId]"
 // const workoutId = useParam("workoutId", "number")
 // const [workouts] = useQuery(getWorkouts, { where: { id: workoutId } })
 
-export function PlanFormFields<S extends z.ZodType<any, any>>(
-  props: FormProps<S>
-  /* workoutInputs: ["workoutInput-0"] */
-) {
-  //console.log(props)
+export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const [{ workouts }] = usePaginatedQuery(getWorkouts, {
     orderBy: { id: "asc" },
   })
-
-  let defaultWorkout = workouts.map((workout) => workout.workoutName)
-
-  //const [addAnotherWorkout] = useState()
-  let workoutInputId = 0
-
-  const [workoutInputs, setWorkoutInput] = useState([{ workouts: "" }])
-
-  const addAnotherWorkout = () => {
-    setWorkoutInput([...workoutInputs, { workouts: "" }])
-  }
-
-  const handleWorkoutChange = (workoutInputId, e) => {
-    const [selectedOption, setSelectedOption] = useState(workoutInputId.value)
-    setSelectedOption(e.target.value)
-  }
-
-  /* const handleWorkoutChange = (workoutInputId, e) => {
-    const vals = [...workoutInputs]
-    vals[workoutInputId][e.target.name] = e.target.value
-    setWorkoutInput(vals)
-  } */
-
-  /* const handleWorkoutChange = (workoutInputId, e) => {
-    const vals = [...workoutInputs]
-    vals[workoutInputId][e.target.name] = e.target.value
-    setWorkoutInput(vals)
-  } */
-
-  /* const handleWorkoutChange = (workoutInputId, e) => {
-    const newWorkoutInputs = workoutInputs.map((i) => {
-      if (workoutInputId === i.id) {
-        i[e.target.name] = e.target.value
-      }
-      return i
-    })
-    setWorkoutInput(newWorkoutInputs)
-  } */
-
-  const removeWorkout = (workoutInputId) => {
-    const vals = [...workoutInputs]
-    vals.splice(vals.findIndex((value) => value.workouts === workoutInputId, 1))
-    setWorkoutInput(vals)
-  }
-
-  /* const handleWorkoutSubmit = (e) => {
-    e.preventDefault();
-  } */
 
   return (
     <Form<S> {...props}>
@@ -190,67 +138,27 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(
               </div>
             </fieldset>
           </div>
-          {/* {this.state.inputs.map((input) => ( */}
 
           <div className="input-container required-field">
             <label className="formfieldlabel">Workouts</label>
-            {/* <button type="button" onClick={() => addAnotherWorkout(workoutInputs)}>
-              <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
-            </button> */}
-            <button type="button" onClick={() => addAnotherWorkout()}>
-              <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
-            </button>
-            <button type="button" onClick={() => removeWorkout(workoutInputId)}>
-              <FontAwesomeIcon icon="minus-circle" size="lg" className="deleteicon" />
-            </button>
+
             <div>
-              {workoutInputs.map((workoutInputs, workoutInputId) => (
-                <div key={workoutInputId}>
-                  <fieldset className="dropdown-parent">
-                    <Field
-                      {...workoutInputs}
-                      component="select"
-                      name="workouts"
-                      value={workoutInputs.workouts}
-                      defaultValue={defaultWorkout[0]}
-                      className="dropdown-field"
-                      onChange={(e) => handleWorkoutChange(workoutInputId, e)}
-                      id={workoutInputId}
-                    >
-                      {workouts.map((workout) => (
-                        <option key={workout.id} value={workout.workoutName}>
-                          {workout.workoutName}
-                        </option>
-                      ))}
-                    </Field>
-                    <FontAwesomeIcon icon="caret-down" size="lg" className="dropdown-caret" />{" "}
-                  </fieldset>
-                </div>
-              ))}{" "}
+              <div>
+                <fieldset className="dropdown-parent">
+                  <Field component="select" name="workouts" className="dropdown-field" multiple>
+                    {workouts.map((workout) => (
+                      <option
+                        className="hover:bg-gray-400"
+                        key={workout.id}
+                        value={workout.workoutName}
+                        label={workout.workoutName}
+                        defaultValue={workout.workoutName[0] || []}
+                      ></option>
+                    ))}
+                  </Field>
+                </fieldset>
+              </div>
             </div>
-            {/* {(workoutInputs) => {
-              return (
-                <div key={workoutInputs.workoutInput}>
-                  <div className="input-container required-field" {...workoutInputs}>
-                    <div className="dropdown-parent">
-                      <Field
-                        component="select"
-                        name="workouts"
-                        defaultValue={defaultWorkout[0]}
-                        className="dropdown-field"
-                      >
-                        {workouts.map((workout) => (
-                          <option key={workout.id} value={workout.workoutName}>
-                            {workout.workoutName}
-                          </option>
-                        ))}
-                      </Field>
-                      <FontAwesomeIcon icon="caret-down" size="lg" className="dropdown-caret" />{" "}
-                    </div>
-                  </div>
-                </div>
-              )
-            }} */}
           </div>
         </div>
       </div>

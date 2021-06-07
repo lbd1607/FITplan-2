@@ -5,7 +5,8 @@ import * as z from "zod"
 const CreatePlan = z
   .object({
     planName: z.string(),
-    workouts: z.string(),
+    // workouts: z.string(),
+    workouts: z.array(z.string()),
   })
   .nonstrict()
 

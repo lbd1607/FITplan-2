@@ -116,7 +116,7 @@ export const Plan = () => {
                   {plan.days.map((day) => getDayChip(day))}
                 </div>
               </span>
-              <p className="formfieldlabel">Workouts: {plan.workouts || "None"}</p>
+              <p className="formfieldlabel">Workouts: {plan.workouts.join(", ") || "None"}</p>
 
               <div className="flex flex-row justify-between mt-10">
                 <button className="btn edit" onClick={openModal}>

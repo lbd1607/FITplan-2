@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "TokenType" AS ENUM ('RESET_PASSWORD');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -33,7 +36,7 @@ CREATE TABLE "Token" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "hashedToken" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
+    "type" "TokenType" NOT NULL,
     "expiresAt" TIMESTAMP(3) NOT NULL,
     "sentTo" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
@@ -75,7 +78,7 @@ CREATE TABLE "Exercise" (
 CREATE TABLE "Plan" (
     "id" SERIAL NOT NULL,
     "planName" TEXT NOT NULL,
-    "workouts" TEXT NOT NULL,
+    "workouts" TEXT[],
     "days" TEXT[],
 
     PRIMARY KEY ("id")
@@ -92,6 +95,9 @@ CREATE UNIQUE INDEX "Token.hashedToken_type_unique" ON "Token"("hashedToken", "t
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Workout.workoutName_unique" ON "Workout"("workoutName");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Exercise.exName_unique" ON "Exercise"("exName");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Plan.planName_unique" ON "Plan"("planName");

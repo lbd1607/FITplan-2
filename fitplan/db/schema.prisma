@@ -96,7 +96,7 @@ model Exercise {
 model Plan {
   id       Int       @id @default(autoincrement())
   planName String    @unique
-  workouts String
+  workouts String[]
   Workout  Workout[]
   days     String[]
 }
