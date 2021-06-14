@@ -12,7 +12,7 @@ const NewPlanPage: BlitzPage = () => {
   return (
     <div className="items-center justify-center">
       <div className="card-container">
-        <div className="modal-card">
+        <div className="modal-card overflow-y-auto">
           <div className="cardcol">
             <div className="grid grid-cols-8">
               <h1 className="mb-5 col-span-7">Create New Plan</h1>
