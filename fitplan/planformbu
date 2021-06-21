@@ -1,0 +1,282 @@
+import React, { Suspense, useState, useRef } from "react"
+import { Form, FormProps } from "app/core/components/Form"
+import { LabeledTextField } from "app/core/components/LabeledTextField"
+import * as z from "zod"
+import { Field } from "react-final-form"
+import getWorkouts from "app/workouts/queries/getWorkouts"
+import { usePaginatedQuery, useQuery, useParam } from "blitz"
+export { FORM_ERROR } from "app/core/components/Form"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import getPlan from "app/plans/queries/getPlan"
+
+export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S>) {
+  const [{ workouts }] = usePaginatedQuery(getWorkouts, {
+    orderBy: { id: "asc" },
+  })
+
+  const Days = [""]
+
+  const a11yRef = useRef(null)
+  const editingId = useParam("planId", "number")
+  //Must check editingId first, otherwise validation assumes undefined id and fails on create new
+  if (!editingId) {
+    var currentState = [""]
+  } else {
+    const [editPlan] = useQuery(getPlan, { id: editingId })
+    var currentState = editPlan.days || [""]
+  }
+
+  const [workoutInputs, setWorkoutInput] = useState([{ days: "", workouts: "" }])
+
+  const addAnotherWorkout = () => {
+    setWorkoutInput([...workoutInputs, { days: "", workouts: "" }])
+  }
+
+  const handleWorkoutChange = (e, workoutInputId) => {
+    // const [setSelectedOption] = useState(workoutInputId.value)
+    /*    var vals = [...workoutInputs]
+    vals.splice(vals.findIndex((value) => value.workouts === workoutInputId, 1)) */
+    // const [, setWorkoutInput] = useState(workoutInputId.value)
+    // setWorkoutInput(e.target.value)
+    // setWorkoutInput(workoutInputId.value)
+    // var vals = [...workoutInputs]
+    // vals.findIndex((value) => value.workouts === workoutInputId, 1)
+    // setWorkoutInput(vals)
+    /* setWorkoutInput([...workoutInputs], workoutInputId.value) */
+    // setWorkoutInput(e.target.value)
+    /* const newVals = workoutInputs.map((i) => {
+      if (workoutInputId === i.id) {
+        i[e.target.name] = e.target.name
+      }
+      return i
+    })
+
+    setWorkoutInput(newVals) */
+    /* const newvals = [...workoutInputs]
+    newvals.findIndex((workoutInputId) => e.target.value)
+    setWorkoutInput(newvals) */
+
+    /*  const vals = [...workoutInputs]
+    vals[workoutInputId][e.target.name] = e.target.value
+    setWorkoutInput(vals) */
+    const newvals = [...workoutInputs]
+    newvals[workoutInputId] = e.target.value
+    setWorkoutInput(newvals)
+    console.log(newvals, workoutInputId)
+  }
+  /*    const handleWorkoutChange = (e, workoutInputId) => {
+    setWorkoutInput(e.target.name)
+  } */
+
+  const removeWorkout = (workoutInputId) => {
+    const vals = [...workoutInputs]
+    vals.splice(vals.findIndex((value) => value.workouts === workoutInputId, 1))
+    setWorkoutInput(vals)
+  }
+
+  const handleDayChange = (e, workoutInputId) => {
+    const newvals = [...workoutInputs]
+    newvals[workoutInputId] = e.target.value
+
+    // setWorkoutInput({days:newvals})
+    setWorkoutInput(newvals)
+    console.log(newvals, workoutInputId)
+  }
+
+  return (
+    <Form<S> {...props}>
+      <div className="modal-card-container-parent mb-10">
+        <div className="card p-0 shadow-none mb-0">
+          <div className="inner-scroll-parent">
+            <div className="inner-scroll mt-0 py-0">
+              <div className="cardcol py-0">
+                <div className="">
+                  <div className="input-container required-field">
+                    <label className="formfieldlabel">Plan Name</label>
+                    <LabeledTextField
+                      name="planName"
+                      label=""
+                      className="inputbox "
+                      aria-required="true"
+                    />
+                  </div>
+
+                  <div>
+                    {workoutInputs.map((workoutInputs, workoutInputId) => (
+                      <div className="border p-4 mt-6" key={workoutInputId}>
+                        <div>
+                          <button type="button" onClick={() => addAnotherWorkout()}>
+                            <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
+                          </button>
+                          <button type="button" onClick={() => removeWorkout(workoutInputId)}>
+                            <FontAwesomeIcon icon="minus-circle" size="lg" className="deleteicon" />
+                          </button>
+                        </div>
+
+                        <div className="input-container">
+                          <label className="formfieldlabel">Days of the Week</label>
+                          <fieldset className="grid grid-flow-col">
+                            <div className="dayParent">
+                              <Field
+                                name="days"
+                                value="Monday"
+                                id="mon"
+                                component="input"
+                                type="checkbox"
+                                className="noCheckbox"
+                                onChange={(e) => handleDayChange(e, workoutInputId)}
+                              />
+                              <label htmlFor="mon" className="daysChip ">
+                                {" "}
+                                M
+                              </label>
+                            </div>
+                            <div className="dayParent">
+                              <Field
+                                name="days"
+                                value="Tuesday"
+                                id="tue"
+                                component="input"
+                                type="checkbox"
+                                className="noCheckbox"
+                              />
+                              <label htmlFor="tue" className="daysChip ">
+                                {" "}
+                                Tu
+                              </label>
+                            </div>
+
+                            <div className="dayParent">
+                              <Field
+                                name="days"
+                                value="Wednesday"
+                                id="wed"
+                                component="input"
+                                type="checkbox"
+                                className="noCheckbox"
+                              />
+                              <label htmlFor="wed" className="daysChip ">
+                                {" "}
+                                W
+                              </label>
+                            </div>
+
+                            <div className="dayParent">
+                              <Field
+                                name="days"
+                                value="Thursday"
+                                id="thu"
+                                component="input"
+                                type="checkbox"
+                                className="noCheckbox"
+                              />
+                              <label htmlFor="thu" className="daysChip ">
+                                {" "}
+                                Th
+                              </label>
+                            </div>
+
+                            <div className="dayParent">
+                              <Field
+                                name="days"
+                                value="Friday"
+                                id="fri"
+                                component="input"
+                                type="checkbox"
+                                className="noCheckbox"
+                              />
+                              <label htmlFor="fri" className="daysChip ">
+                                {" "}
+                                F
+                              </label>
+                            </div>
+
+                            <div className="dayParent">
+                              <Field
+                                name="days"
+                                value="Saturday"
+                                id="sat"
+                                component="input"
+                                type="checkbox"
+                                className="noCheckbox"
+                              />
+                              <label htmlFor="sat" className="daysChip ">
+                                {" "}
+                                Sa
+                              </label>
+                            </div>
+
+                            <div className="dayParent">
+                              <Field
+                                name="days"
+                                value="Sunday"
+                                id="sun"
+                                component="input"
+                                type="checkbox"
+                                className="noCheckbox"
+                              />
+                              <label htmlFor="sun" className="daysChip ">
+                                {" "}
+                                Su
+                              </label>
+                            </div>
+                          </fieldset>
+                        </div>
+
+                        <div className="input-container required-field">
+                          <label className="formfieldlabel">Workouts</label>
+
+                          <div>
+                            <fieldset className="dropdown-parent">
+                              <Field
+                                component="select"
+                                name="workouts"
+                                className="dropdown-field"
+                                /*  onChange={handleWorkoutChange.bind(workoutInputs, workoutInputId)} */
+                                onChange={(e) => handleWorkoutChange(e, workoutInputId)}
+                                // onChange={(e) => handleWorkoutChange(e, workoutInputId)}
+                                key={workoutInputId}
+                                multiple
+                              >
+                                {workouts.map((workout) => (
+                                  <option
+                                    key={workout.id}
+                                    value={workout.workoutName}
+                                    label={workout.workoutName}
+                                    defaultValue={workout.workoutName[0] || []}
+                                  ></option>
+                                ))}
+                              </Field>
+                              <FontAwesomeIcon
+                                icon="caret-down"
+                                size="lg"
+                                className="dropdown-caret"
+                              />{" "}
+                            </fieldset>
+                          </div>
+                        </div>
+                      </div>
+                    ))}{" "}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {<style jsx global>{``}</style>}
+    </Form>
+  )
+}
+
+export function PlanForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <PlanFormFields<S> {...props} />
+      </Suspense>
+    </div>
+  )
+}
