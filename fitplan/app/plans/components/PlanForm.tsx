@@ -23,22 +23,43 @@ function DayGroup() {
     return daygroupid
   }
 
-  const [workoutInputs, setInputFields] = useState([{ id: randid(), workouts: "", days: [""] }])
+  // const [workoutInputs, setInputFields] = useState([{ id: randid(), workouts: "", days: [""] }])
+  const [workoutInputs, setInputFields] = useState([{ id: randid(), workouts: "" }])
 
-  const handleWorkoutChange = (id, event) => {
-    const newInputFields = workoutInputs.map((i) => {
-      if (id === i.id) {
-        i[event.target.name] = event.target.value
-      }
-      console.log(i)
-      return i
+  const [dayInputs, setDayInputs] = useState([{ id: randid(), days: [""] }])
+
+  const handleWorkoutChange = (value, id) => {
+    const newInputFields = workoutInputs.map((item) => {
+      // if (id === item.id) {
+      // i[e.target.name] = e.target.value
+      // }
+      //  (i.id === id) ? {...i, value: !i} : i
+
+      //setInputFields({ ...workoutInputs, [item.id]: value })
+
+      // return value
+
+      return { id: item.id, workouts: value }
     })
+    //setInputFields({ ...workoutInputs, [item.id]: value })
+    // })
 
     setInputFields(newInputFields)
+    //setInputFields(value)
+    console.log(newInputFields)
+    //console.log(value)
   }
 
+  const handleDayChange = (value, id) => {
+    const newInputFields = dayInputs.map((item) => {
+      return { id: item.id, days: value }
+    })
+
+    setDayInputs(newInputFields)
+  }
   const addAnotherWorkout = () => {
-    setInputFields([...workoutInputs, { id: randid(), workouts: "", days: [""] }])
+    // setInputFields([...workoutInputs, { id: randid(), workouts: "", days: [""] }])
+    setInputFields([...workoutInputs, { id: randid(), workouts: "" }])
   }
 
   const removeWorkout = (id) => {
@@ -83,15 +104,15 @@ function DayGroup() {
                               {/*     <Field name="days" type="checkbox"> */}
                               {/*     {(props) => {
                                   return ( */}
-                              <div className="dayParent">
+                              {/*   <div className="dayParent">
                                 <input
-                                  /*   {...props.input} */
+                               
                                   name="days"
                                   value="Monday"
                                   id="mon"
                                   className="noCheckbox"
                                   type="checkbox"
-                                  // onChange={props.input.onChange}
+                                
                                   onChange={(e) => handleWorkoutChange(workoutInput.id, e)}
                                   key={workoutInput.id}
                                 />
@@ -99,25 +120,29 @@ function DayGroup() {
                                   {" "}
                                   M
                                 </label>
-                              </div>
-                              <div className="dayParent">
-                                <input
-                                  /*   {...props.input} */
-                                  name="days"
-                                  value="Tuesday"
-                                  id="tue"
-                                  className="noCheckbox"
-                                  type="checkbox"
-                                  // onChange={props.input.onChange}
+                              </div> */}
 
-                                  onChange={(e) => handleWorkoutChange(workoutInput.id, e)}
-                                  key={workoutInput.id}
+                              <div className="dayParent">
+                                <Field
+                                  name="days"
+                                  value="Monday"
+                                  id="mon"
+                                  component="input"
+                                  type="checkbox"
+                                  className="noCheckbox"
                                 />
-                                <label htmlFor="tue" className="daysChip ">
+
+                                <OnChange name="days">
+                                  {(value, workoutInput) => {
+                                    handleDayChange(value, workoutInput.id)
+                                  }}
+                                </OnChange>
+                                <label htmlFor="mon" className="daysChip ">
                                   {" "}
-                                  T
+                                  M
                                 </label>
                               </div>
+
                               {/*     )
                                 }} */}
                               {/*      </Field> */}
@@ -218,11 +243,14 @@ function DayGroup() {
 
                             <div>
                               <fieldset className="dropdown-parent">
-                                <select
+                                <Field
                                   name="workouts"
+                                  component="select"
                                   className="dropdown-field"
-                                  onChange={(e) => handleWorkoutChange(workoutInput.id, e)}
                                   key={workoutInput.id}
+                                  // onChange={(e) => {
+                                  //   handleWorkoutChange(workoutInput.id, e)
+                                  // }}
                                   multiple
                                 >
                                   {workouts.map((workout) => (
@@ -233,7 +261,12 @@ function DayGroup() {
                                       defaultValue={workout.workoutName[0] || []}
                                     ></option>
                                   ))}
-                                </select>
+                                  <OnChange name="workouts">
+                                    {(value) => {
+                                      handleWorkoutChange(value, workoutInput.id)
+                                    }}
+                                  </OnChange>
+                                </Field>
                               </fieldset>
                             </div>
                           </div>

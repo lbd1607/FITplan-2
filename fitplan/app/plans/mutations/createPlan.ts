@@ -7,6 +7,7 @@ const CreatePlan = z
     planName: z.string(),
     // workouts: z.string(),
     workouts: z.array(z.string()),
+    days: z.array(z.string()),
   })
   .nonstrict()
 
