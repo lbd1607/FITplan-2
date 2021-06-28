@@ -35,25 +35,13 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
     setDayInputs(newInputFields)
   }
 
-  /*  const handleWorkoutChange = (workoutId, newval) => {
+  const handleWorkoutChange = (workoutId, newval) => {
     const newInputFields = workoutInputs.map((workoutObj) => {
       if (workoutId === workoutObj.id) {
         workoutObj[workoutId] = newval
       }
       return workoutObj
     })
-    setInputFields(newInputFields)
-    console.log(newInputFields)
-  } */
-
-  const handleWorkoutChange = (fieldId, event) => {
-    const newInputFields = workoutInputs.map((item) => {
-      if (fieldId === item.id) {
-        item[event.target.name] = event.target.value
-      }
-      return item
-    })
-
     setInputFields(newInputFields)
     console.log(newInputFields)
   }
@@ -106,8 +94,8 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
                                   />
 
                                   <OnChange name="days">
-                                    {(event, workoutInput) => {
-                                      handleDayChange(event, workoutInput.id)
+                                    {(value, workoutInput) => {
+                                      handleDayChange(value, workoutInput.id)
                                     }}
                                   </OnChange>
                                   <label htmlFor="mon" className="daysChip ">
@@ -123,38 +111,28 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
 
                               <div>
                                 <div className="dropdown-parent">
-                                  <Field name="workouts" type="select">
-                                    {(workoutInputs) => (
-                                      <div>
-                                        <select
-                                          name={workoutInputs.input.name}
-                                          className="dropdown-field"
-                                          key={workoutInput.id}
-                                          value={workoutInputs.input.value[0]}
-                                          // value={if using built in onchange and calling custom handler onchangecapture[workoutInputs.input.value]}
-                                          // onChange={workoutInputs.input.onChange}
-                                          onChange={(e) => {
-                                            handleWorkoutChange(workoutInput.id, e)
-                                          }}
-                                          multiple
-                                        >
-                                          {workouts.map((workout) => (
-                                            <option
-                                              key={workout.id}
-                                              value={workout.workoutName}
-                                              label={workout.workoutName}
-                                              defaultValue={workout.workoutName[0] || []}
-                                            ></option>
-                                          ))}
-                                        </select>
-                                      </div>
-                                    )}
+                                  <Field
+                                    name="workouts"
+                                    component="select"
+                                    className="dropdown-field"
+                                    key={workoutInput.id}
+                                    multiple
+                                  >
+                                    {workouts.map((workout) => (
+                                      <option
+                                        key={workout.id}
+                                        value={workout.workoutName}
+                                        label={workout.workoutName}
+                                        defaultValue={workout.workoutName[0] || []}
+                                      ></option>
+                                    ))}
+
+                                    <OnChange name="workouts">
+                                      {(event) => {
+                                        handleWorkoutChange(workoutInput.id, event)
+                                      }}
+                                    </OnChange>
                                   </Field>
-                                  {/* <OnChange name="workouts">
-                                    {(value) => {
-                                      handleWorkoutChange(workoutInput.id, value)
-                                    }}
-                                  </OnChange> */}
                                 </div>
                               </div>
                             </div>
