@@ -101,7 +101,7 @@
   }
   /* Cards */
   .card {
-    @apply relative flex-col break-words w-full shadow-lg rounded-lg bg-white border-0 p-6 overflow-hidden pb-8 mb-8;
+    @apply relative flex-col break-words w-full shadow-lg rounded-lg bg-white border-0 px-8 py-6 overflow-hidden pb-8 mb-8;
   }
   /* Main column for cards */
   .cardcol {

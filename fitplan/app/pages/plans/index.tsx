@@ -6,7 +6,7 @@ import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import NewPlanPage from "./new"
-import { array } from "zod"
+import { DragDropContext } from "react-beautiful-dnd"
 
 Modal.setAppElement("#__next")
 
@@ -136,7 +136,9 @@ const PlansPage: BlitzPage = () => {
             <div className="inner-scroll">
               <div className="">
                 <Suspense fallback={<div>Loading...</div>}>
-                  <PlansList />
+                  <DragDropContext onDragEnd={this.onDragEnd}>
+                    <PlansList />
+                  </DragDropContext>
                 </Suspense>
               </div>
             </div>
