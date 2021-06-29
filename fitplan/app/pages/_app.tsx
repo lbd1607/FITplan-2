@@ -5,6 +5,7 @@ import {
   AuthenticationError,
   AuthorizationError,
   ErrorFallbackProps,
+  Link,
 } from "blitz"
 import { ErrorBoundary } from "react-error-boundary"
 import { queryCache } from "react-query"
@@ -67,10 +68,13 @@ function RootErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
     return <LoginForm onSuccess={resetErrorBoundary} />
   } else if (error instanceof AuthorizationError) {
     return (
-      <ErrorComponent
-        statusCode={error.statusCode}
-        title="Sorry, you are not authorized to access this"
-      />
+      <>
+        <Link href="/login" />
+        <ErrorComponent
+          statusCode={error.statusCode}
+          title="Sorry, you are not authorized to access this"
+        />
+      </>
     )
   } else {
     return (

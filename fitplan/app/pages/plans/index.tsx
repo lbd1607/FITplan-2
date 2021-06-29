@@ -117,7 +117,7 @@ const PlansPage: BlitzPage = () => {
   return (
     <>
       <Head>
-        <title>Weekly Plans</title>
+        <title>Plans</title>
       </Head>
 
       <div className="card-container-parent">
@@ -125,7 +125,7 @@ const PlansPage: BlitzPage = () => {
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
               <h1>
-                Weekly Plans {/* original link without modal <Link href="/plans/new"> */}
+                Plans {/* original link without modal <Link href="/plans/new"> */}
                 {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
                 <button onClick={openModal}>
                   <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />

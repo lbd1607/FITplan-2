@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useState } from "react"
+import React, { Fragment, Suspense, useState } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, useMutation } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getWorkouts from "app/workouts/queries/getWorkouts"

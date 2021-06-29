@@ -30,12 +30,12 @@ const UserInfo = () => {
     return (
       <>
         <Link href="/signup">
-          <a className="button small">
+          <a className="btn save">
             <strong>Sign Up</strong>
           </a>
         </Link>
         <Link href="/login">
-          <a className="button small">
+          <a className="btn save">
             <strong>Login</strong>
           </a>
         </Link>
@@ -108,7 +108,7 @@ const Home: BlitzPage = () => {
                 <div className="inner-scroll-parent">
                   <div className="inner-scroll-heading">
                     <h1>
-                      Weekly Plans
+                      Plans
                       <Link href="/plans">
                         <span>
                           <FontAwesomeIcon
