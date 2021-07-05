@@ -303,7 +303,7 @@
   }
   /* Style for days chip (Weekly Plans), default unchecked bg gray */
   .daysChip {
-    @apply rounded-full h-10 w-10 flex items-center justify-center bg-gray-500 text-white font-bold;
+    @apply rounded-full h-10 w-10 flex items-center justify-center bg-gray-500 text-white font-bold select-none;
   }
   /* Make days chip smaller */
   .daysChipSm {

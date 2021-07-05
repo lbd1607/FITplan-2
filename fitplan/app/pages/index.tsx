@@ -59,7 +59,7 @@ const Home: BlitzPage = () => {
                 <div className="inner-scroll-parent">
                   <div className="inner-scroll-heading">
                     <h1>
-                      Current Workout
+                      Today's Workout
                       <Link href="/">
                         <span>
                           <FontAwesomeIcon

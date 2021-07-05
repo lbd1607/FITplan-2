@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useState } from "react"
+import { Fragment, Suspense, useState, useRef } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getPlans from "app/plans/queries/getPlans"
@@ -6,7 +6,8 @@ import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import NewPlanPage from "./new"
-import { DragDropContext } from "react-beautiful-dnd"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import { idText } from "typescript"
 
 Modal.setAppElement("#__next")
 
@@ -74,36 +75,94 @@ export const PlansList = () => {
     }
   }
 
+  const randid = () => {
+    var i = () => {
+      return ((1 + Math.random()) * 0x10000) | 0
+    }
+    const daygroupid = i() + i() + i() + i() + i() + i()
+    return daygroupid
+  }
+  const itemsFromBackend = [{ id: randid() }]
+
+  const colItems = {
+    [randid()]: {
+      name: "Todo",
+      items: itemsFromBackend,
+    },
+  }
+  const [columns, setColumns] = useState(colItems)
+
+  const onDragEnd = (result, columns, setColumns) => {
+    if (!result.destination) return
+    const { source, destination } = result
+    const column = columns[source.droppableId]
+    const copiedItems = [...column.items]
+    const [removed] = copiedItems.splice(source.index, 1)
+    copiedItems.splice(destination.index, 0, removed)
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...column,
+        items: copiedItems,
+      },
+    })
+  }
+
   if (plans.length <= 0) {
     return <div className="m-4">No plans to show ...</div>
   } else
     return (
-      <div>
-        <ul>
-          {plans.map((plan) => (
-            <Link href={`/plans/${plan.id}`} key={plan.id}>
-              <li className="itemrow">
-                <a>{plan.planName}</a>
-                <div className="grid grid-flow-col float-right mr-4 gap-2">
-                  {/* Map though days array so each is displayed here as chip */}
-                  {plan.days.map((day) => getDayChip(day))}
-                </div>
-              </li>
-            </Link>
-          ))}
-        </ul>
-
-        {/* <button disabled={page === 0} onClick={goToPreviousPage}>
-        Previous
-      </button>
-      <button disabled={!hasMore} onClick={goToNextPage}>
-        Next
-      </button> */}
-      </div>
+      <DragDropContext {...columns} onDragEnd={onDragEnd}>
+        {Object.entries(columns).map(([id, column]) => {
+          return (
+            <Droppable droppableId={id.toString()} key={id}>
+              {(provided) => {
+                return (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {column.items.map((item, index) => {
+                      return (
+                        <ul key={id}>
+                          {plans.map((plan) => (
+                            <Link href={`/plans/${plan.id}`} key={plan.id}>
+                              <span>
+                                <Draggable
+                                  key={item.id.toString()}
+                                  draggableId={item.id.toString()}
+                                  index={index}
+                                >
+                                  {(provided) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                    >
+                                      <li className="itemrow">
+                                        <a className="select-none">{plan.planName}</a>
+                                        <div className="grid grid-flow-col float-right mr-4 gap-2">
+                                          {/* Map though days array so each is displayed here as chip */}
+                                          {plan.days.map((day) => getDayChip(day))}
+                                        </div>
+                                      </li>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              </span>
+                            </Link>
+                          ))}
+                        </ul>
+                      )
+                    })}
+                  </div>
+                )
+              }}
+            </Droppable>
+          )
+        })}
+      </DragDropContext>
     )
 }
 
-const PlansPage: BlitzPage = () => {
+const PlansPage: BlitzPage = (planId, plan) => {
   /* Setup modal, contain modal open and close functions */
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   const openModal = () => {
@@ -114,6 +173,7 @@ const PlansPage: BlitzPage = () => {
     // router.push("/")
     return <Link href="/" />
   }
+
   return (
     <>
       <Head>
@@ -136,9 +196,7 @@ const PlansPage: BlitzPage = () => {
             <div className="inner-scroll">
               <div className="">
                 <Suspense fallback={<div>Loading...</div>}>
-                  <DragDropContext onDragEnd={this.onDragEnd}>
-                    <PlansList />
-                  </DragDropContext>
+                  <PlansList />
                 </Suspense>
               </div>
             </div>
