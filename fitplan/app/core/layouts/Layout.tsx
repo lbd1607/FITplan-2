@@ -100,7 +100,7 @@ class Nav extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <h3 className="brand">f.i.t.plan</h3>
+        <h3 className="brand tracking-wider">FITPLAN</h3>
 
         <div className="px-6 py-5 flex-none">
           <ul className="navlinks">

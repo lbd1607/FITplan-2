@@ -7,6 +7,7 @@ import { useQuery, useParam, BlitzPage, Link } from "blitz"
 import getWorkout from "app/workouts/queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { v4 as uuid } from "uuid"
 
 export { FORM_ERROR } from "app/core/components/Form"
 

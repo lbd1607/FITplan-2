@@ -94,10 +94,12 @@ model Exercise {
 }
 
 model Plan {
-  id       Int       @id @default(autoincrement())
-  planName String    @unique
-  workouts String[]
-  Workout  Workout[]
-  days     String[]
+  id         Int       @id @default(autoincrement())
+  planName   String    @unique
+  workouts   String[]
+  Workout    Workout[]
+  days       String[]
+  itemOrder  Int?
+  groupOrder Int?
 
 }

@@ -30,6 +30,9 @@
   .scrollbar-hidden {
     scrollbar-width: none;
   }
+  body {
+    @apply bg-gray-100;
+  }
 
   /*---------------------------------- Standard Text ------------------------------------*/
   h1 {
@@ -39,7 +42,7 @@
     @apply text-xl font-sans not-italic font-bold text-gray-600;
   }
   h3 {
-    @apply text-lg font-sans not-italic font-medium text-gray-600;
+    @apply text-base font-sans not-italic font-medium text-gray-600;
   }
   p {
     @apply text-sm font-sans not-italic font-normal text-gray-800;
@@ -97,11 +100,11 @@
   }
   /* Parent div for cards */
   .card-container {
-    @apply flex-auto mx-10 overflow-y-auto scrollbar-hidden rounded-lg max-h-screen;
+    @apply flex-auto mx-10 overflow-y-auto scrollbar-hidden rounded-sm max-h-screen;
   }
   /* Cards */
   .card {
-    @apply relative flex-col break-words w-full shadow-lg rounded-lg bg-white border-0 px-8 py-6 overflow-hidden pb-8 mb-8;
+    @apply relative flex-col break-words w-full shadow-lg rounded-sm bg-white border-0 px-8 py-6 overflow-hidden pb-8 mb-8;
   }
   /* Main column for cards */
   .cardcol {
@@ -138,11 +141,11 @@
   }
   /* Cards */
   .modal-card {
-    @apply relative flex-col min-w-0 break-words w-full rounded-lg bg-white border-0 my-6 p-6 overflow-hidden;
+    @apply relative flex-col min-w-0 break-words w-full rounded-sm bg-white border-0 my-6 p-6 overflow-hidden;
   }
   /* Logout Modal */
   .logout-modal {
-    @apply relative float-right min-w-0 bg-gray-600 shadow  rounded-md mb-6 mr-10 mt-14 p-1 w-32 h-24;
+    @apply relative float-right min-w-0 bg-gray-600 shadow  rounded-sm mb-6 mr-10 mt-14 p-1 w-32 h-24;
   }
   /* Style link for Log Out */
   .logout-link {
