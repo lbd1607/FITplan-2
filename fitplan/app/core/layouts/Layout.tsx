@@ -25,7 +25,7 @@ export const Avatar = (props) => {
     const draw = (ctx) => {
       /* Draw rectangle, then form into circle for avatar */
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-      ctx.fillStyle = "#4b5563"
+      ctx.fillStyle = "rgba(75, 85, 99)"
       ctx.beginPath()
       ctx.arc(20, 20, 20, 0, 2 * Math.PI)
       /* Draw text in avatar circle */
@@ -60,7 +60,7 @@ export const Avatar = (props) => {
     }
     return (
       <>
-        <button className="p-2 ml-48" onClick={openModal}>
+        <button className="p-2 ml-48 pr-5" onClick={openModal}>
           <canvas className="avatar-canvas" ref={canvasRef} {...props} />
         </button>
         <div>
@@ -100,7 +100,10 @@ class Nav extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <h3 className="brand tracking-wider">FITPLAN</h3>
+        <div className="flex flex-row flex-initial">
+          <img src="/fitplanIcon.svg" alt="" className="h-6 my-4 ml-6" />
+          <h3 className="brand tracking-wider">FITPLAN</h3>
+        </div>
 
         <div className="px-6 py-5 flex-none">
           <ul className="navlinks">
@@ -138,7 +141,7 @@ const Layout = ({ title, children }: LayoutProps) => {
     <>
       <Head>
         <title>{title || "fitplan"}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/fitplanIcon.svg" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"

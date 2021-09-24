@@ -67,7 +67,7 @@
     @apply text-gray-800;
   }
   .navbar .brand {
-    @apply font-sans text-xl font-bold text-left p-4 ml-3 mr-3;
+    @apply font-sans text-xl font-bold text-left p-4 pl-0 ml-3 mr-3;
   }
   .avatar {
     @apply m-4 object-center;
