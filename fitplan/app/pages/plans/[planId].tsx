@@ -7,6 +7,13 @@ import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import EditPlanPage from "./[planId]/edit"
+import { WorkoutsList } from "../workouts"
+import { ExercisesList } from "../exercises"
+import getWorkout from "app/workouts/queries/getWorkout"
+import getWorkouts from "app/workouts/queries/getWorkouts"
+import getExercises from "app/exercises/queries/getExercises"
+import { v4 as uuid } from "uuid"
+import { PlansList } from "."
 
 Modal.setAppElement("#__next")
 
@@ -20,11 +27,32 @@ export const Plan = () => {
   function confirmOpenModal() {
     confirmModalSetIsOpen(true)
   }
+  
 
   let confirm = false
   function confirmDelete(choice) {
     return (confirm = choice)
   } */
+
+  const [{ exercises }] = useQuery(getExercises, {
+    orderBy: { id: "asc" },
+  })
+  const workoutId = useParam("workoutId", "number")
+
+  const [{ workouts }] = useQuery(getWorkouts, {
+    orderBy: { id: "asc" },
+  })
+  /* const [workout] = useQuery(getWorkout, { id: workoutId }) */
+
+  //Must check to see if workoutId exists first or validation throws undefined id error
+  if (!workoutId) {
+    var thisWorkoutId = 0
+  } else {
+    const [workout] = useQuery(getWorkout, { id: workoutId })
+
+    var thisWorkoutId = workout.id
+  }
+
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   function openModal() {
     modalSetIsOpen(true)
@@ -89,10 +117,10 @@ export const Plan = () => {
       <Head>
         <title>{plan.planName}</title>
       </Head>
-      {/*  <pre>{JSON.stringify(plan, null, 2)}</pre> */}
-      <div className="card-container-parent w-2/6">
-        <div className="card-container">
-          <div className="card py-6 ">
+
+      <div className="card-container-parent w-2/6 ">
+        <div className="card-container ">
+          <div className="card py-6 border-gray-200 border">
             <div className="rounded-t mb-0 px-6 py-6 ">
               <div className="grid grid-cols-8">
                 <h1 className="mb-10 col-span-7">{plan.planName}</h1>
@@ -111,12 +139,40 @@ export const Plan = () => {
               <span>
                 <div className="flex flex-row space-x-3">
                   <p className="formfieldlabel">Days: </p>
-                  {/* <p className="formfieldlabel">Days: {plan.days.join(", ") || "None"}</p> */}
+
                   {/* Map though days array so each is displayed here as chip */}
                   {plan.days.map((day) => getDayChip(day))}
                 </div>
               </span>
-              <p className="formfieldlabel">Workouts: {plan.workouts.join(", ") || "None"}</p>
+              {/*   <p className="formfieldlabel">Workouts: {plan.workouts.join(", ") || "None"}</p> */}
+
+              {/* Map through plan.workouts and get single assigned workout. If the name of assigned workout is the same as the workout name, then map the exercises to each workout. This only works because workoutName is required to be a unique value in the schema. */}
+              <ul>
+                {plan.workouts.map((assignedWorkout) =>
+                  workouts.map((workout) =>
+                    assignedWorkout === workout.workoutName ? (
+                      <ul key={uuid()}>
+                        <div key={uuid()}>
+                          <ul className="formfieldlabel" key={thisWorkoutId}>
+                            Workout: {workout.workoutName}
+                            {exercises.map((exercise) =>
+                              exercise.workoutId === workout.id ? (
+                                <li className="list-disc ml-8" key={exercise.id}>
+                                  {exercise.exName}
+                                </li>
+                              ) : (
+                                ""
+                              )
+                            )}
+                          </ul>
+                        </div>
+                      </ul>
+                    ) : (
+                      ""
+                    )
+                  )
+                )}
+              </ul>
 
               <div className="flex flex-row justify-between mt-10">
                 <button className="btn edit" onClick={openModal}>

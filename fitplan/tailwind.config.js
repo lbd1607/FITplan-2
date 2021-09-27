@@ -11,6 +11,9 @@ module.exports = {
         teal: colors.teal,
         emerald: colors.emerald,
       },
+      backgroundImage: {
+        hero: "url(/weights.jpg)",
+      },
     },
     fontFamily: {
       sans: [

@@ -11,9 +11,10 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <DocumentHead />
-
-        <body className="bg-gray-200">
+        {/* Photo by Greg Rosenke on Unsplash bg-hero bg-contain bg-left bg-no-repeat  */}
+        <body className="bg-gray-50">
           <Main />
+
           <BlitzScript />
         </body>
       </Html>

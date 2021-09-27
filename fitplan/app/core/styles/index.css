@@ -52,22 +52,27 @@
     @apply p-20;
   }
   .navbar {
-    @apply w-full h-16 flex mb-8 pb-1 bg-white;
+    @apply w-full h-16 flex mb-8;
+    /* bg-white border border-gray-200 */
   }
   .navbar ul {
     @apply pl-4;
   }
   .navbar li {
-    @apply float-left;
+    @apply float-left px-6;
   }
   .navbar a {
-    @apply py-6 px-5 text-gray-400 no-underline text-base font-sans font-medium text-left;
+    @apply pb-2 text-gray-400 no-underline text-base font-sans font-medium text-left;
   }
   .navbar a:hover {
     @apply text-gray-800;
   }
+  .navbar .active > a {
+    @apply text-gray-600 border-purple-600 border-b-2;
+    /* border-purple-600 border-b-2 */
+  }
   .navbar .brand {
-    @apply font-sans text-xl font-bold text-left p-4 pl-0 ml-3 mr-3;
+    @apply font-sans text-xl font-bold text-left p-4 pl-0 mr-3;
   }
   .avatar {
     @apply m-4 object-center;
@@ -82,12 +87,13 @@
   /*---------------------------------------- Cards, Containers, and Modals --------------------------------------*/
   /* Parent container of fullscreen list */
   .list-card {
-    @apply card mx-20 mb-14;
+    @apply card mx-20 mb-14 border border-gray-200;
   }
   /* Parent container for dashboard cards */
   .dash-card {
-    @apply card mx-0 my-0 px-8;
+    @apply card mx-0 my-0 px-8 border border-gray-200;
   }
+
   /* Parent div for card container, wraps card-container and card */
   .card-container-parent {
     @apply flex w-full mx-auto justify-center;
@@ -117,7 +123,7 @@
   }
   /* Heading section for inner scroll container */
   .inner-scroll-heading {
-    @apply absolute left-0 right-0 top-0 bg-white py-3;
+    @apply absolute left-0 right-0 top-0 bg-transparent py-3;
   }
   /* Card inner scroll container */
   .inner-scroll {
@@ -141,7 +147,7 @@
   }
   /* Cards */
   .modal-card {
-    @apply relative flex-col min-w-0 break-words w-full rounded-sm bg-white border-0 my-6 p-6 overflow-hidden;
+    @apply relative flex-col min-w-0 break-words w-full rounded-sm bg-white border-gray-200 border-2 my-6 p-6 overflow-hidden;
   }
   /* Logout Modal */
   .logout-modal {

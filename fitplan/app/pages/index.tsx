@@ -54,10 +54,18 @@ const Home: BlitzPage = () => {
 
         <div className="card-container-parent">
           <div className="flex-1 mx-9 my-0 mb-8 px-6 pb-6 ">
-            <div className="grid grid-cols-12 grid-rows-4 gap-4 grid-flow-row h-full">
-              <div className="col-start-1 col-span-7 row-start-1 row-span-4 dash-card">
+            <div
+              className="grid grid-cols-12 grid-rows-4 gap-4 grid-flow-row h-full "
+              /* style={{ background: "rgba(255, 255, 255, 0.8)" }} */
+            >
+              {/* className="col-start-1 col-span-7 row-start-1 row-span-4 dash-card bg-gradient-to-br from-bg-white bg-opacity-60 border-opacity-40 "
+                style={{ backdropFilter: "blur(30px" }} */}
+              <div
+                className="col-start-1 col-span-7 row-start-1 row-span-4 dash-card"
+                style={{ backdropFilter: "blur(30px" }}
+              >
                 <div className="inner-scroll-parent">
-                  <div className="inner-scroll-heading">
+                  <div className="inner-scroll-heading ">
                     <h1>
                       Today's Workout
                       <Link href="/">

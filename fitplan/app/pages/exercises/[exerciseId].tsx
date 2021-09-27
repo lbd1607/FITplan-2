@@ -66,7 +66,7 @@ export const Exercise = () => {
 
       <div className="card-container-parent w-2/6">
         <div className="card-container">
-          <div className="card py-6 ">
+          <div className="card py-6 border-gray-200 border">
             <div className="rounded-t mb-0 px-6 py-6 ">
               <div className="grid grid-cols-8">
                 <h1 className="mb-10 col-span-7">{exercise.exName}</h1>

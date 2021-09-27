@@ -255,7 +255,7 @@ export const PlansList = () => {
                                       >
                                         {(provided, snapshot) => (
                                           <Link href={`/plans/${item.id}`} key={item.id}>
-                                            <ul className="">
+                                            <ul>
                                               <li
                                                 className="itemrow hover:bg-blue-50 "
                                                 {...provided.draggableProps}

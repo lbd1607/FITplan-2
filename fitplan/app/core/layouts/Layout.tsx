@@ -1,10 +1,31 @@
 import React, { ReactNode, Suspense, useRef, useEffect, useState } from "react"
-import { Head, Link, useMutation } from "blitz"
+import { Head, Link, useMutation, useRouter } from "blitz"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import Modal from "react-modal"
 
 Modal.setAppElement("#__next")
+
+/* Set nav links to active when route == path for active styling */
+export const MyNav = () => {
+  const router = useRouter()
+  return (
+    <ul className="">
+      <li className={router.asPath == "/" ? "active" : ""}>
+        <Link href="/">Home</Link>
+      </li>
+      <li className={router.asPath == "/workouts" ? "active" : ""}>
+        <Link href="/workouts">Workouts</Link>
+      </li>
+      <li className={router.asPath == "/exercises" ? "active" : ""}>
+        <Link href="/exercises">Exercises</Link>
+      </li>
+      <li className={router.asPath == "/plans" ? "active" : ""}>
+        <Link href="/plans">Weekly Plans</Link>
+      </li>
+    </ul>
+  )
+}
 
 /* User's avatar. Default is first letter of email */
 export const Avatar = (props) => {
@@ -27,13 +48,13 @@ export const Avatar = (props) => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
       ctx.fillStyle = "rgba(75, 85, 99)"
       ctx.beginPath()
-      ctx.arc(20, 20, 20, 0, 2 * Math.PI)
+      ctx.arc(18, 18, 18, 0, 2 * Math.PI)
       /* Draw text in avatar circle */
       ctx.fill()
-      ctx.font = "120% Montserrat medium"
+      ctx.font = "110% Montserrat medium"
       ctx.textAlign = "center"
       ctx.fillStyle = "#fff"
-      ctx.fillText(text, 20, 26)
+      ctx.fillText(text, 18, 24)
     }
     /* Create avatar drawing */
     useEffect(() => {
@@ -58,9 +79,10 @@ export const Avatar = (props) => {
       // router.push("/")
       return <Link href="/" />
     }
+
     return (
       <>
-        <button className="p-2 ml-48 pr-5" onClick={openModal}>
+        <button className="p-2 mr-6" onClick={openModal}>
           <canvas className="avatar-canvas" ref={canvasRef} {...props} />
         </button>
         <div>
@@ -99,29 +121,15 @@ export const Avatar = (props) => {
 class Nav extends React.Component {
   render() {
     return (
-      <div className="navbar">
-        <div className="flex flex-row flex-initial">
-          <img src="/fitplanIcon.svg" alt="" className="h-6 my-4 ml-6" />
+      <div className="navbar grid grid-flow-col">
+        <img src="/fitplanIcon.svg" alt="" className="h-6 my-4 ml-7 mr-2" />
+        <div className="grid grid-cols-10">
           <h3 className="brand tracking-wider">FITPLAN</h3>
         </div>
 
-        <div className="px-6 py-5 flex-none">
-          <ul className="navlinks">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/workouts">Workouts</Link>
-            </li>
-            <li>
-              <Link href="/exercises">Exercises</Link>
-            </li>
-            <li>
-              <Link href="/plans">Weekly Plans</Link>
-            </li>
-          </ul>
+        <div className="px-6 py-5 mr-6 flex-auto">
+          <MyNav />
         </div>
-        <div className="w-1/2 ml-2 flex-initial">{""}</div>
 
         <Suspense fallback="Loading...">
           <Avatar />

@@ -88,7 +88,7 @@ const WorkoutsPage: BlitzPage = () => {
       </Head>
 
       <div className="card-container-parent">
-        <div className="list-card">
+        <div className="list-card rounded-sm">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
               <h1>

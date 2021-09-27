@@ -57,7 +57,7 @@ export const Workout = () => {
 
       <div className="card-container-parent w-2/6">
         <div className="card-container ">
-          <div className="card ">
+          <div className="card py-6 border-gray-200 border">
             <div className="rounded-t px-6 py-6">
               <div className="grid grid-cols-8">
                 <h1 className="mb-10 col-span-7">{workout.workoutName}</h1>
@@ -72,7 +72,7 @@ export const Workout = () => {
                 </Link>
               </div>
 
-              <p className="formfieldlabel">ID: {workout.id}</p>
+              {/* <p className="formfieldlabel">ID: {workout.id}</p> */}
               <p className="capitalize formfieldlabel">
                 Type: {getWorkoutIcon(workout.workoutType)} {workout.workoutType}
               </p>
@@ -84,7 +84,9 @@ export const Workout = () => {
               <ul>
                 {exercises.map((exercise) =>
                   exercise.workoutId === workout.id ? (
-                    <li key={exercise.id}>{exercise.exName}</li>
+                    <li className="list-disc ml-8" key={exercise.id}>
+                      {exercise.exName}
+                    </li>
                   ) : (
                     ""
                   )
@@ -98,9 +100,9 @@ export const Workout = () => {
                   <FontAwesomeIcon icon="plus-circle" size="2x" className="addicon ml-0" />
                   Exercise
                 </button> */}
-                <Fragment>
+                {/*    <Fragment>
                   <ExerciseForm />
-                </Fragment>
+                </Fragment> */}
                 {/*  </Link> */}
               </div>
 
