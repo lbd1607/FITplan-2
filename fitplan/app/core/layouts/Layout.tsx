@@ -21,7 +21,7 @@ export const MyNav = () => {
         <Link href="/exercises">Exercises</Link>
       </li>
       <li className={router.asPath == "/plans" ? "active" : ""}>
-        <Link href="/plans">Weekly Plans</Link>
+        <Link href="/plans">Plans</Link>
       </li>
     </ul>
   )

@@ -7,6 +7,7 @@ import { WorkoutsList } from "./workouts/index"
 import { PlansList } from "./plans/index"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { ExercisesList } from "./exercises"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -65,6 +66,29 @@ const Home: BlitzPage = () => {
                 style={{ backdropFilter: "blur(30px" }}
               >
                 <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1>
+                      Plans
+                      <Link href="/plans">
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <PlansList />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="inner-scroll-parent">
                   <div className="inner-scroll-heading ">
                     <h1>
                       Today's Workout
@@ -82,7 +106,7 @@ const Home: BlitzPage = () => {
                   <div className="inner-scroll">
                     <div className="">No workouts to show ...</div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="dash-card col-span-5 row-span-2">
@@ -116,6 +140,29 @@ const Home: BlitzPage = () => {
                 <div className="inner-scroll-parent">
                   <div className="inner-scroll-heading">
                     <h1>
+                      Exercises
+                      <Link href="/exercises">
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <ExercisesList />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1>
                       Plans
                       <Link href="/plans">
                         <span>
@@ -135,7 +182,7 @@ const Home: BlitzPage = () => {
                       </Suspense>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/*  <div className="dash-card col-span-5 row-span-2">

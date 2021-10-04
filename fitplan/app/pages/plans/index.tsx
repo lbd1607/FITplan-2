@@ -10,6 +10,10 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { FORM_ERROR } from "app/plans/components/PlanForm"
 import updatePlan from "app/plans/mutations/updatePlan"
 import { v4 as uuid } from "uuid"
+import { PureComponent } from "react"
+import { createPortal } from "react-dom"
+import { isEmptyBindingElement } from "typescript"
+import { empty } from "@prisma/client/runtime"
 
 Modal.setAppElement("#__next")
 
@@ -78,24 +82,38 @@ export const PlansList = () => {
   }
 
   //Get styles for dnd items
-  const getStyle = (style, snapshot) => {
+  /*   const getStyle = (style, element) => {
+    if (style.position === "fixed") {
+      return createPortal(element, _dragEl)
+    }
+    return element
+  } */
+
+  /*   const getStyle = (style, snapshot) => {
+    if (!snapshot.isDragging || !snapshot.isDropAnimating) {
+      return style
+    }
+    const { moveTo, curve, duration } = snapshot.dropAnimation
+    const offset = { x: 0, y: 0 }
+    const x = style.left - offset.x
+    const y = style.top - offset.y
+    return { ...style, left: x, top: y, transition: `${curve} ${duration + 0.25}s` }
+  } */
+  /*   const getStyle = (style, snapshot) => {
     if (!snapshot.isDropAnimating) {
       return style
     }
     const { moveTo, curve, duration } = snapshot.dropAnimation
 
-    const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`
+    const translate = `translate(${moveTo.x + 20}px, ${moveTo.y + 100}px)`
 
     return {
       ...style,
-      /*  transform: `${translate}`,
-      transition: `all ${curve} ${duration + 0.5}s`, */
-      /*       transform: `${translate}`,
-      transition: `all ${duration + 0.2}s`, */
-      transition: `all ${duration + 0.1}s`,
-      // background: "rgba(209, 250, 229)",
+      transform: `${translate}`,
+
+      transition: `all ${curve} ${duration + 0.1}s`,
     }
-  }
+  } */
 
   //State for plan items (each row item)
   const [planItem, updatePlanItem] = useState(plans)
@@ -225,27 +243,51 @@ export const PlansList = () => {
   } else
     return (
       <>
-        <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, groups, setGroups)}>
-          {Object.entries(groups).map(([groupid, group], index) => {
-            return (
-              <Fragment key={groupid}>
-                <Droppable droppableId={groupid}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div {...provided.droppableProps} ref={provided.innerRef}>
-                        <>
-                          <div className="cardcol">
-                            <div
-                              style={{
-                                background: snapshot.isDraggingOver ? "rgb(219, 234, 254)" : "none",
-                              }}
-                            >
-                              <div className="border-blue-200 border rounded-sm p-8 pb-12 bg-blue-50 bg-opacity-30">
+        <div className="flex-1 list-none">
+          {/*  <div className="grid grid-flow-col h-full"> */}
+          <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, groups, setGroups)}>
+            {Object.entries(groups).map(([groupid, group], index) => {
+              return (
+                <Fragment key={groupid}>
+                  <Droppable
+                    droppableId={groupid}
+                    /* Reparents the draggable and re-renders the item being dragged to avoid issues with positioning during drag*/
+                    renderClone={(provided, snapshot, rubric) => (
+                      <div
+                        className="itemrow"
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        /* style={getStyle(provided.draggableProps.style, snapshot)} */
+                      >
+                        <FontAwesomeIcon
+                          icon="grip-lines"
+                          size="lg"
+                          className="text-gray-500 mr-3"
+                        />{" "}
+                        {group.items[rubric.source.index].planName}
+                        <div className="grid grid-flow-col float-right mr-4 gap-2">
+                          {/* Map though days array so each is displayed here as chip */}
+                          {group.items[rubric.source.index].days.map((day) => getDayChip(day))}
+                        </div>
+                      </div>
+                    )}
+                  >
+                    {(provided, snapshot) => {
+                      return (
+                        <div {...provided.droppableProps} ref={provided.innerRef} className="px-4">
+                          <>
+                            <div className="cardcol py-2 px-0 mx-4">
+                              <div className={snapshot.isDraggingOver ? "bg-green-200" : ""}>
                                 <div
-
-                                // className="bg-blue-200 px-5 pt-5 pb-16"
+                                  className={
+                                    group.name !== "Unassigned"
+                                      ? "rounded-sm px-8 pt-6 pb-12 my-1 border-l-4 border-purple-500 bg-gray-50 bg-opacity-70"
+                                      : "rounded-sm px-8 pt-6 pb-12 my-1 border-l-4 border-pink-500 bg-red-50 bg-opacity-40"
+                                  }
+                                  style={{ minHeight: "10rem" }}
                                 >
-                                  <h2 className="mb-4 bg-transparent">{group.name}</h2>
+                                  <h2 className="mb-4 bg-transparent pl-0">{group.name}</h2>
                                   {group.items.map((item, index) => {
                                     return (
                                       <Draggable
@@ -255,16 +297,27 @@ export const PlansList = () => {
                                       >
                                         {(provided, snapshot) => (
                                           <Link href={`/plans/${item.id}`} key={item.id}>
-                                            <ul>
+                                            <ul className="list-none">
                                               <li
-                                                className="itemrow hover:bg-blue-50 "
+                                                className="itemrow"
+                                                /* className={
+                                                  snapshot.isDragging
+                                                    ? "itemrow transform translate-x-8 translate-y-12"
+                                                    : "itemrow"
+                                                } */
+                                                /* className={
+                                                    snapshot.isDropAnimating
+                                                      ? "itemrow   absolute top-0 left-0 transform -translate-y-72 -translate-x-72"
+                                                      : "itemrow"
+                                                  } */
+
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 ref={provided.innerRef}
-                                                style={getStyle(
+                                                /* style={getStyle(
                                                   provided.draggableProps.style,
                                                   snapshot
-                                                )}
+                                                )} */
                                               >
                                                 <FontAwesomeIcon
                                                   icon="grip-lines"
@@ -286,17 +339,18 @@ export const PlansList = () => {
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </>
-                        {provided.placeholder}
-                      </div>
-                    )
-                  }}
-                </Droppable>
-              </Fragment>
-            )
-          })}
-        </DragDropContext>
+                          </>
+
+                          {provided.placeholder}
+                        </div>
+                      )
+                    }}
+                  </Droppable>
+                </Fragment>
+              )
+            })}
+          </DragDropContext>
+        </div>
       </>
     )
 }

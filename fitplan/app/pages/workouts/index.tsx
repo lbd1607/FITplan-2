@@ -37,7 +37,7 @@ export const WorkoutsList = () => {
       case "endurance":
         return <FontAwesomeIcon icon="burn" size="lg" className="text-orange-500 mr-5 ml-3 " />
       case "flexibility":
-        return <FontAwesomeIcon icon="spa" size="lg" className="text-yellow-300 mx-1 " />
+        return <FontAwesomeIcon icon="spa" size="lg" className="text-yellow-300 mr-5 ml-2 " />
       default:
         break
     }

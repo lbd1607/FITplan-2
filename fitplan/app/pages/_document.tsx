@@ -12,7 +12,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <DocumentHead />
         {/* Photo by Greg Rosenke on Unsplash bg-hero bg-contain bg-left bg-no-repeat  */}
-        <body className="bg-gray-50">
+        <body>
           <Main />
 
           <BlitzScript />
