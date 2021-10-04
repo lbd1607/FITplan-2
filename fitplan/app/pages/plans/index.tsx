@@ -105,7 +105,7 @@ export const PlansList = () => {
     }
     const { moveTo, curve, duration } = snapshot.dropAnimation
 
-    const translate = `translate(${moveTo.x + 20}px, ${moveTo.y + 100}px)`
+    const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`
 
     return {
       ...style,
@@ -243,7 +243,7 @@ export const PlansList = () => {
   } else
     return (
       <>
-        <div className="flex-1 list-none">
+        <div className="flex-1 list-none pt-16">
           {/*  <div className="grid grid-flow-col h-full"> */}
           <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, groups, setGroups)}>
             {Object.entries(groups).map(([groupid, group], index) => {
@@ -258,7 +258,12 @@ export const PlansList = () => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
-                        /* style={getStyle(provided.draggableProps.style, snapshot)} */
+                        /*  style={getStyle(provided.draggableProps.style, snapshot)} */
+                        /*  className={
+                          snapshot.isDropAnimating
+                            ? "itemrow animate-pulse transform translate-y-56"
+                            : "itemrow"
+                        } */
                       >
                         <FontAwesomeIcon
                           icon="grip-lines"
@@ -275,10 +280,14 @@ export const PlansList = () => {
                   >
                     {(provided, snapshot) => {
                       return (
-                        <div {...provided.droppableProps} ref={provided.innerRef} className="px-4">
-                          <>
-                            <div className="cardcol py-2 px-0 mx-4">
-                              <div className={snapshot.isDraggingOver ? "bg-green-200" : ""}>
+                        <div {...provided.droppableProps} ref={provided.innerRef} className="pl-16">
+                          <div className="cardcol py-2 ml-4 mr-0 pr-0">
+                            <div className="transform -translate-x-16 -translate-y-16 origin-bottom-right">
+                              <div
+                                className={
+                                  snapshot.isDraggingOver ? "bg-green-200 space-y-9 top-0" : ""
+                                }
+                              >
                                 <div
                                   className={
                                     group.name !== "Unassigned"
@@ -287,7 +296,9 @@ export const PlansList = () => {
                                   }
                                   style={{ minHeight: "10rem" }}
                                 >
-                                  <h2 className="mb-4 bg-transparent pl-0">{group.name}</h2>
+                                  <div className="">
+                                    <h2 className="mb-4 bg-transparent pl-0">{group.name}</h2>
+                                  </div>
                                   {group.items.map((item, index) => {
                                     return (
                                       <Draggable
@@ -300,24 +311,9 @@ export const PlansList = () => {
                                             <ul className="list-none">
                                               <li
                                                 className="itemrow"
-                                                /* className={
-                                                  snapshot.isDragging
-                                                    ? "itemrow transform translate-x-8 translate-y-12"
-                                                    : "itemrow"
-                                                } */
-                                                /* className={
-                                                    snapshot.isDropAnimating
-                                                      ? "itemrow   absolute top-0 left-0 transform -translate-y-72 -translate-x-72"
-                                                      : "itemrow"
-                                                  } */
-
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 ref={provided.innerRef}
-                                                /* style={getStyle(
-                                                  provided.draggableProps.style,
-                                                  snapshot
-                                                )} */
                                               >
                                                 <FontAwesomeIcon
                                                   icon="grip-lines"
@@ -339,7 +335,7 @@ export const PlansList = () => {
                                 </div>
                               </div>
                             </div>
-                          </>
+                          </div>
 
                           {provided.placeholder}
                         </div>
