@@ -9,24 +9,35 @@ Modal.setAppElement("#__next")
 /* Set nav links to active when route == path for active styling */
 export const MyNav = () => {
   const router = useRouter()
-  return (
-    <ul className="">
-      <li className={router.asPath == "/" ? "active" : ""}>
-        <Link href="/">Home</Link>
-      </li>
-      <li className={router.asPath == "/workouts" ? "active" : ""}>
-        <Link href="/workouts">Workouts</Link>
-      </li>
-      <li className={router.asPath == "/exercises" ? "active" : ""}>
-        <Link href="/exercises">Exercises</Link>
-      </li>
-      <li className={router.asPath == "/plans" ? "active" : ""}>
-        <Link href="/plans">Plans</Link>
-      </li>
-    </ul>
-  )
+  const currentUser = useCurrentUser()
+  if (!currentUser) {
+    return (
+      <>
+        {" "}
+        <div className="py-5 px-16 mx-4 flex-auto"></div>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <ul className="">
+          <li className={router.asPath == "/" ? "active" : ""}>
+            <Link href="/">Home</Link>
+          </li>
+          <li className={router.asPath == "/workouts" ? "active" : ""}>
+            <Link href="/workouts">Workouts</Link>
+          </li>
+          <li className={router.asPath == "/exercises" ? "active" : ""}>
+            <Link href="/exercises">Exercises</Link>
+          </li>
+          <li className={router.asPath == "/plans" ? "active" : ""}>
+            <Link href="/plans">Plans</Link>
+          </li>
+        </ul>
+      </>
+    )
+  }
 }
-
 /* User's avatar. Default is first letter of email */
 export const Avatar = (props) => {
   const canvasRef = useRef(props) /* Init ref for canvas */
@@ -126,10 +137,11 @@ class Nav extends React.Component {
         <div className="grid grid-cols-10">
           <h3 className="brand tracking-wider">FITPLAN</h3>
         </div>
-
-        <div className="px-6 py-5 mr-6 flex-auto">
-          <MyNav />
-        </div>
+        <Suspense fallback="">
+          <div className="px-6 py-5 mr-6 flex-auto">
+            <MyNav />
+          </div>
+        </Suspense>
 
         <Suspense fallback="Loading...">
           <Avatar />

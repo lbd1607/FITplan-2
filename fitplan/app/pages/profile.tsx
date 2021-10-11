@@ -11,38 +11,62 @@ const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <button
-          className="button small"
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Log out
-        </button>
-        <div>
-          Username: <code>{currentUser.name || "None"}</code>
-          <br />
-          Email: <code>{currentUser.email || "None"}</code>
-          <br />
-          User id: <code>{currentUser.id || "None"}</code>
-          <br />
-          User role: <code>{currentUser.role || "None"}</code>
+        <div className="modal-card">
+          <div className="cardcol">
+            <p className="formfieldlabel">
+              Username: <span className="font-bold">{currentUser.name || "None"}</span>
+            </p>
+            <p className="formfieldlabel">
+              Email: <span className="font-bold">{currentUser.email || "None"}</span>
+            </p>
+            <p className="formfieldlabel">
+              Password: <span className="font-bold">{"**********" || "None"}</span>
+            </p>
+
+            <p className="formfieldlabel">
+              Role:{" "}
+              <span className="capitalize font-bold">
+                {currentUser.role.toLowerCase() || "None"}
+              </span>
+            </p>
+            <div className="grid grid-cols-2 gap-8 px-8">
+              <button
+                className="btn save w-full"
+                onClick={async () => {
+                  await logoutMutation()
+                }}
+              >
+                Log out
+              </button>
+              <button className="btn cancel w-full">
+                <Link href="/ForgotPasswordPage">Change Password</Link>
+              </button>
+            </div>
+          </div>
         </div>
       </>
     )
   } else {
     return (
       <>
-        <Link href="/signup">
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href="/login">
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link>
+        <div className="card-container">
+          <div className="modal-card">
+            <div className="cardcol">
+              <div className="grid grid-cols-1">
+                <Link href="/signup">
+                  <a className="btn cancel">
+                    <strong>Sign Up</strong>
+                  </a>
+                </Link>
+                <Link href="/login">
+                  <a className="btn save">
+                    <strong>Login</strong>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
     )
   }
@@ -50,192 +74,14 @@ const UserInfo = () => {
 
 const Profile: BlitzPage = () => {
   return (
-    <div className="container">
-      <main>
-        <div className="logo">
-          <img src="/logo.png" alt="blitz.js" />
-        </div>
-
-        <div className="buttons" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+    <div>
+      <main className="py-10 px-0 flex flex-col justify-center items-center">
+        <div className="">
           <Suspense fallback="Loading...">
             <UserInfo />
           </Suspense>
         </div>
-
-        <div className="buttons" style={{ marginTop: "5rem" }}>
-          <a
-            className="button"
-            href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-          <a
-            className="button-outline"
-            href="https://github.com/blitz-js/blitz"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github Repo
-          </a>
-        </div>
       </main>
-
-      <footer>
-        <a
-          href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by Blitz.js
-        </a>
-      </footer>
-
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;700&display=swap");
-
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: "Libre Franklin", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-        }
-
-        * {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          box-sizing: border-box;
-        }
-        .container {
-          min-height: 100vh;
-          min-width: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main p {
-          font-size: 1rem;
-        }
-
-        p {
-          text-align: center;
-          font-size: 1rem;
-        }
-
-        .pagelink {
-          text-decoration: underline;
-          color: #6700eb;
-          line-height: 2rem;
-        }
-
-        .pagelink:hover {
-          color: #45009d;
-        }
-
-        footer {
-          width: 100%;
-          height: 60px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #45009d;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer a {
-          color: #f4f4f4;
-          text-decoration: none;
-        }
-
-        .logo {
-          margin-bottom: 2rem;
-        }
-
-        .logo img {
-          width: 300px;
-        }
-
-        .buttons {
-          display: grid;
-          grid-auto-flow: column;
-          grid-gap: 0.5rem;
-        }
-        .button {
-          font-size: 1rem;
-          background-color: #6700eb;
-          padding: 1rem 2rem;
-          color: #f4f4f4;
-          text-align: center;
-        }
-
-        .button.small {
-          padding: 0.5rem 1rem;
-        }
-
-        .button:hover {
-          background-color: #45009d;
-        }
-
-        .button-outline {
-          border: 2px solid #6700eb;
-          padding: 1rem 2rem;
-          color: #6700eb;
-          text-align: center;
-        }
-
-        .button-outline:hover {
-          border-color: #45009d;
-          color: #45009d;
-        }
-
-        pre {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          text-align: center;
-        }
-        code {
-          font-size: 0.9rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-            Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
     </div>
   )
 }

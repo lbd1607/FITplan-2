@@ -7,7 +7,9 @@ const SignupPage: BlitzPage = () => {
 
   return (
     <div>
-      <SignupForm onSuccess={() => router.push("/")} />
+      <main className="py-10 px-0 flex flex-col justify-center items-center">
+        <SignupForm onSuccess={() => router.push("/")} />
+      </main>
     </div>
   )
 }

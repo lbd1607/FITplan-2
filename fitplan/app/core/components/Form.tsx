@@ -58,7 +58,12 @@ export function Form<S extends z.ZodType<any, any>>({
           <div className="btn-div">
             {submitText && (
               <div>
-                <button className="btn save" type="submit" disabled={submitting} ref={a11yRef}>
+                <button
+                  className="btn save w-full"
+                  type="submit"
+                  disabled={submitting}
+                  ref={a11yRef}
+                >
                   {submitText}
                 </button>
               </div>
@@ -66,7 +71,7 @@ export function Form<S extends z.ZodType<any, any>>({
             {cancelText && cancelURL && (
               <div>
                 <Link href={`${cancelURL}`}>
-                  <button className="btn cancel" ref={a11yRef}>
+                  <button className="btn cancel w-full" ref={a11yRef}>
                     <a>{cancelText}</a>
                   </button>
                 </Link>

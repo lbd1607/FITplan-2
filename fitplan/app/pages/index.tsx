@@ -1,5 +1,12 @@
 import { Suspense } from "react"
-import { Link, BlitzPage, useMutation } from "blitz"
+import {
+  Link,
+  BlitzPage,
+  useMutation,
+  AuthenticationError,
+  AuthorizationError,
+  Router,
+} from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
@@ -14,34 +21,10 @@ const UserInfo = () => {
   const [logoutMutation] = useMutation(logout)
 
   if (currentUser) {
-    return (
-      <>
-        {/*  <div>
-          <code>{currentUser.name || "None"}</code>
-          <br />
-          <code>{currentUser.email || "None"}</code>
-          <br />
-          <code>{currentUser.id || "None"}</code>
-          <br />
-          <code>{currentUser.role || "None"}</code>
-        </div> */}
-      </>
-    )
+    return <></>
   } else {
-    return (
-      <>
-        <Link href="/signup">
-          <a className="btn save">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href="/login">
-          <a className="btn save">
-            <strong>Login</strong>
-          </a>
-        </Link>
-      </>
-    )
+    Router.push("/login")
+    return <></>
   }
 }
 
@@ -49,7 +32,7 @@ const Home: BlitzPage = () => {
   return (
     <div className="">
       <main>
-        <Suspense fallback="">
+        <Suspense fallback={<div className="pl-20">Loading...</div>}>
           <UserInfo />
         </Suspense>
 

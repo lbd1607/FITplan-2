@@ -7,12 +7,16 @@ const LoginPage: BlitzPage = () => {
 
   return (
     <div>
-      <LoginForm
-        onSuccess={() => {
-          const next = (router.query.next as string) ?? "/"
-          router.push(next)
-        }}
-      />
+      <main className="py-10 px-0 flex flex-col justify-center items-center">
+        <div className="w-3/12">
+          <LoginForm
+            onSuccess={() => {
+              const next = (router.query.next as string) ?? "/"
+              router.push(next)
+            }}
+          />
+        </div>
+      </main>
     </div>
   )
 }
