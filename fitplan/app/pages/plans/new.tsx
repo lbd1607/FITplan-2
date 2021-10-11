@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import { Link, useRouter, useMutation, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createPlan from "app/plans/mutations/createPlan"
@@ -15,7 +16,7 @@ const NewPlanPage: BlitzPage = () => {
         <div className="modal-card overflow-y-auto">
           <div className="cardcol">
             <div className="grid grid-cols-8">
-              <h1 className="mb-5 col-span-7">Create New Plan</h1>
+              <h1 className="mb-5 col-span-7 pl-0">Create New Plan</h1>
               <Link href="/plans">
                 <span className="col-span-1 justify-end text-right">
                   <FontAwesomeIcon
@@ -54,8 +55,7 @@ const NewPlanPage: BlitzPage = () => {
 
               try {
                 const plan = await createPlanMutation(values, daysList)
-
-                router.push(`/plans/${plan.id}`)
+                router.push("/plans")
               } catch (error) {
                 //console.error(error)
                 if (!values.planName) {

@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useState, useRef } from "react"
+import { Fragment, Suspense, useState, useEffect, useRef } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, useMutation, useParam } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getPlans from "app/plans/queries/getPlans"
@@ -10,10 +10,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { FORM_ERROR } from "app/plans/components/PlanForm"
 import updatePlan from "app/plans/mutations/updatePlan"
 import { v4 as uuid } from "uuid"
-import { PureComponent } from "react"
-import { createPortal } from "react-dom"
-import { isEmptyBindingElement } from "typescript"
-import { empty } from "@prisma/client/runtime"
+import { render } from "test/utils"
 
 Modal.setAppElement("#__next")
 
@@ -27,6 +24,8 @@ export const PlansList = () => {
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
+
+  /*   router.reload() */
 
   const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
   const goToNextPage = () => router.push({ query: { page: page + 1 } })
@@ -81,42 +80,19 @@ export const PlansList = () => {
     }
   }
 
-  //Get styles for dnd items
-  /*   const getStyle = (style, element) => {
-    if (style.position === "fixed") {
-      return createPortal(element, _dragEl)
-    }
-    return element
-  } */
-
-  /*   const getStyle = (style, snapshot) => {
-    if (!snapshot.isDragging || !snapshot.isDropAnimating) {
-      return style
-    }
-    const { moveTo, curve, duration } = snapshot.dropAnimation
-    const offset = { x: 0, y: 0 }
-    const x = style.left - offset.x
-    const y = style.top - offset.y
-    return { ...style, left: x, top: y, transition: `${curve} ${duration + 0.25}s` }
-  } */
-  /*   const getStyle = (style, snapshot) => {
-    if (!snapshot.isDropAnimating) {
-      return style
-    }
-    const { moveTo, curve, duration } = snapshot.dropAnimation
-
-    const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`
-
-    return {
-      ...style,
-      transform: `${translate}`,
-
-      transition: `all ${curve} ${duration + 0.1}s`,
-    }
-  } */
-
   //State for plan items (each row item)
-  const [planItem, updatePlanItem] = useState(plans)
+  const planState = plans
+  /*  const initialPlans = () => {
+    return plans
+  } */
+  const [planItem, updatePlanItem] = useState(planState)
+  const planRef = useRef()
+
+  useEffect(() => {
+    getPlans
+
+    console.log("getPlans")
+  }, [planItem])
 
   //Fetch plan id
   const planId = useParam("planId", "number")
@@ -217,6 +193,10 @@ export const PlansList = () => {
       postUpdatedOrder(item)
     }
     updatePlanItem(newItems)
+    /*  updatePlanItem((prevItems) => [...prevItems, ...newItems]) */
+    /* updatePlanItem((prevState) => {
+      return { ...prevState, plans: plans }
+    }) */
   }
 
   //Update mutation to update plan itemOrder
@@ -243,8 +223,7 @@ export const PlansList = () => {
   } else
     return (
       <>
-        <div className="flex-1 list-none pt-16">
-          {/*  <div className="grid grid-flow-col h-full"> */}
+        <div className="flex-1 list-none pt-12 mt-1">
           <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, groups, setGroups)}>
             {Object.entries(groups).map(([groupid, group], index) => {
               return (
@@ -258,12 +237,6 @@ export const PlansList = () => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
-                        /*  style={getStyle(provided.draggableProps.style, snapshot)} */
-                        /*  className={
-                          snapshot.isDropAnimating
-                            ? "itemrow animate-pulse transform translate-y-56"
-                            : "itemrow"
-                        } */
                       >
                         <FontAwesomeIcon
                           icon="grip-lines"
@@ -282,7 +255,7 @@ export const PlansList = () => {
                       return (
                         <div {...provided.droppableProps} ref={provided.innerRef} className="pl-16">
                           <div className="cardcol py-2 ml-4 mr-0 pr-0">
-                            <div className="transform -translate-x-16 -translate-y-16 origin-bottom-right">
+                            <div className="transform -translate-x-16 -translate-y-16 origin-bottom-right -mr-8">
                               <div
                                 className={
                                   snapshot.isDraggingOver ? "bg-green-200 space-y-9 top-0" : ""
@@ -373,15 +346,18 @@ const PlansPage: BlitzPage = () => {
         <div className="list-card">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
-              <h1 className="ml-5 mt-1">
+              <h1 className="ml-2 mt-1">
                 Plans
-                {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
-                <button onClick={openModal}>
-                  <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
+                <button className="btn add ml-10 align-middle float-right mr-3" onClick={openModal}>
+                  {" "}
+                  <a>
+                    <FontAwesomeIcon icon="plus" size="1x" className="cursor-pointer mr-2" />
+                    Create New
+                  </a>
                 </button>
               </h1>
             </div>
-            <div className="inner-scroll">
+            <div className="inner-scroll pt-1">
               <div className="">
                 <Suspense fallback={<div>Loading...</div>}>
                   <PlansList />

@@ -36,16 +36,17 @@
 
   /*---------------------------------- Standard Text ------------------------------------*/
   h1 {
-    @apply text-2xl font-sans not-italic font-bold text-gray-600 px-8;
+    @apply text-3xl font-sans not-italic font-semibold text-gray-600 px-8;
   }
   h2 {
-    @apply text-xl font-sans not-italic font-medium text-gray-600 px-8;
+    @apply text-2xl font-sans not-italic font-medium text-gray-600 px-8;
   }
   h3 {
-    @apply text-base font-sans not-italic font-medium text-gray-600 px-8;
+    @apply text-xl font-sans not-italic font-medium text-gray-600 px-8;
   }
-  p {
-    @apply text-sm font-sans not-italic font-normal text-gray-800 px-8;
+  p,
+  li {
+    @apply text-base font-sans not-italic font-medium text-gray-600 px-8;
   }
   /* ---------------------------------------------------- Navs --------------------------------------------------*/
   Nav {
@@ -87,7 +88,7 @@
   /*---------------------------------------- Cards, Containers, and Modals --------------------------------------*/
   /* Parent container of fullscreen list */
   .list-card {
-    @apply card mx-20 mb-14;
+    @apply card mx-20 mb-14 pb-4;
   }
   /* Parent container for dashboard cards */
   .dash-card {
@@ -127,7 +128,7 @@
   }
   /* Card inner scroll container */
   .inner-scroll {
-    @apply absolute inset-0 overflow-auto mt-16 pb-4 space-y-4 py-4;
+    @apply absolute inset-0 overflow-auto mt-16 pb-4 space-y-4 py-4 top-7 z-0;
   }
   /* Item rows on master pages */
   .itemrow {
@@ -149,7 +150,7 @@
   }
   /* Cards */
   .modal-card {
-    @apply relative flex-col min-w-0 break-words w-full rounded-sm bg-white border-gray-200 border-2 my-6 p-6 overflow-hidden;
+    @apply relative flex-col min-w-0 break-words w-full rounded-sm bg-white border-gray-200 border-2 my-6 p-6 overflow-hidden z-50;
   }
   /* Logout Modal */
   .logout-modal {
@@ -275,6 +276,18 @@
   /* Hover styles for submit/save button  */
   .btn.save:hover {
     @apply bg-purple-700;
+  }
+  /* Button for add */
+  .btn.add {
+    @apply bg-white border border-green-500 text-green-500 font-bold text-base;
+  }
+  /* Active styles for add button  */
+  .btn.add:active {
+    @apply transition duration-100 ease-in-out ring-4 ring-green-300 animate-pulse;
+  }
+  /* Hover styles for add button  */
+  .btn.add:hover {
+    @apply bg-green-500 text-white;
   }
   /* Button for edit */
   .btn.edit {

@@ -20,7 +20,7 @@ export const EditPlan = () => {
       </Head>
 
       <div>
-        <h1>Edit {plan.planName}</h1>
+        {/*    <h1>Edit {plan.planName}</h1> */}
         <div className="card-container-parent">
           <div className="card-container">
             <div className="card">
@@ -38,54 +38,54 @@ export const EditPlan = () => {
                   </Link>
                 </div>
               </div>
-
-              <PlanForm
-                submitText="Save"
-                cancelText="Cancel"
-                cancelURL="/plans"
-                // TODO use a zod schema for form validation
-                //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-                //         then import and use it here
-                // schema={UpdatePlan}
-                initialValues={plan}
-                onSubmit={async (values) => {
-                  var daysList = values.days,
-                    dayOrder = [
-                      "Monday",
-                      "Tuesday",
-                      "Wednesday",
-                      "Thursday",
-                      "Friday",
-                      "Saturday",
-                      "Sunday",
-                    ]
-                  daysList.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
-                  //console.log(daysList)
-                  try {
-                    const updated = await updatePlanMutation({
-                      id: plan.id,
-                      ...values,
-                    })
-                    await setQueryData(updated)
-                    router.push(`/plans/${updated.id}`)
-                  } catch (error) {
-                    console.error(error)
-                    return {
-                      [FORM_ERROR]: error.toString(),
+              <div className="px-8">
+                <PlanForm
+                  submitText="Save"
+                  cancelText="Cancel"
+                  cancelURL="/plans"
+                  // TODO use a zod schema for form validation
+                  //  - Tip: extract mutation's schema into a shared `validations.ts` file and
+                  //         then import and use it here
+                  // schema={UpdatePlan}
+                  initialValues={plan}
+                  onSubmit={async (values) => {
+                    var daysList = values.days,
+                      dayOrder = [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday",
+                      ]
+                    daysList.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
+                    try {
+                      const updated = await updatePlanMutation({
+                        id: plan.id,
+                        ...values,
+                      })
+                      await setQueryData(updated)
+                      router.push(`/plans/${updated.id}`)
+                    } catch (error) {
+                      console.error(error)
+                      return {
+                        [FORM_ERROR]: error.toString(),
+                      }
                     }
-                  }
-                }}
-                onCancel={async () => {
-                  try {
-                    router.back()
-                  } catch (error) {
-                    console.error(error)
-                    return {
-                      [FORM_ERROR]: error.toString(),
+                  }}
+                  onCancel={async () => {
+                    try {
+                      router.back()
+                    } catch (error) {
+                      console.error(error)
+                      return {
+                        [FORM_ERROR]: error.toString(),
+                      }
                     }
-                  }
-                }}
-              />
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -101,11 +101,11 @@ const EditPlanPage: BlitzPage = () => {
         <EditPlan />
       </Suspense>
 
-      <p>
+      {/* <p>
         <Link href="/plans">
           <a>Plans</a>
         </Link>
-      </p>
+      </p> */}
     </div>
   )
 }

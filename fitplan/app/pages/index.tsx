@@ -67,7 +67,7 @@ const Home: BlitzPage = () => {
               >
                 <div className="inner-scroll-parent">
                   <div className="inner-scroll-heading">
-                    <h1>
+                    <h1 className="pl-10">
                       Plans
                       <Link href="/plans">
                         <span>
@@ -82,7 +82,7 @@ const Home: BlitzPage = () => {
                   </div>
                   <div className="inner-scroll">
                     <div className="">
-                      <Suspense fallback={<div>Loading...</div>}>
+                      <Suspense fallback={<div className="pl-20">Loading...</div>}>
                         <PlansList />
                       </Suspense>
                     </div>
@@ -128,7 +128,7 @@ const Home: BlitzPage = () => {
 
                   <div className="inner-scroll">
                     <div className="">
-                      <Suspense fallback={<div>Loading...</div>}>
+                      <Suspense fallback={<div className="pl-20">Loading...</div>}>
                         <WorkoutsList />
                       </Suspense>
                     </div>
@@ -154,7 +154,7 @@ const Home: BlitzPage = () => {
                   </div>
                   <div className="inner-scroll">
                     <div className="">
-                      <Suspense fallback={<div>Loading...</div>}>
+                      <Suspense fallback={<div className="pl-10">Loading...</div>}>
                         <ExercisesList />
                       </Suspense>
                     </div>

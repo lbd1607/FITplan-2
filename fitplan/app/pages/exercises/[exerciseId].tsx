@@ -80,16 +80,16 @@ export const Exercise = () => {
                   </span>
                 </Link>
               </div>
-              <p className="formfieldlabel">ID: {exercise.id}</p>
+
               <p className="formfieldlabel capitalize">Type: {exercise.exType}</p>
               <span>{getExTypeRates(exercise.exType) || "None"}</span>
               <p className="formfieldlabel">Notes: {exercise.exNotes || "None"}</p>
-              <p className="formfieldlabel">Workout ID: {exercise.workoutId || "None"}</p>
+
               <ul>
                 {workouts.map((workout) =>
                   exercise.workoutId === workout.id ? (
                     <li className="formfieldlabel" key={thisWorkoutId}>
-                      Workout: {workout.workoutName}
+                      Assigned to Workout: {workout.workoutName}
                     </li>
                   ) : (
                     ""

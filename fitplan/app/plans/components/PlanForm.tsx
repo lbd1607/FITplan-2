@@ -25,18 +25,18 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
               <div className="inner-scroll mt-0 py-0">
                 <div className="cardcol py-0">
                   <div className="">
-                    <label className="formfieldlabel">Plan Name </label>
+                    <label className="formfieldlabel required-field">Plan Name </label>
                     <Field
                       component="input"
                       name="planName"
-                      className="inputbox required-field"
+                      className="inputbox"
                       aria-required="true"
                     />
 
-                    <div className="p-4 mt-6">
+                    <div className="pt-4 mt-6">
                       <div className="input-container mb-1">
                         <div className="input-container">
-                          <label className="formfieldlabel">Days of the Week</label>
+                          <label className="formfieldlabel required-field">Days of the Week</label>
                           <fieldset className="grid grid-flow-col">
                             <div className="dayParent">
                               <Field
@@ -46,6 +46,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
                                 component="input"
                                 type="checkbox"
                                 className="noCheckbox"
+                                aria-required="true"
                               />
                               <label htmlFor="mon" className="daysChip ">
                                 {" "}
@@ -153,6 +154,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
                                 component="select"
                                 name="workouts"
                                 className="dropdown-field"
+                                aria-required="true"
                                 multiple
                               >
                                 {workouts.map((workout) => (

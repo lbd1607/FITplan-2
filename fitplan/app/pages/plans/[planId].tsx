@@ -7,13 +7,10 @@ import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import EditPlanPage from "./[planId]/edit"
-import { WorkoutsList } from "../workouts"
-import { ExercisesList } from "../exercises"
 import getWorkout from "app/workouts/queries/getWorkout"
 import getWorkouts from "app/workouts/queries/getWorkouts"
 import getExercises from "app/exercises/queries/getExercises"
 import { v4 as uuid } from "uuid"
-import { PlansList } from "."
 
 Modal.setAppElement("#__next")
 
@@ -23,17 +20,16 @@ export const Plan = () => {
   const [deletePlanMutation] = useMutation(deletePlan)
   const [plan] = useQuery(getPlan, { id: planId })
 
-  /*  const [confirmModalIsOpen, confirmModalSetIsOpen] = useState(false)
-  function confirmOpenModal() {
-    confirmModalSetIsOpen(true)
+  const [modalIsOpen, modalSetIsOpen] = useState(false)
+  function openModal() {
+    modalSetIsOpen(true)
   }
-  
+  function closeModal() {
+    modalSetIsOpen(false)
+    return <Link href="/" />
+  }
 
-  let confirm = false
-  function confirmDelete(choice) {
-    return (confirm = choice)
-  } */
-
+  const page = Number(router.query.page) || 0
   const [{ exercises }] = useQuery(getExercises, {
     orderBy: { id: "asc" },
   })
@@ -42,7 +38,6 @@ export const Plan = () => {
   const [{ workouts }] = useQuery(getWorkouts, {
     orderBy: { id: "asc" },
   })
-  /* const [workout] = useQuery(getWorkout, { id: workoutId }) */
 
   //Must check to see if workoutId exists first or validation throws undefined id error
   if (!workoutId) {
@@ -51,15 +46,6 @@ export const Plan = () => {
     const [workout] = useQuery(getWorkout, { id: workoutId })
 
     var thisWorkoutId = workout.id
-  }
-
-  const [modalIsOpen, modalSetIsOpen] = useState(false)
-  function openModal() {
-    modalSetIsOpen(true)
-  }
-  function closeModal() {
-    modalSetIsOpen(false)
-    return <Link href="/" />
   }
 
   //Determine chip for day based on day passed in during sub-map
@@ -134,20 +120,20 @@ export const Plan = () => {
                   </span>
                 </Link>
               </div>
-              <p className="formfieldlabel">ID: {plan.id}</p>
 
               <span>
                 <div className="flex flex-row space-x-3">
-                  <p className="formfieldlabel">Days: </p>
+                  <p className="formfieldlabel pr-2">Days: </p>
 
                   {/* Map though days array so each is displayed here as chip */}
                   {plan.days.map((day) => getDayChip(day))}
                 </div>
               </span>
-              {/*   <p className="formfieldlabel">Workouts: {plan.workouts.join(", ") || "None"}</p> */}
 
               {/* Map through plan.workouts and get single assigned workout. If the name of assigned workout is the same as the workout name, then map the exercises to each workout. This only works because workoutName is required to be a unique value in the schema. */}
-              <ul>
+              {/*     <p className="formfieldlabel">Workouts:</p> */}
+
+              <ul className="ml-8">
                 {plan.workouts.map((assignedWorkout) =>
                   workouts.map((workout) =>
                     assignedWorkout === workout.workoutName ? (
@@ -157,7 +143,7 @@ export const Plan = () => {
                             Workout: {workout.workoutName}
                             {exercises.map((exercise) =>
                               exercise.workoutId === workout.id ? (
-                                <li className="list-disc ml-8" key={exercise.id}>
+                                <li className="list-disc ml-8 pl-2 leading-8" key={exercise.id}>
                                   {exercise.exName}
                                 </li>
                               ) : (
@@ -186,7 +172,6 @@ export const Plan = () => {
                   className="btn delete"
                   type="button"
                   onClick={async () => {
-                    // confirmOpenModal
                     if (window.confirm("Delete from Plans?")) {
                       await deletePlanMutation({ id: plan.id })
                       router.push("/plans")

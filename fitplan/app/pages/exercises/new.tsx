@@ -17,7 +17,7 @@ const NewExercisePage: BlitzPage = () => {
           <div className="modal-card">
             <div className="cardcol">
               <div className="grid grid-cols-8">
-                <h1 className="mb-5 col-span-7">Create New Exercise</h1>
+                <h1 className="mb-5 col-span-7 pl-0">Create New Exercise</h1>
                 <Link href="/exercises">
                   <span className="col-span-1 justify-end text-right">
                     <FontAwesomeIcon
@@ -42,7 +42,8 @@ const NewExercisePage: BlitzPage = () => {
               onSubmit={async (values) => {
                 try {
                   const exercise = await createExerciseMutation(values)
-                  router.push(`/exercises/${exercise.id}`)
+                  /* router.push(`/exercises/${exercise.id}`) */
+                  router.push("/exercises")
                 } catch (error) {
                   //console.error(error)
                   if (!values.exName) {

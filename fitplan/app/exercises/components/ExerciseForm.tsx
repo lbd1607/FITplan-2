@@ -64,6 +64,7 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
                   label="Type"
                   defaultValue={"interval"}
                   className="dropdown-field"
+                  aria-required="true"
                 >
                   <option value="interval">Interval</option>
                   <option value="reps">Repetition</option>
@@ -73,7 +74,7 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
                 <FontAwesomeIcon icon="caret-down" size="lg" className="dropdown-caret" />{" "}
               </div>
 
-              <div>
+              <div aria-required="true">
                 <Condition when="exType" is="interval">
                   <label className="formfieldlabel">Time</label>
                   <Field name="exInterval" component="input" type="text" className="inputbox" />

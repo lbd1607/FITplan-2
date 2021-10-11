@@ -31,7 +31,7 @@ export const ExercisesList = () => {
         <ul>
           {exercises.map((exercise) => (
             <Link href={`/exercises/${exercise.id}`} key={exercise.id}>
-              <li className="itemrow">
+              <li className="itemrow pl-10">
                 <a>{exercise.exName}</a>
               </li>
             </Link>
@@ -69,13 +69,15 @@ const ExercisesPage: BlitzPage = () => {
         <div className="list-card">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
-              <h1>
-                Exercises {/* original link without modal <Link href="/exercises/new"> */}
-                {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
-                <button onClick={openModal}>
-                  <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
+              <h1 className="ml-2 mt-1">
+                Exercises
+                <button className="btn add ml-10 mr-3 float-right align-middle" onClick={openModal}>
+                  {" "}
+                  <a>
+                    <FontAwesomeIcon icon="plus" size="1x" className="cursor-pointer mr-2" />
+                    Create New
+                  </a>
                 </button>
-                {/* </Link> */}
               </h1>
             </div>
             <div className="inner-scroll">

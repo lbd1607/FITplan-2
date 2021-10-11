@@ -53,56 +53,57 @@ export const EditExercise = () => {
                   </span>
                 </Link>
               </div>
-              <p className="formfieldlabel">ID: {exercise.id}</p>
+              {/* <p className="formfieldlabel">ID: {exercise.id}</p> */}
               <p className="formfieldlabel capitalize">Type: {exercise.exType}</p>
               <span>{getExTypeRates(exercise.exType) || "None"}</span>
               {/* <p className="capitalize formfieldlabel">
                 Type: {getWorkoutIcon(workout.workoutType)} {workout.workoutType}
               </p> */}
 
-              <div></div>
               <p className="formfieldlabel">Notes: {exercise.exNotes || "None"}</p>
-              <p className="formfieldlabel">Workout ID: {exercise.workoutId || "None"}</p>
+              {/* <p className="formfieldlabel">Workout ID: {exercise.workoutId || "None"}</p> */}
             </div>
             {/* <div>
               <h1>Edit {exercise.exName}</h1>
               <pre>{JSON.stringify(exercise)}</pre> */}
-
-            <ExerciseForm
-              submitText="Save"
-              cancelText="Cancel"
-              cancelURL="/exercises"
-              // TODO use a zod schema for form validation
-              //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-              //         then import and use it here
-              // schema={UpdateExercise}
-              initialValues={exercise}
-              onSubmit={async (values) => {
-                try {
-                  const updated = await updateExerciseMutation({
-                    id: exercise.id,
-                    ...values,
-                  })
-                  await setQueryData(updated)
-                  router.push(`/exercises/${updated.id}`)
-                } catch (error) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
+            <div className="px-8">
+              {" "}
+              <ExerciseForm
+                submitText="Save"
+                cancelText="Cancel"
+                cancelURL="/exercises"
+                // TODO use a zod schema for form validation
+                //  - Tip: extract mutation's schema into a shared `validations.ts` file and
+                //         then import and use it here
+                // schema={UpdateExercise}
+                initialValues={exercise}
+                onSubmit={async (values) => {
+                  try {
+                    const updated = await updateExerciseMutation({
+                      id: exercise.id,
+                      ...values,
+                    })
+                    await setQueryData(updated)
+                    router.push(`/exercises/${updated.id}`)
+                  } catch (error) {
+                    console.error(error)
+                    return {
+                      [FORM_ERROR]: error.toString(),
+                    }
                   }
-                }
-              }}
-              onCancel={async () => {
-                try {
-                  router.back()
-                } catch (error) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
+                }}
+                onCancel={async () => {
+                  try {
+                    router.back()
+                  } catch (error) {
+                    console.error(error)
+                    return {
+                      [FORM_ERROR]: error.toString(),
+                    }
                   }
-                }
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

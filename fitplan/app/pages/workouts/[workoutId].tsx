@@ -71,20 +71,16 @@ export const Workout = () => {
                   </span>
                 </Link>
               </div>
-
-              {/* <p className="formfieldlabel">ID: {workout.id}</p> */}
               <p className="capitalize formfieldlabel">
                 Type: {getWorkoutIcon(workout.workoutType)} {workout.workoutType}
               </p>
               <p className="formfieldlabel">Notes: {workout.workoutNotes || "None"}</p>
               <p className="formfieldlabel">Plan: {workout.planId || "None"}</p>
-
               <p className="formfieldlabel">Exercises: </p>
-
-              <ul>
+              <ul className="ml-8">
                 {exercises.map((exercise) =>
                   exercise.workoutId === workout.id ? (
-                    <li className="list-disc ml-8" key={exercise.id}>
+                    <li className="list-disc ml-8 pl-2" key={exercise.id}>
                       {exercise.exName}
                     </li>
                   ) : (
@@ -106,10 +102,7 @@ export const Workout = () => {
                 {/*  </Link> */}
               </div>
 
-              {/* <pre>{JSON.stringify(workout, null, 2)}</pre> */}
-
               <div className="flex flex-row justify-between mt-10">
-                {/* <Link href={`/workouts/${workout.id}/edit`}> */}
                 <button className="btn edit" onClick={openModal}>
                   {" "}
                   <a>
@@ -117,7 +110,6 @@ export const Workout = () => {
                     Edit
                   </a>
                 </button>
-                {/* </Link> */}
 
                 <button
                   className="btn delete"

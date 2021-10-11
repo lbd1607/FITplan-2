@@ -21,7 +21,7 @@ const NewWorkoutPage: BlitzPage = () => {
           <div className="modal-card">
             <div className="cardcol">
               <div className="grid grid-cols-8">
-                <h1 className="mb-5 col-span-7">Create New Workout</h1>
+                <h1 className="mb-5 col-span-7 pl-0">Create New Workout</h1>
                 <Link href="/workouts">
                   <span className="col-span-1 justify-end text-right">
                     <FontAwesomeIcon
@@ -46,7 +46,7 @@ const NewWorkoutPage: BlitzPage = () => {
               onSubmit={async (values) => {
                 try {
                   const workout = await createWorkoutMutation(values)
-                  router.push(`/workouts`)
+                  router.push("/workouts")
                 } catch (error) {
                   //console.error(error)
                   if (!values.workoutName) {

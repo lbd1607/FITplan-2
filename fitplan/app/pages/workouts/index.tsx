@@ -91,13 +91,15 @@ const WorkoutsPage: BlitzPage = () => {
         <div className="list-card rounded-sm">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
-              <h1>
-                Workouts {/* original link without modal <Link href="/workouts/new"> */}
-                {/* Must wrap FontAwesomeIcon in <span> to avoid ref error */}
-                <button onClick={openModal}>
-                  <FontAwesomeIcon icon="plus-circle" size="lg" className="addicon" />
+              <h1 className="ml-2 mt-1">
+                Workouts
+                <button className="btn add ml-10 align-middle float-right mr-3" onClick={openModal}>
+                  {" "}
+                  <a>
+                    <FontAwesomeIcon icon="plus" size="1x" className="cursor-pointer mr-2" />
+                    Create New
+                  </a>
                 </button>
-                {/* </Link> */}
               </h1>
             </div>
             <div className="inner-scroll">

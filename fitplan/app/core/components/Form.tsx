@@ -36,10 +36,10 @@ export function Form<S extends z.ZodType<any, any>>({
   return (
     <FinalForm
       initialValues={initialValues}
-      validate={(values) => {
+      validate={async (values) => {
         if (!schema) return
         try {
-          schema.parse(values)
+          await schema.parse(values)
         } catch (error) {
           return error.formErrors.fieldErrors
         }
