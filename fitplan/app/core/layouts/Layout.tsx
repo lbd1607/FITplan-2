@@ -1,7 +1,8 @@
-import React, { ReactNode, Suspense, useRef, useEffect, useState } from "react"
-import { Head, Link, useMutation, useRouter } from "blitz"
+import React, { ReactNode, Suspense, useRef, useEffect, useState, Component } from "react"
+import { Head, Link, useMutation, useRouter, Router } from "blitz"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
+import { v4 as uuid } from "uuid"
 import Modal from "react-modal"
 
 Modal.setAppElement("#__next")
@@ -10,14 +11,7 @@ Modal.setAppElement("#__next")
 export const MyNav = () => {
   const router = useRouter()
   const currentUser = useCurrentUser()
-  if (!currentUser) {
-    return (
-      <>
-        {" "}
-        <div className="py-5 px-16 mx-4 flex-auto"></div>
-      </>
-    )
-  } else {
+  if (currentUser) {
     return (
       <>
         <ul className="">
@@ -34,6 +28,13 @@ export const MyNav = () => {
             <Link href="/plans">Plans</Link>
           </li>
         </ul>
+      </>
+    )
+  } else {
+    return (
+      <>
+        {" "}
+        <div className="py-5 px-24 flex-auto"></div>
       </>
     )
   }

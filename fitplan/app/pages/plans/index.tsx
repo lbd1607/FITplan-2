@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useState, useEffect, useRef } from "react"
+import { Fragment, Suspense, useState, useEffect, useRef, useReducer } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, useMutation, useParam } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getPlans from "app/plans/queries/getPlans"
@@ -10,7 +10,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { FORM_ERROR } from "app/plans/components/PlanForm"
 import updatePlan from "app/plans/mutations/updatePlan"
 import { v4 as uuid } from "uuid"
-import { render } from "test/utils"
+import React from "react"
 
 Modal.setAppElement("#__next")
 
@@ -80,19 +80,21 @@ export const PlansList = () => {
     }
   }
 
-  //State for plan items (each row item)
   const planState = plans
-  /*  const initialPlans = () => {
-    return plans
-  } */
   const [planItem, updatePlanItem] = useState(planState)
-  const planRef = useRef()
+
+  const planRef = useRef(plans)
+  planRef.current = planItem
 
   useEffect(() => {
-    getPlans
-
-    console.log("getPlans")
-  }, [planItem])
+    //useEffect is running twice on change
+    //nothing updates on first run
+    //on second run, plans are updating, but ref is not
+    //ref only updates on refresh, as intended?
+    console.log(planRef.current, "Ref")
+    console.log(plans, "Plans")
+    /* planRef.current = plans */
+  }, [plans])
 
   //Fetch plan id
   const planId = useParam("planId", "number")
@@ -102,28 +104,28 @@ export const PlansList = () => {
     [uuid()]: {
       name: "Unassigned",
       items: Array.from(
-        planItem.filter((planItem) => planItem.groupOrder === null || planItem.groupOrder === 0) //Show only unassigned items in this first group
+        plans.filter((planItem) => planItem.groupOrder === null || planItem.groupOrder === 0) //Show only unassigned items in this first group
       ),
       groupOrder: 0,
     },
     [uuid()]: {
       name: "Week 1",
-      items: Array.from(planItem.filter((planItem) => planItem.groupOrder === 1)),
+      items: Array.from(plans.filter((planItem) => planItem.groupOrder === 1)),
       groupOrder: 1,
     },
     [uuid()]: {
       name: "Week 2",
-      items: Array.from(planItem.filter((planItem) => planItem.groupOrder === 2)),
+      items: Array.from(plans.filter((planItem) => planItem.groupOrder === 2)),
       groupOrder: 2,
     },
     [uuid()]: {
       name: "Week 3",
-      items: Array.from(planItem.filter((planItem) => planItem.groupOrder === 3)),
+      items: Array.from(plans.filter((planItem) => planItem.groupOrder === 3)),
       groupOrder: 3,
     },
     [uuid()]: {
       name: "Week 4",
-      items: Array.from(planItem.filter((planItem) => planItem.groupOrder === 4)),
+      items: Array.from(plans.filter((planItem) => planItem.groupOrder === 4)),
       groupOrder: 4,
     },
   }
@@ -192,11 +194,8 @@ export const PlansList = () => {
 
       postUpdatedOrder(item)
     }
+
     updatePlanItem(newItems)
-    /*  updatePlanItem((prevItems) => [...prevItems, ...newItems]) */
-    /* updatePlanItem((prevState) => {
-      return { ...prevState, plans: plans }
-    }) */
   }
 
   //Update mutation to update plan itemOrder

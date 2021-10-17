@@ -6,10 +6,10 @@ import { Field } from "react-final-form"
 import getWorkouts from "app/workouts/queries/getWorkouts"
 import { usePaginatedQuery, useQuery, useParam } from "blitz"
 export { FORM_ERROR } from "app/core/components/Form"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome" */
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { OnChange } from "react-final-form-listeners"
-import { Plan } from "app/pages/plans/[planId]"
+/* import { OnChange } from "react-final-form-listeners"
+import { Plan } from "app/pages/plans/[planId]" */
 
 export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const [{ workouts }] = usePaginatedQuery(getWorkouts, {

@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
 import { Link, useRouter, useMutation, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createPlan from "app/plans/mutations/createPlan"
 import { PlanForm, FORM_ERROR } from "app/plans/components/PlanForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { useEffect, useRef } from "react"
 
 const NewPlanPage: BlitzPage = () => {
   const router = useRouter()
@@ -55,6 +55,8 @@ const NewPlanPage: BlitzPage = () => {
 
               try {
                 const plan = await createPlanMutation(values, daysList)
+                /* router.reload() */
+
                 router.push("/plans")
               } catch (error) {
                 //console.error(error)
@@ -64,7 +66,7 @@ const NewPlanPage: BlitzPage = () => {
                   return { [FORM_ERROR]: "Select a workout." }
                 } else if (!values.days) {
                   return { [FORM_ERROR]: "Select days." }
-                } else {
+                } /* remove */ else {
                   return {
                     [FORM_ERROR]: error.toString(),
                   }

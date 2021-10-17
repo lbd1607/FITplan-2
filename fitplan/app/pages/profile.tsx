@@ -22,6 +22,13 @@ const UserInfo = () => {
             <p className="formfieldlabel">
               Password: <span className="font-bold">{"**********" || "None"}</span>
             </p>
+            <div className="px-8 pb-6">
+              <Link href="/reset-password">
+                <a className="cursor-pointer underline text-blue-500 hover:text-blue-700 ">
+                  Change password
+                </a>
+              </Link>
+            </div>
 
             <p className="formfieldlabel">
               Role:{" "}
@@ -38,8 +45,11 @@ const UserInfo = () => {
               >
                 Log out
               </button>
-              <button className="btn cancel w-full">
+              {/* <button className="btn cancel w-full">
                 <Link href="/ForgotPasswordPage">Change Password</Link>
+              </button> */}
+              <button className="btn cancel w-full">
+                <Link href="/">Cancel</Link>
               </button>
             </div>
           </div>

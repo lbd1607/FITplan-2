@@ -72,7 +72,7 @@ export const LoginForm = (props: LoginFormProps) => {
                   />
                 </div>
 
-                <div className="pb-4">
+                <div className="pb-4 pt-2">
                   <Link href="/forgot-password">
                     <a className="cursor-pointer underline text-blue-500 hover:text-blue-700 ">
                       Forgot your password?

@@ -22,7 +22,9 @@ export const SignupForm = (props: SignupFormProps) => {
           <h1 className="pl-0">Create an Account</h1>
           <div className="-ml-6">
             <Form
-              submitText="Create Account"
+              submitText="Confirm"
+              cancelText="Cancel"
+              cancelURL="/login"
               schema={Signup}
               initialValues={{ email: "", password: "" }}
               onSubmit={async (values) => {
@@ -50,6 +52,10 @@ export const SignupForm = (props: SignupFormProps) => {
               }}
             >
               <div className="py-6 px-6">
+                {/*   <div className="">
+                  <label className="formfieldlabel">Username</label>
+                  <Field component="input" name="name" className="inputbox" aria-required="true" />
+                </div> */}
                 <div className="">
                   <label className="formfieldlabel required-field">Email</label>
                   <Field
