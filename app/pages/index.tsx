@@ -3,12 +3,11 @@ import { Image, Link, BlitzPage, useMutation, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
-import logo from "public/logo.png"
-
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
+import { WorkoutsList } from "app/pages/workouts/index"
+import { PlansList } from "app/pages/plans/index"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import { ExercisesList } from "app/pages/exercises"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -17,7 +16,7 @@ const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <button
+        {/*  <button
           className="button small"
           onClick={async () => {
             await logoutMutation()
@@ -29,13 +28,14 @@ const UserInfo = () => {
           User id: <code>{currentUser.id}</code>
           <br />
           User role: <code>{currentUser.role}</code>
-        </div>
+        </div> */}
       </>
     )
   } else {
+    Routes.LoginPage()
     return (
       <>
-        <Link href={Routes.SignupPage()}>
+        {/*  <Link href={Routes.SignupPage()}>
           <a className="button small">
             <strong>Sign Up</strong>
           </a>
@@ -44,7 +44,7 @@ const UserInfo = () => {
           <a className="button small">
             <strong>Login</strong>
           </a>
-        </Link>
+        </Link> */}
       </>
     )
   }
@@ -52,216 +52,98 @@ const UserInfo = () => {
 
 const Home: BlitzPage = () => {
   return (
-    <div className="container">
+    <div className="">
       <main>
-        <div className="logo">
-          <Image src={logo} alt="blitzjs" />
-        </div>
-        <p>
-          <strong>Congrats!</strong> Your app is ready, including user sign-up and log-in.
-        </p>
-        <div className="buttons" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-          <Suspense fallback="Loading...">
-            <UserInfo />
-          </Suspense>
-        </div>
-        <p>
-          <strong>
-            To add a new model to your app, <br />
-            run the following in your terminal:
-          </strong>
-        </p>
-        <pre>
-          <code>blitz generate all project name:string</code>
-        </pre>
-        <div style={{ marginBottom: "1rem" }}>(And select Yes to run prisma migrate)</div>
-        <div>
-          <p>
-            Then <strong>restart the server</strong>
-          </p>
-          <pre>
-            <code>Ctrl + c</code>
-          </pre>
-          <pre>
-            <code>blitz dev</code>
-          </pre>
-          <p>
-            and go to{" "}
-            <Link href="/projects">
-              <a>/projects</a>
-            </Link>
-          </p>
-        </div>
-        <div className="buttons" style={{ marginTop: "5rem" }}>
-          <a
-            className="button"
-            href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-          <a
-            className="button-outline"
-            href="https://github.com/blitz-js/blitz"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github Repo
-          </a>
-          <a
-            className="button-outline"
-            href="https://discord.blitzjs.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Discord Community
-          </a>
+        <Suspense fallback={<div className="pl-20">Loading...</div>}>
+          <UserInfo />
+        </Suspense>
+
+        <div className="card-container-parent">
+          <div className="flex-1 mx-9 my-0 mb-8 px-6 pb-6 ">
+            <div className="grid grid-cols-12 grid-rows-4 gap-4 grid-flow-row h-full ">
+              <div
+                className="col-start-1 col-span-7 row-start-1 row-span-4 dash-card"
+                style={{ backdropFilter: "blur(30px" }}
+              >
+                <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1 className="pl-10">
+                      Plans
+                      <Link href={Routes.PlansPage()}>
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">
+                      <Suspense fallback={<div className="pl-20">Loading...</div>}>
+                        <PlansList />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="dash-card col-span-5 row-span-2">
+                <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1>
+                      Workouts
+                      <Link href={Routes.WorkoutsPage()}>
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">
+                      <Suspense fallback={<div className="pl-20">Loading...</div>}>
+                        <WorkoutsList />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="dash-card col-span-5 row-span-2">
+                <div className="inner-scroll-parent">
+                  <div className="inner-scroll-heading">
+                    <h1>
+                      Exercises
+                      <Link href={Routes.WorkoutsPage()}>
+                        <span>
+                          <FontAwesomeIcon
+                            icon="chevron-right"
+                            size="sm"
+                            className="chevronicon float-right m-1"
+                          />
+                        </span>
+                      </Link>
+                    </h1>
+                  </div>
+                  <div className="inner-scroll">
+                    <div className="">
+                      <Suspense fallback={<div className="pl-10">Loading...</div>}>
+                        <ExercisesList />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-
-      <footer>
-        <a
-          href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by Blitz.js
-        </a>
-      </footer>
-
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;700&display=swap");
-
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: "Libre Franklin", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-        }
-
-        * {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          box-sizing: border-box;
-        }
-        .container {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main p {
-          font-size: 1.2rem;
-        }
-
-        p {
-          text-align: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 60px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #45009d;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer a {
-          color: #f4f4f4;
-          text-decoration: none;
-        }
-
-        .logo {
-          margin-bottom: 2rem;
-        }
-
-        .logo img {
-          width: 300px;
-        }
-
-        .buttons {
-          display: grid;
-          grid-auto-flow: column;
-          grid-gap: 0.5rem;
-        }
-        .button {
-          font-size: 1rem;
-          background-color: #6700eb;
-          padding: 1rem 2rem;
-          color: #f4f4f4;
-          text-align: center;
-        }
-
-        .button.small {
-          padding: 0.5rem 1rem;
-        }
-
-        .button:hover {
-          background-color: #45009d;
-        }
-
-        .button-outline {
-          border: 2px solid #6700eb;
-          padding: 1rem 2rem;
-          color: #6700eb;
-          text-align: center;
-        }
-
-        .button-outline:hover {
-          border-color: #45009d;
-          color: #45009d;
-        }
-
-        pre {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          text-align: center;
-        }
-        code {
-          font-size: 0.9rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-            Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
     </div>
   )
 }

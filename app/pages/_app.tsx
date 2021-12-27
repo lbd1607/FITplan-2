@@ -9,6 +9,42 @@ import {
 } from "blitz"
 import LoginForm from "app/auth/components/LoginForm"
 
+import "app/core/styles/index.css"
+import { library } from "@fortawesome/fontawesome-svg-core"
+//import { fab } from "@fortawesome/free-brands-svg-icons"
+import {
+  faBurn,
+  faDumbbell,
+  faHeartbeat,
+  faPlusCircle,
+  faMinusCircle,
+  faPen,
+  faTrash,
+  faTimes,
+  faSpa,
+  faChevronRight,
+  faCaretDown,
+  faPlus,
+  faGripLines,
+} from "@fortawesome/free-solid-svg-icons"
+
+library.add(
+  //fab,
+  faHeartbeat,
+  faDumbbell,
+  faBurn,
+  faPlusCircle,
+  faMinusCircle,
+  faPen,
+  faTrash,
+  faTimes,
+  faSpa,
+  faChevronRight,
+  faCaretDown,
+  faPlus,
+  faGripLines
+)
+
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
 

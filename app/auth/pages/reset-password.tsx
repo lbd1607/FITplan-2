@@ -1,4 +1,4 @@
-import { BlitzPage, useRouterQuery, Link, useMutation, Routes } from "blitz"
+import { BlitzPage, useRouterQuery, Link, useMutation, Routes, useRouter } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
@@ -8,6 +8,7 @@ import resetPassword from "app/auth/mutations/resetPassword"
 const ResetPasswordPage: BlitzPage = () => {
   const query = useRouterQuery()
   const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
+  const router = useRouter()
 
   return (
     <div>
@@ -37,6 +38,16 @@ const ResetPasswordPage: BlitzPage = () => {
                 return {
                   [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again.",
                 }
+              }
+            }
+          }}
+          onCancel={async () => {
+            try {
+              router.back()
+            } catch (error) {
+              console.error(error)
+              return {
+                [FORM_ERROR]: error.toString(),
               }
             }
           }}
