@@ -174,7 +174,8 @@ export const Plan = () => {
                   onClick={async () => {
                     if (window.confirm("Delete from Plans?")) {
                       await deletePlanMutation({ id: plan.id })
-                      router.push("/plans")
+                      // router.push("/plans")
+                      router.push(Routes.PlansPage())
                     }
                   }}
                 >

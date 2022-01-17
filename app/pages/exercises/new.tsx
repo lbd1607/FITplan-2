@@ -41,7 +41,7 @@ const NewExercisePage: BlitzPage = () => {
               // initialValues={{}}
               onSubmit={async (values) => {
                 try {
-                  const exercise = await createExerciseMutation(values)
+                  await createExerciseMutation(values)
                   router.push(Routes.ExercisesPage())
                 } catch (error: any) {
                   console.error(error)

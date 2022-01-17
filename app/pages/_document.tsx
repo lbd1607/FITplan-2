@@ -11,7 +11,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <DocumentHead />
-        <body>
+        <body className="overflow-x-hidden">
           <Main />
           <BlitzScript />
         </body>

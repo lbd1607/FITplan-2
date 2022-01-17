@@ -1,6 +1,6 @@
 -- Plan
 
-Style plans for 2-col
+Makeover styling: Replace cards and scroll containers with standard page elements.
 Assign exercises to workouts 
 Responsive styling cleanup; responsive nav
 Deploy
@@ -10,15 +10,44 @@ Work on Nice-to-haves, bug fixes, and other improvements
 
 -- Required features
 
-Fix broken modals. Cancel and close buttons don't work, but clicking outside modal does. Could be related to new Blitz routing scheme or breaking changes in new React router DOM. Maybe just remove this and do some in-page animations with dynamic behaviors.
+-- Finish fixing refresh on change state from form submit. The state is changing, but may be beating the render.
+
+-- Fix onCancel functionality. The function is never being called on click. 
+
+-- Fix 
+/home/laura/Dev/FITplan/fitplan/app/core/layouts/Layout.tsx
+   72:5  error    React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render                                  react-hooks/rules-of-hooks
+  137:9  warning  Do not use <img>. Use Image from 'next/image' instead. See https://nextjs.org/docs/messages/no-img-element                                                    @next/next/no-img-element
+  162:9  warning  Custom fonts not added at the document level will only load for a single page. This is discouraged. See https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+
+/home/laura/Dev/FITplan/fitplan/app/exercises/components/ExerciseForm.tsx
+  26:23  error  React Hook "useQuery" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+  33:27  error  React Hook "useQuery" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+
+/home/laura/Dev/FITplan/fitplan/app/pages/exercises/[exerciseId].tsx
+  31:23  error  React Hook "useQuery" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+  56:46  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                              react/no-unescaped-entities
+  56:51  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                              react/no-unescaped-entities
+
+/home/laura/Dev/FITplan/fitplan/app/pages/exercises/[exerciseId]/edit.tsx
+  35:46  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  35:51  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+/home/laura/Dev/FITplan/fitplan/app/pages/plans/[planId].tsx
+  46:23  error  React Hook "useQuery" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+
+/home/laura/Dev/FITplan/fitplan/app/workouts/components/WorkoutForm.tsx
+  22:27  error  React Hook "useQuery" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+
+--> Replace modals with slide-in forms. Consider react-spring. 
+
+< On workout select from workouts page, slide in on click rather than directing to page
 
 Fix size difference between dashboard and pages (padding ?)
 
 Create oops page for 400, 404, and 500 responses. Maybe do a loading page then redirect to static on timeout
 
 Implement left chevron on individual pages as back button to dashboard
-
-Force page refresh after create/delete/edit in all. useEffect not working. May need to bubble up state from forms. This only occurs now in Plans. May be related to modal.
 
 Reduce login and logout errors -> Unmount avatar and nav on logout to avoid error; do reverse for login.
 
@@ -33,13 +62,11 @@ Implement multitenancy https://blitzjs.com/docs/multitenancy
 
 Clean up code, insert comments, remove unused imports and console.log code from each file. Fix var and func naming and make code more readable, esp. in plans.
 
-< On workout select from workouts page, open modal on click rather than directing to page
+Re-enter password check in the sign up form
 
 
 --------------------------------------------------------------------------
 -- Nice to haves
-
-Re-enter password check in the sign up form
 
 Current workouts functionality: Implement timer with animation?
 
@@ -49,30 +76,25 @@ Write custom deletion dialog
 
 Add meals and allow scheduling into week; include macro tracking (use USDA FoodData Central API); call tab "Nutrition"
 
-Implement reorder capability on all pages with beautiful-react-dnd; persist changes to database
+Implement reorder capability on all pages
 
 Add search (Lunr)
-
-> Fix embedded workouts form in workouts[id]; On press Add button, show form; add as multistep to create workout as well.
-
-Allow user to add workout to plan from workouts view page
-
-Integrate editing with view page so user can click in a field, change, then save without requiring separate edit action
-
-Add ability to add existing exercise to workout
 
 Create dark mode mode for improved a11y
 
 Add Recovery type
-
-Custom scrollbar pill styling
 
 
 
 
 -- Notes and scraps
 
-State is broken in plans. Items not persisting reorder within group now. App gets stuck at rebuilding. Likely due to stale closure. Tried useEffect in several different ways, but can't find source of issue. Fixed render by removing index [0] from planItems, items, and group. Group and item order are persisting in state, but not to db. Itemorder and group order remain null. Fixed - had to add itemOrder and groupOrder to update mutation. Need to check if update from edit page causes issues. Still need to fix inter-group ordering (itemOrder). Fixed - put postupdatedorder call inside conditional. Changed sortby from id to itemorder.
+State is broken in plans. Items not persisting reorder within group now. App gets stuck at rebuilding. Likely due to stale closure. Tried useEffect in several different ways, but can't find source of issue. 
+!!! Fixed render by removing index [0] from planItems, items, and group. 
+Group and item order are persisting in state, but not to db. Itemorder and group order remain null. 
+!!! Fixed - had to add itemOrder and groupOrder to update mutation. 
+Need to check if update from edit page causes issues. Still need to fix inter-group ordering (itemOrder). 
+!!! Fixed - put postupdatedorder call inside conditional. Changed sortby from id to itemorder.
 
 <!-- Inner scroll cards -->
 <div className="card-container-parent">

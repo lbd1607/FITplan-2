@@ -1,17 +1,28 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
+import { Link, useRouter, useMutation, BlitzPage, Routes, usePaginatedQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createPlan from "app/plans/mutations/createPlan"
 import { PlanForm, FORM_ERROR } from "app/plans/components/PlanForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { useEffect, useRef } from "react"
+import { DayOfWeek } from "./planUtils"
+import { useEffect, useState } from "react"
+import { v4 as uuid } from "uuid"
+import getPlans from "app/plans/queries/getPlans"
 
-const NewPlanPage: BlitzPage = () => {
+const NewPlanPage = ({ setPlanState, setShow }) => {
+  /*   const [{ plans }] = usePaginatedQuery(getPlans, {
+    orderBy: { itemOrder: "asc" } || { id: "asc" },
+  })
+
+  useEffect(() => {
+    updatePlanState(uuid())
+  }, [plans]) */
+
   const router = useRouter()
   const [createPlanMutation] = useMutation(createPlan)
 
   return (
-    <div className="items-center justify-center">
+    <div className="items-center justify-center ">
       <div className="card-container m-0">
         <div className="modal-card overflow-y-auto">
           <div className="cardcol">
@@ -42,19 +53,25 @@ const NewPlanPage: BlitzPage = () => {
               //Sort days of week as Mon - Sun before posting data
               let daysList = values.days || [],
                 dayOrder = [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday",
-                  "Sunday",
+                  DayOfWeek.Monday.dayName,
+                  DayOfWeek.Tuesday.dayName,
+                  DayOfWeek.Wednesday.dayName,
+                  DayOfWeek.Thursday.dayName,
+                  DayOfWeek.Friday.dayName,
+                  DayOfWeek.Saturday.dayName,
+                  DayOfWeek.Sunday.dayName,
                 ]
               daysList.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
               //console.log(daysList)
+              values.itemOrder = 0
+              values.groupOrder = 0
+
               try {
-                const plan = await createPlanMutation(values)
+                await createPlanMutation(values)
+                setShow(false)
+                setPlanState(uuid())
                 router.push(Routes.PlansPage())
+                // return <Link href={Routes.PlansPage()} />
               } catch (error: any) {
                 if (!values.planName) {
                   return { [FORM_ERROR]: "Enter a plan name." }
@@ -62,16 +79,18 @@ const NewPlanPage: BlitzPage = () => {
                   return { [FORM_ERROR]: "Select a workout." }
                 } else if (!values.days) {
                   return { [FORM_ERROR]: "Select days." }
-                } /* remove */ else {
-                  return {
-                    [FORM_ERROR]: error.toString(),
-                  }
+                }
+                return {
+                  [FORM_ERROR]: error.toString(),
                 }
               }
             }}
             onCancel={async () => {
+              setShow(false)
               try {
-                router.back()
+                // return <Link href={Routes.PlansPage()} />
+
+                router.push(Routes.PlansPage())
               } catch (error) {
                 console.error(error)
                 return {

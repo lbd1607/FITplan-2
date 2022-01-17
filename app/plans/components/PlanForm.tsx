@@ -10,6 +10,111 @@ export { FORM_ERROR } from "app/core/components/Form"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 /* import { OnChange } from "react-final-form-listeners"
 import { Plan } from "app/pages/plans/[planId]" */
+import { DayOfWeek } from "../../pages/plans/planUtils"
+
+const DaysOfTheWeek = () => {
+  return (
+    <fieldset className="grid grid-flow-col">
+      <div className="dayParent">
+        <Field
+          name="days"
+          value={DayOfWeek.Monday.dayName}
+          id={DayOfWeek.Monday.ref}
+          component="input"
+          type="checkbox"
+          className="noCheckbox"
+          aria-required="true"
+        />
+        <label htmlFor={DayOfWeek.Monday.ref} className="daysChip ">
+          {DayOfWeek.Monday.abbr}
+        </label>
+      </div>
+      <div className="dayParent">
+        <Field
+          name="days"
+          value={DayOfWeek.Tuesday.dayName}
+          id={DayOfWeek.Tuesday.ref}
+          component="input"
+          type="checkbox"
+          className="noCheckbox"
+        />
+        <label htmlFor={DayOfWeek.Tuesday.ref} className="daysChip ">
+          {DayOfWeek.Tuesday.abbr}
+        </label>
+      </div>
+
+      <div className="dayParent">
+        <Field
+          name="days"
+          value={DayOfWeek.Wednesday.dayName}
+          id={DayOfWeek.Wednesday.ref}
+          component="input"
+          type="checkbox"
+          className="noCheckbox"
+        />
+        <label htmlFor={DayOfWeek.Wednesday.ref} className="daysChip ">
+          {DayOfWeek.Wednesday.abbr}
+        </label>
+      </div>
+
+      <div className="dayParent">
+        <Field
+          name="days"
+          value={DayOfWeek.Thursday.dayName}
+          id={DayOfWeek.Thursday.ref}
+          component="input"
+          type="checkbox"
+          className="noCheckbox"
+        />
+        <label htmlFor={DayOfWeek.Thursday.ref} className="daysChip ">
+          {DayOfWeek.Thursday.abbr}
+        </label>
+      </div>
+
+      <div className="dayParent">
+        <Field
+          name="days"
+          value={DayOfWeek.Friday.dayName}
+          id={DayOfWeek.Friday.ref}
+          component="input"
+          type="checkbox"
+          className="noCheckbox"
+        />
+        <label htmlFor={DayOfWeek.Friday.ref} className="daysChip ">
+          {DayOfWeek.Friday.abbr}
+        </label>
+      </div>
+
+      <div className="dayParent">
+        <Field
+          name="days"
+          value={DayOfWeek.Saturday.dayName}
+          id={DayOfWeek.Saturday.ref}
+          component="input"
+          type="checkbox"
+          className="noCheckbox"
+        />
+        <label htmlFor={DayOfWeek.Saturday.ref} className="daysChip ">
+          {DayOfWeek.Saturday.abbr}
+        </label>
+      </div>
+
+      <div className="dayParent">
+        <Field
+          name="days"
+          value={DayOfWeek.Sunday.dayName}
+          id={DayOfWeek.Sunday.ref}
+          component="input"
+          type="checkbox"
+          className="noCheckbox"
+        />
+        <label htmlFor={DayOfWeek.Sunday.ref} className="daysChip ">
+          {DayOfWeek.Sunday.abbr}
+        </label>
+      </div>
+    </fieldset>
+  )
+}
 
 export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const [{ workouts }] = usePaginatedQuery(getWorkouts, {
@@ -37,112 +142,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
                       <div className="input-container mb-1">
                         <div className="input-container">
                           <label className="formfieldlabel required-field">Days of the Week</label>
-                          <fieldset className="grid grid-flow-col">
-                            <div className="dayParent">
-                              <Field
-                                name="days"
-                                value="Monday"
-                                id="mon"
-                                component="input"
-                                type="checkbox"
-                                className="noCheckbox"
-                                aria-required="true"
-                              />
-                              <label htmlFor="mon" className="daysChip ">
-                                {" "}
-                                M
-                              </label>
-                            </div>
-                            <div className="dayParent">
-                              <Field
-                                name="days"
-                                value="Tuesday"
-                                id="tue"
-                                component="input"
-                                type="checkbox"
-                                className="noCheckbox"
-                              />
-                              <label htmlFor="tue" className="daysChip ">
-                                {" "}
-                                Tu
-                              </label>
-                            </div>
-
-                            <div className="dayParent">
-                              <Field
-                                name="days"
-                                value="Wednesday"
-                                id="wed"
-                                component="input"
-                                type="checkbox"
-                                className="noCheckbox"
-                              />
-                              <label htmlFor="wed" className="daysChip ">
-                                {" "}
-                                W
-                              </label>
-                            </div>
-
-                            <div className="dayParent">
-                              <Field
-                                name="days"
-                                value="Thursday"
-                                id="thu"
-                                component="input"
-                                type="checkbox"
-                                className="noCheckbox"
-                              />
-                              <label htmlFor="thu" className="daysChip ">
-                                {" "}
-                                Th
-                              </label>
-                            </div>
-
-                            <div className="dayParent">
-                              <Field
-                                name="days"
-                                value="Friday"
-                                id="fri"
-                                component="input"
-                                type="checkbox"
-                                className="noCheckbox"
-                              />
-                              <label htmlFor="fri" className="daysChip ">
-                                {" "}
-                                F
-                              </label>
-                            </div>
-
-                            <div className="dayParent">
-                              <Field
-                                name="days"
-                                value="Saturday"
-                                id="sat"
-                                component="input"
-                                type="checkbox"
-                                className="noCheckbox"
-                              />
-                              <label htmlFor="sat" className="daysChip ">
-                                {" "}
-                                Sa
-                              </label>
-                            </div>
-
-                            <div className="dayParent">
-                              <Field
-                                name="days"
-                                value="Sunday"
-                                id="sun"
-                                component="input"
-                                type="checkbox"
-                                className="noCheckbox"
-                              />
-                              <label htmlFor="sun" className="daysChip ">
-                                {" "}
-                                Su
-                              </label>
-                            </div>
-                          </fieldset>
+                          <DaysOfTheWeek />
                         </div>
 
                         <div className="input-container required-field">

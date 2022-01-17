@@ -70,6 +70,8 @@ export const EditPlan = () => {
                     try {
                       const updated = await updatePlanMutation({
                         id: plan.id,
+                        itemOrder: plan.itemOrder ? plan.itemOrder : 0,
+                        groupOrder: plan.groupOrder ? plan.groupOrder : 0,
                         ...values,
                       })
                       await setQueryData(updated)
