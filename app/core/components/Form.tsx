@@ -1,7 +1,7 @@
 import { ReactNode, PropsWithoutRef, useRef } from "react"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 import * as z from "zod"
-import { Link, Routes, useRouter } from "blitz"
+import { Link } from "blitz"
 
 export { FORM_ERROR } from "final-form"
 
@@ -17,7 +17,7 @@ export interface FormProps<S extends z.ZodType<any, any>>
   cancelURL?: string
   schema?: S
   onSubmit: FinalFormProps<z.infer<S>>["onSubmit"]
-  onCancel: FinalFormProps<z.infer<S>>["onCancel"]
+  onCancel: () => void
   initialValues?: FinalFormProps<z.infer<S>>["initialValues"]
 }
 
@@ -72,7 +72,7 @@ export function Form<S extends z.ZodType<any, any>>({
             {cancelText && cancelURL && (
               <div>
                 <Link href={`${cancelURL}`}>
-                  <button className="btn cancel min-w-full" ref={a11yRef}>
+                  <button className="btn cancel min-w-full" ref={a11yRef} onClick={onCancel}>
                     <a>{cancelText}</a>
                   </button>
                 </Link>

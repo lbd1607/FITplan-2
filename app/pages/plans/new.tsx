@@ -5,37 +5,34 @@ import { PlanForm, FORM_ERROR } from "app/plans/components/PlanForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { DayOfWeek } from "./planUtils"
-import { useEffect, useState } from "react"
+import { useContext } from "react"
 import { v4 as uuid } from "uuid"
-import getPlans from "app/plans/queries/getPlans"
+import { FormContext } from "."
 
-const NewPlanPage = ({ setPlanState, setShow }) => {
-  /*   const [{ plans }] = usePaginatedQuery(getPlans, {
-    orderBy: { itemOrder: "asc" } || { id: "asc" },
-  })
-
-  useEffect(() => {
-    updatePlanState(uuid())
-  }, [plans]) */
-
+const NewPlanPage = () => {
   const router = useRouter()
   const [createPlanMutation] = useMutation(createPlan)
 
+  const { setShow, setPlanState } = useContext(FormContext)
+
   return (
-    <div className="items-center justify-center ">
+    <div className="items-center justify-center">
       <div className="card-container m-0">
         <div className="modal-card overflow-y-auto">
           <div className="cardcol">
             <div className="grid grid-cols-8">
-              <h1 className="mb-5 col-span-7 pl-0">Create New Plan</h1>
+              <h1 className="col-span-7 mb-5 pl-0">Create New Plan</h1>
               <Link href={Routes.PlansPage()}>
-                <span className="col-span-1 justify-end text-right">
+                <button
+                  className="col-span-1 justify-end text-right"
+                  onClick={() => setShow(false)}
+                >
                   <FontAwesomeIcon
                     icon="times"
                     size="lg"
-                    className="text-gray-500 cursor-pointer mr-1"
+                    className="mr-1 cursor-pointer text-gray-500"
                   />
-                </span>
+                </button>
               </Link>
             </div>
           </div>
@@ -44,11 +41,7 @@ const NewPlanPage = ({ setPlanState, setShow }) => {
             submitText="Create Plan"
             cancelText="Cancel"
             cancelURL="/plans"
-            // TODO use a zod schema for form validation
-            //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-            //         then import and use it here
-            // schema={CreatePlan}
-            // initialValues={{}}
+            // TODO: use a zod schema for form validation
             onSubmit={async (values) => {
               //Sort days of week as Mon - Sun before posting data
               let daysList = values.days || [],
@@ -62,7 +55,6 @@ const NewPlanPage = ({ setPlanState, setShow }) => {
                   DayOfWeek.Sunday.dayName,
                 ]
               daysList.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
-              //console.log(daysList)
               values.itemOrder = 0
               values.groupOrder = 0
 
@@ -71,7 +63,6 @@ const NewPlanPage = ({ setPlanState, setShow }) => {
                 setShow(false)
                 setPlanState(uuid())
                 router.push(Routes.PlansPage())
-                // return <Link href={Routes.PlansPage()} />
               } catch (error: any) {
                 if (!values.planName) {
                   return { [FORM_ERROR]: "Enter a plan name." }
@@ -87,9 +78,9 @@ const NewPlanPage = ({ setPlanState, setShow }) => {
             }}
             onCancel={async () => {
               setShow(false)
-              try {
-                // return <Link href={Routes.PlansPage()} />
+              setPlanState(uuid())
 
+              try {
                 router.push(Routes.PlansPage())
               } catch (error) {
                 console.error(error)
