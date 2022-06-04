@@ -18,20 +18,14 @@ export const Exercise = () => {
   const [deleteExerciseMutation] = useMutation(deleteExercise)
   const [exercise] = useQuery(getExercise, { id: exerciseId })
 
-  const workoutId = useParam("workoutId", "number")
-
   const [{ workouts }] = useQuery(getWorkouts, {
     orderBy: { id: "asc" },
   })
 
-  //Must check to see if workoutId exists first or validation throws undefined id error
-  if (!workoutId) {
-    var thisWorkoutId = 0
-  } else {
-    const [workout] = useQuery(getWorkout, { id: workoutId })
+  const workoutId = useParam("workoutId", "number")
 
-    var thisWorkoutId = workout.id
-  }
+  const [workout] = useQuery(getWorkout, { id: workoutId }, { enabled: false })
+  const currentWorkoutId = workout?.id ?? 0
 
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   function openModal() {
@@ -53,7 +47,7 @@ export const Exercise = () => {
       case "rest":
         return <p className="formfieldlabel">Rest: {exercise.rest || "None"}</p>
       case "":
-        return <p className="formfieldlabel">"None"</p>
+        return <p className="formfieldlabel">None</p>
       default:
         break
     }
@@ -67,16 +61,16 @@ export const Exercise = () => {
 
       <div className="card-container-parent w-2/6">
         <div className="card-container">
-          <div className="card py-6 border-gray-200 border">
-            <div className="rounded-t mb-0 px-6 py-6 ">
+          <div className="card border border-gray-200 py-6">
+            <div className="mb-0 rounded-t px-6 py-6 ">
               <div className="grid grid-cols-8">
-                <h1 className="mb-10 col-span-7">{exercise.exName}</h1>
+                <h1 className="col-span-7 mb-10">{exercise.exName}</h1>
                 <Link href={Routes.ExercisesPage()}>
                   <span className="col-span-1 justify-end text-right">
                     <FontAwesomeIcon
                       icon="times"
                       size="lg"
-                      className="text-gray-500 cursor-pointer mr-1"
+                      className="mr-1 cursor-pointer text-gray-500"
                     />
                   </span>
                 </Link>
@@ -89,7 +83,7 @@ export const Exercise = () => {
               <ul>
                 {workouts.map((workout) =>
                   exercise.workoutId === workout.id ? (
-                    <li className="formfieldlabel" key={thisWorkoutId}>
+                    <li className="formfieldlabel" key={currentWorkoutId}>
                       Assigned to Workout: {workout.workoutName}
                     </li>
                   ) : (
@@ -97,11 +91,11 @@ export const Exercise = () => {
                   )
                 )}
               </ul>
-              <div className="flex flex-row justify-between mt-10 px-8">
+              <div className="mt-10 flex flex-row justify-between px-8">
                 <button className="btn edit" onClick={openModal}>
                   {" "}
                   <a>
-                    <FontAwesomeIcon icon="pen" size="1x" className="cursor-pointer mr-2" />
+                    <FontAwesomeIcon icon="pen" size="1x" className="mr-2 cursor-pointer" />
                     Edit
                   </a>
                 </button>
@@ -117,7 +111,7 @@ export const Exercise = () => {
                     }
                   }}
                 >
-                  <FontAwesomeIcon icon="trash" size="1x" className="cursor-pointer mr-2" />
+                  <FontAwesomeIcon icon="trash" size="1x" className="mr-2 cursor-pointer" />
                   Delete
                 </button>
               </div>

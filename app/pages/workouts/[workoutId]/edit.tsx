@@ -31,13 +31,13 @@ export const EditWorkout = () => {
           <div className="card">
             <div className="my-6 px-6">
               <div className="grid grid-cols-8">
-                <h1 className="mb-10 col-span-7">Edit {workout.workoutName}</h1>
+                <h1 className="col-span-7 mb-10">Edit {workout.workoutName}</h1>
                 <Link href={Routes.WorkoutsPage()}>
                   <span className="col-span-1 justify-end text-right">
                     <FontAwesomeIcon
                       icon="times"
                       size="lg"
-                      className="text-gray-500 cursor-pointer mr-1"
+                      className="mr-1 cursor-pointer text-gray-500"
                     />
                   </span>
                 </Link>

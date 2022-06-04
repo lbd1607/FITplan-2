@@ -15,15 +15,11 @@ export { FORM_ERROR } from "app/core/components/Form"
 export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const a11yRef = useRef(null)
   const editingId = useParam("workoutId", "number")
-  //Must check editingId first, otherwise validation assumes undefined id and fails on create new
-  if (!editingId) {
-    var currentState = "resistance"
-  } else {
-    const [editWorkout] = useQuery(getWorkout, { id: editingId })
-    var currentState = `${editWorkout.workoutType}` || "resistance"
-  }
-  //Set which button is selected onClickCapture, default is the default selection "resistance"; state is lifted to parent
-  const [isSelected, setSelected] = useState(currentState)
+
+  const [editWorkout] = useQuery(getWorkout, { id: editingId }, { enabled: false })
+  const currentWorkoutType = editWorkout?.workoutType ?? "resistance"
+
+  const [isSelected, setSelected] = useState(currentWorkoutType)
 
   return (
     <>
@@ -60,7 +56,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                         onClickCapture={() => setSelected("resistance")}
                         ref={a11yRef}
                       >
-                        <FontAwesomeIcon icon="dumbbell" size="lg" className="text-cyan-500 mr-1" />{" "}
+                        <FontAwesomeIcon icon="dumbbell" size="lg" className="mr-1 text-cyan-500" />{" "}
                         Resistance
                       </button>
 
@@ -79,7 +75,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                         <FontAwesomeIcon
                           icon="heartbeat"
                           size="lg"
-                          className="text-pink-500 mr-1"
+                          className="mr-1 text-pink-500"
                         />{" "}
                         Cardio
                       </button>
@@ -97,7 +93,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                         onClickCapture={() => setSelected("endurance")}
                         ref={a11yRef}
                       >
-                        <FontAwesomeIcon icon="burn" size="lg" className="text-orange-500 mr-1" />{" "}
+                        <FontAwesomeIcon icon="burn" size="lg" className="mr-1 text-orange-500" />{" "}
                         Endurance
                       </button>
                       <button
@@ -114,7 +110,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                         onClickCapture={() => setSelected("flexibility")}
                         ref={a11yRef}
                       >
-                        <FontAwesomeIcon icon="spa" size="lg" className="text-yellow-300 mr-1" />{" "}
+                        <FontAwesomeIcon icon="spa" size="lg" className="mr-1 text-yellow-300" />{" "}
                         Flexibility
                       </button>
                     </div>

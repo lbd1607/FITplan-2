@@ -1,9 +1,9 @@
-import { Head, BlitzLayout, Link, useMutation, useRouter, Router, Routes } from "blitz"
-import React, { ReactNode, Suspense, useRef, useEffect, useState, Component } from "react"
+import { Head, BlitzLayout, Link, useMutation, useRouter, Routes } from "blitz"
+import React, { Suspense, useRef, useEffect, useState } from "react"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
-import { v4 as uuid } from "uuid"
 import Modal from "react-modal"
+import Image from "next/image"
 
 Modal.setAppElement("#__next")
 
@@ -34,7 +34,7 @@ export const MyNav = () => {
     return (
       <>
         {" "}
-        <div className="py-5 px-24 flex-auto"></div>
+        <div className="flex-auto py-5 px-24"></div>
       </>
     )
   }
@@ -53,7 +53,8 @@ export const Avatar = (props) => {
     text = "?"
   }
 
-  if (currentUser) {
+  /* Create avatar drawing */
+  useEffect(() => {
     /* Draw avatar */
     const draw = (ctx) => {
       /* Draw rectangle, then form into circle for avatar */
@@ -68,17 +69,14 @@ export const Avatar = (props) => {
       ctx.fillStyle = "#fff"
       ctx.fillText(text, 18, 24)
     }
-    /* Create avatar drawing */
-    useEffect(() => {
-      const canvas = canvasRef.current
-      const context = canvas.getContext("2d")
+    const canvas = canvasRef.current
+    const context = canvas.getContext("2d")
 
-      canvas.height = 40
-      canvas.width = 40
+    canvas.height = 40
+    canvas.width = 40
 
-      draw(context)
-    }, [draw])
-  }
+    draw(context)
+  }, [text])
 
   {
     /* Setup modal, contain modal open and close functions */
@@ -94,7 +92,7 @@ export const Avatar = (props) => {
 
     return (
       <>
-        <button className="p-2 mr-6" onClick={openModal}>
+        <button className="mr-6 p-2" onClick={openModal}>
           <canvas className="avatar-canvas" ref={canvasRef} {...props} />
         </button>
         <div>
@@ -134,12 +132,14 @@ class Nav extends React.Component {
   render() {
     return (
       <div className="navbar grid grid-flow-col">
-        <img src="/fitplanIcon.svg" alt="" className="h-6 my-4 ml-7 mr-2" />
+        <div className="my-4 ml-7 mr-2 h-6">
+          <Image src="/fitplanIcon.svg" alt="" width={25} height={25} />
+        </div>
         <div className="grid grid-cols-10">
           <h3 className="brand tracking-wider">FITPLAN</h3>
         </div>
         <Suspense fallback="">
-          <div className="px-6 py-5 mr-6 flex-auto">
+          <div className="mr-6 flex-auto px-6 py-5">
             <MyNav />
           </div>
         </Suspense>

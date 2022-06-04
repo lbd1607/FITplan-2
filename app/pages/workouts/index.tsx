@@ -28,13 +28,13 @@ export const WorkoutsList = () => {
   function getWorkoutIcon(worktype) {
     switch (worktype) {
       case "resistance":
-        return <FontAwesomeIcon icon="dumbbell" size="lg" className="text-cyan-500 mr-4 ml-2 " />
+        return <FontAwesomeIcon icon="dumbbell" size="lg" className="mr-4 ml-2 text-cyan-500 " />
       case "cardio":
-        return <FontAwesomeIcon icon="heartbeat" size="lg" className="text-pink-500 mr-4 ml-3 " />
+        return <FontAwesomeIcon icon="heartbeat" size="lg" className="mr-4 ml-3 text-pink-500 " />
       case "endurance":
-        return <FontAwesomeIcon icon="burn" size="lg" className="text-orange-500 mr-5 ml-3 " />
+        return <FontAwesomeIcon icon="burn" size="lg" className="mr-5 ml-3 text-orange-500 " />
       case "flexibility":
-        return <FontAwesomeIcon icon="spa" size="lg" className="text-yellow-300 mr-5 ml-2 " />
+        return <FontAwesomeIcon icon="spa" size="lg" className="mr-5 ml-2 text-yellow-300 " />
       default:
         break
     }
@@ -84,10 +84,13 @@ const WorkoutsPage: BlitzPage = () => {
             <div className="inner-scroll-heading">
               <h1 className="ml-2 mt-1">
                 Workouts
-                <button className="btn add ml-10 align-middle float-right mr-3" onClick={openModal}>
+                <button
+                  className="btn add float-right ml-10 mr-3 align-middle "
+                  onClick={openModal}
+                >
                   {" "}
                   <a>
-                    <FontAwesomeIcon icon="plus" size="1x" className="cursor-pointer mr-2" />
+                    <FontAwesomeIcon icon="plus" size="1x" className="mr-2 cursor-pointer" />
                     Create New
                   </a>
                 </button>

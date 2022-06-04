@@ -18,24 +18,15 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
     </Field>
   )
   const a11yRef = useRef(null)
-  const workoutId = useParam("workoutId", "number")
-  //Must check to see if workoutId exists first or validation throws undefined id error
-  if (!workoutId) {
-    var thisWorkoutId = 0
-  } else {
-    const [workout] = useQuery(getWorkout, { id: workoutId })
-    var thisWorkoutId = workout.id
-  }
-  //Must check editingId first, otherwise validation assumes undefined id and fails on create new
-  if (!workoutId) {
-    var currentState = "resistance"
-  } else {
-    const [editWorkout] = useQuery(getWorkout, { id: workoutId })
-    var currentState = `${editWorkout.workoutType}` || "resistance"
-  }
 
-  //Set which button is selected onClickCapture, default is the default selection "resistance"; state is lifted to parent
-  const [isSelected, setSelected] = useState(currentState)
+  const workoutId = useParam("workoutId", "number")
+  const [workout] = useQuery(getWorkout, { id: workoutId }, { enabled: false })
+  const currentWorkoutId = workout?.id ?? 0
+
+  const editingId = useParam("workoutId", "number")
+  const [editWorkout] = useQuery(getWorkout, { id: editingId }, { enabled: false })
+  const currentWorkoutType = editWorkout?.workoutType ?? "resistance"
+  const [isSelected, setSelected] = useState(currentWorkoutType)
 
   return (
     <>
@@ -43,7 +34,7 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
         {/* Pass the current workout id to exercises */}
         <Field
           name="workoutId"
-          defaultValue={thisWorkoutId || null}
+          defaultValue={currentWorkoutId || null}
           component="input"
           hidden={true}
         />

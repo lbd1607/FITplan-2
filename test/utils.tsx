@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { RouterContext, BlitzRouter, BlitzProvider } from "blitz"
 import { render as defaultRender } from "@testing-library/react"
 import { renderHook as defaultRenderHook } from "@testing-library/react-hooks"
