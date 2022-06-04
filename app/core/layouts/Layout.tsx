@@ -5,7 +5,7 @@ import logout from "app/auth/mutations/logout"
 import Modal from "react-modal"
 import Image from "next/image"
 
-Modal.setAppElement("#__next")
+// Modal.setAppElement("#__next")
 
 /* Set nav links to active when route == path for active styling */
 export const MyNav = () => {

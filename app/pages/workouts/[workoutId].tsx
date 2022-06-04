@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 //import ExerciseForm from "../exercises/new"
 
-Modal.setAppElement("#__next")
+// Modal.setAppElement("#__next")
 
 export const Workout = () => {
   const router = useRouter()
@@ -37,13 +37,13 @@ export const Workout = () => {
   function getWorkoutIcon(worktype) {
     switch (worktype) {
       case "resistance":
-        return <FontAwesomeIcon icon="dumbbell" size="lg" className="text-cyan-500 mx-1 " />
+        return <FontAwesomeIcon icon="dumbbell" size="lg" className="mx-1 text-cyan-500 " />
       case "cardio":
-        return <FontAwesomeIcon icon="heartbeat" size="lg" className="text-pink-500 mx-1 " />
+        return <FontAwesomeIcon icon="heartbeat" size="lg" className="mx-1 text-pink-500 " />
       case "endurance":
-        return <FontAwesomeIcon icon="burn" size="lg" className="text-orange-500 mx-1 " />
+        return <FontAwesomeIcon icon="burn" size="lg" className="mx-1 text-orange-500 " />
       case "flexibility":
-        return <FontAwesomeIcon icon="spa" size="lg" className="text-yellow-300 mx-1 " />
+        return <FontAwesomeIcon icon="spa" size="lg" className="mx-1 text-yellow-300 " />
       default:
         break
     }
@@ -57,21 +57,21 @@ export const Workout = () => {
 
       <div className="card-container-parent w-2/6">
         <div className="card-container ">
-          <div className="card py-6 border-gray-200 border">
+          <div className="card border border-gray-200 py-6">
             <div className="rounded-t px-6 py-6">
               <div className="grid grid-cols-8">
-                <h1 className="mb-10 col-span-7">{workout.workoutName}</h1>
+                <h1 className="col-span-7 mb-10">{workout.workoutName}</h1>
                 <Link href={Routes.WorkoutsPage()}>
                   <span className="col-span-1 justify-end text-right">
                     <FontAwesomeIcon
                       icon="times"
                       size="lg"
-                      className="text-gray-500 cursor-pointer mr-1"
+                      className="mr-1 cursor-pointer text-gray-500"
                     />
                   </span>
                 </Link>
               </div>
-              <p className="capitalize formfieldlabel">
+              <p className="formfieldlabel capitalize">
                 Type: {getWorkoutIcon(workout.workoutType)} {workout.workoutType}
               </p>
               <p className="formfieldlabel">Notes: {workout.workoutNotes || "None"}</p>
@@ -80,7 +80,7 @@ export const Workout = () => {
               <ul className="ml-8">
                 {exercises.map((exercise) =>
                   exercise.workoutId === workout.id ? (
-                    <li className="list-disc ml-8 pl-2" key={exercise.id}>
+                    <li className="ml-8 list-disc pl-2" key={exercise.id}>
                       {exercise.exName}
                     </li>
                   ) : (
@@ -89,7 +89,7 @@ export const Workout = () => {
                 )}
               </ul>
 
-              <div className="w-full border-0 shadow-none pt-2 pb-2 flex object-center justify-center">
+              <div className="flex w-full justify-center border-0 object-center pt-2 pb-2 shadow-none">
                 {/* <Link href="/exercises/new"> */}
 
                 {/* <button className="formfieldlabel" onClick={addExercise}>
@@ -102,11 +102,11 @@ export const Workout = () => {
                 {/*  </Link> */}
               </div>
 
-              <div className="flex flex-row justify-between mt-10 px-8">
+              <div className="mt-10 flex flex-row justify-between px-8">
                 <button className="btn edit" onClick={openModal}>
                   {" "}
                   <a>
-                    <FontAwesomeIcon icon="pen" size="1x" className="cursor-pointer mr-2" />
+                    <FontAwesomeIcon icon="pen" size="1x" className="mr-2 cursor-pointer" />
                     Edit
                   </a>
                 </button>
@@ -121,7 +121,7 @@ export const Workout = () => {
                     }
                   }}
                 >
-                  <FontAwesomeIcon icon="trash" size="1x" className="cursor-pointer mr-2" />
+                  <FontAwesomeIcon icon="trash" size="1x" className="mr-2 cursor-pointer" />
                   Delete
                 </button>
               </div>

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import EditExercisePage from "app/pages/exercises/[exerciseId]/edit"
 
-Modal.setAppElement("#__next")
+// Modal.setAppElement("#__next")
 
 export const Exercise = () => {
   const router = useRouter()
