@@ -141,7 +141,7 @@ const PlansList = () => {
   } else
     return (
       <>
-        <div className="flex-1 list-none pt-12 mt-1">
+        <div className="mt-1 flex-1 list-none pt-12">
           <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, groups, setGroups)}>
             {Object.entries(groups).map(([groupid, group], index) => {
               return (
@@ -159,10 +159,10 @@ const PlansList = () => {
                         <FontAwesomeIcon
                           icon="grip-lines"
                           size="lg"
-                          className="text-gray-500 mr-3"
+                          className="mr-3 text-gray-500"
                         />{" "}
                         {group?.items[rubric.source.index]?.planName}
-                        <div className="grid grid-flow-col float-right mr-4 gap-2">
+                        <div className="float-right mr-4 grid grid-flow-col gap-2">
                           {group?.items[rubric.source.index]?.days.map((day) => getDayChip(day))}
                         </div>
                       </div>
@@ -171,18 +171,18 @@ const PlansList = () => {
                     {(provided, snapshot) => {
                       return (
                         <div {...provided.droppableProps} ref={provided.innerRef} className="pl-16">
-                          <div className="cardcol py-2 ml-4 mr-0 pr-0">
-                            <div className="transform -translate-x-16 -translate-y-16 origin-bottom-right -mr-8">
+                          <div className="cardcol ml-4 mr-0 py-2 pr-0">
+                            <div className="-mr-8 origin-bottom-right -translate-x-16 -translate-y-16 transform">
                               <div
                                 className={
-                                  snapshot.isDraggingOver ? "bg-green-200 space-y-9 top-0" : ""
+                                  snapshot.isDraggingOver ? "top-0 space-y-9 bg-green-200" : ""
                                 }
                               >
                                 <div
                                   className={
                                     group.name !== "Unassigned"
-                                      ? "rounded-sm px-8 pt-6 pb-12 my-1 border-l-4 border-purple-500 bg-gray-50 bg-opacity-70"
-                                      : "rounded-sm px-8 pt-6 pb-12 my-1 border-l-4 border-pink-500 bg-red-50 bg-opacity-40"
+                                      ? "my-1 rounded-sm border-l-4 border-purple-500 bg-gray-50 bg-opacity-70 px-8 pt-6 pb-12"
+                                      : "my-1 rounded-sm border-l-4 border-pink-500 bg-red-50 bg-opacity-40 px-8 pt-6 pb-12"
                                   }
                                   style={{ minHeight: "10rem" }}
                                 >
@@ -208,10 +208,10 @@ const PlansList = () => {
                                                 <FontAwesomeIcon
                                                   icon="grip-lines"
                                                   size="lg"
-                                                  className="text-gray-500 mr-3"
+                                                  className="mr-3 text-gray-500"
                                                 />{" "}
                                                 <a className="select-none">{item.planName}</a>
-                                                <div className="grid grid-flow-col float-right mr-4 gap-2">
+                                                <div className="float-right mr-4 grid grid-flow-col gap-2">
                                                   {item.days.map((day) => getDayChip(day))}
                                                 </div>
                                               </li>

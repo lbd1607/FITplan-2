@@ -82,7 +82,7 @@ const WorkoutsPage: BlitzPage = () => {
         <div className="list-card rounded-sm">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
-              <h1 className="ml-2 mt-1">
+              <h1 className="ml-2 mt-4">
                 Workouts
                 <button
                   className="btn add float-right ml-10 mr-3 align-middle "

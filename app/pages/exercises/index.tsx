@@ -68,12 +68,12 @@ const ExercisesPage: BlitzPage = () => {
         <div className="list-card">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
-              <h1 className="ml-2 mt-1">
+              <h1 className="ml-2 mt-4">
                 Exercises
-                <button className="btn add ml-10 mr-3 float-right align-middle" onClick={openModal}>
+                <button className="btn add float-right ml-10 mr-3 align-middle" onClick={openModal}>
                   {" "}
                   <a>
-                    <FontAwesomeIcon icon="plus" size="1x" className="cursor-pointer mr-2" />
+                    <FontAwesomeIcon icon="plus" size="1x" className="mr-2 cursor-pointer" />
                     Create New
                   </a>
                 </button>

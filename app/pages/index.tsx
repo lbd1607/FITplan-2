@@ -59,10 +59,10 @@ const Home: BlitzPage = () => {
         </Suspense>
 
         <div className="card-container-parent">
-          <div className="flex-1 mx-9 my-0 mb-8 px-6 pb-6 ">
-            <div className="grid grid-cols-12 grid-rows-4 gap-4 grid-flow-row h-full ">
+          <div className="mx-9 my-0 mb-2 flex-1 px-6 pb-6 ">
+            <div className="grid h-full grid-flow-row grid-cols-12 grid-rows-4 gap-4 ">
               <div
-                className="col-start-1 col-span-7 row-start-1 row-span-4 dash-card"
+                className="dash-card col-span-7 col-start-1 row-span-4 row-start-1"
                 style={{ backdropFilter: "blur(30px" }}
               >
                 <div className="inner-scroll-parent">
