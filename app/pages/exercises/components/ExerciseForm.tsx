@@ -5,7 +5,7 @@ import * as z from "zod"
 import { Field } from "react-final-form"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import getWorkout from "app/pages/workouts/queries/getWorkout"
+import getExercise from "../queries/getExercise"
 export { FORM_ERROR } from "app/core/components/Form"
 
 export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
@@ -16,9 +16,9 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
     </Field>
   )
 
-  const workoutId = useParam("workoutId", "number")
-  const [workout] = useQuery(getWorkout, { id: workoutId }, { enabled: false })
-  const currentWorkoutId = workout?.id ?? 0
+  const exerciseId = useParam("exerciseId", "number")
+  const [exercise] = useQuery(getExercise, { id: exerciseId }, { enabled: false })
+  const currentExerciseId = exercise?.id ?? 0
 
   return (
     <>
@@ -26,7 +26,7 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
         {/* Pass the current workout id to exercises */}
         <Field
           name="workoutId"
-          defaultValue={currentWorkoutId || null}
+          defaultValue={currentExerciseId || null}
           component="input"
           hidden={true}
         />
