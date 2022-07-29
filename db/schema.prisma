@@ -81,13 +81,9 @@ model Exercise {
   id         Int      @id @default(autoincrement())
   exName     String   @unique
   exType     String
-  interval   String?
   exInterval String?
-  reps       String?
   exReps     String?
-  distance   String?
   exDistance String?
-  rest       String?
   exRest     String?
   exNotes    String?
   Workout    Workout? @relation(fields: [workoutId], references: [id])
