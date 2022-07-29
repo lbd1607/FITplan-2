@@ -1,11 +1,11 @@
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { useQuery, useParam } from "blitz"
-import getWorkout from "app/workouts/queries/getWorkout"
 import * as z from "zod"
 import { Field } from "react-final-form"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import getWorkout from "app/pages/workouts/queries/getWorkout"
 export { FORM_ERROR } from "app/core/components/Form"
 
 export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {

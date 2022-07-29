@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, usePaginatedQuery, useRouter, Routes } from "blitz"
-import getExercises from "app/exercises/queries/getExercises"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import getExercises from "./queries/getExercises"
 
 const ITEMS_PER_PAGE = 100
 

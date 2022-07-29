@@ -1,14 +1,14 @@
 import React, { Fragment, Suspense, useState } from "react"
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getWorkout from "app/workouts/queries/getWorkout"
-import deleteWorkout from "app/workouts/mutations/deleteWorkout"
+import deleteWorkout from "./mutations/deleteWorkout"
 import EditWorkoutPage from "app/pages/workouts/[workoutId]/edit"
-import getExercises from "app/exercises/queries/getExercises"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
+import getWorkout from "./queries/getWorkout"
+import getExercises from "../exercises/queries/getExercises"
 
 export const Workout = () => {
   const router = useRouter()

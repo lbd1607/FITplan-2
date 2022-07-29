@@ -4,7 +4,7 @@ import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
 import { useQuery, useParam } from "blitz"
-import getWorkout from "app/workouts/queries/getWorkout"
+import getWorkout from "../queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 

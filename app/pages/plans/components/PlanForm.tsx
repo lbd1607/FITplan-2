@@ -2,11 +2,11 @@ import React, { Suspense } from "react"
 import { Form, FormProps } from "app/core/components/Form"
 import * as z from "zod"
 import { Field } from "react-final-form"
-import getWorkouts from "app/workouts/queries/getWorkouts"
 import { usePaginatedQuery } from "blitz"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { DayOfWeek } from "../../pages/plans/planUtils"
+import { DayOfWeek } from "../planUtils"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
+import getWorkouts from "app/pages/workouts/queries/getWorkouts"
 export { FORM_ERROR } from "app/core/components/Form"
 
 const DaysOfTheWeek = () => {

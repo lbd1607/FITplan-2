@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, usePaginatedQuery, useRouter, Routes } from "blitz"
-import getWorkouts from "app/workouts/queries/getWorkouts"
+import getWorkouts from "./queries/getWorkouts"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 

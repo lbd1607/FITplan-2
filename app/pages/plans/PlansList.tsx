@@ -1,13 +1,13 @@
 import { Fragment, useState } from "react"
 import { Link, usePaginatedQuery, useRouter, useMutation, useParam } from "blitz"
-import getPlans from "app/plans/queries/getPlans"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { FORM_ERROR } from "app/plans/components/PlanForm"
-import updatePlan from "app/plans/mutations/updatePlan"
+import { FORM_ERROR } from "app/pages/plans/components/PlanForm"
+import updatePlan from "./mutations/updatePlan"
 import { v4 as uuid } from "uuid"
 import { GroupName, getDayChip } from "./planUtils"
+import getPlans from "./queries/getPlans"
 
 const ITEMS_PER_PAGE = 100
 

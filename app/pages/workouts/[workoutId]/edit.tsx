@@ -1,12 +1,13 @@
 import { Suspense } from "react"
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getWorkout from "app/workouts/queries/getWorkout"
-import updateWorkout from "app/workouts/mutations/updateWorkout"
-import { WorkoutForm, FORM_ERROR } from "app/workouts/components/WorkoutForm"
+
+import { WorkoutForm, FORM_ERROR } from "app/pages/workouts/components/WorkoutForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
+import getWorkout from "../queries/getWorkout"
+import updateWorkout from "../mutations/updateWorkout"
 
 export const EditWorkout = () => {
   const router = useRouter()

@@ -1,12 +1,12 @@
 import { Suspense } from "react"
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getPlan from "app/plans/queries/getPlan"
-import updatePlan from "app/plans/mutations/updatePlan"
-import { PlanForm, FORM_ERROR } from "app/plans/components/PlanForm"
+import getPlan from "../queries/getPlan"
+import { PlanForm, FORM_ERROR } from "app/pages/plans/components/PlanForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
+import updatePlan from "../mutations/updatePlan"
 
 export const EditPlan = () => {
   const router = useRouter()
