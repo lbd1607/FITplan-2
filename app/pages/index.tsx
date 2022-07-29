@@ -5,9 +5,9 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import PlansList from "../pages/plans/PlansList"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { ExercisesList } from "app/pages/exercises"
+import ExercisesList from "../pages/exercises/ExercisesList"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
-import { WorkoutsList } from "./workouts"
+import WorkoutsList from "../pages/workouts/WorkoutsList"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()

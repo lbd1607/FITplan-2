@@ -1,85 +1,71 @@
-import React, { Suspense, useState } from "react"
-import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  Suspense,
+  useEffect,
+  useState,
+} from "react"
+import { Head, BlitzPage, usePaginatedQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getWorkouts from "app/workouts/queries/getWorkouts"
 import NewWorkoutPage from "app/pages/workouts/new"
-import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
+import { v4 as uuid } from "uuid"
+import { useTransition, animated } from "react-spring"
+import WorkoutsList from "./WorkoutsList"
+import getWorkouts from "app/workouts/queries/getWorkouts"
 
-const ITEMS_PER_PAGE = 100
-
-export const WorkoutsList = () => {
-  const router = useRouter()
-  const page = Number(router.query.page) || 0
-  const [{ workouts }] = usePaginatedQuery(getWorkouts, {
-    orderBy: { id: "asc" },
-    skip: ITEMS_PER_PAGE * page,
-    take: ITEMS_PER_PAGE,
-  })
-
-  function getWorkoutIcon(worktype) {
-    switch (worktype) {
-      case "resistance":
-        return <FontAwesomeIcon icon="dumbbell" size="lg" className="mr-4 ml-2 text-cyan-500 " />
-      case "cardio":
-        return <FontAwesomeIcon icon="heartbeat" size="lg" className="mr-4 ml-3 text-pink-500 " />
-      case "endurance":
-        return <FontAwesomeIcon icon="burn" size="lg" className="mr-5 ml-3 text-orange-500 " />
-      case "flexibility":
-        return <FontAwesomeIcon icon="spa" size="lg" className="mr-5 ml-2 text-yellow-300 " />
-      default:
-        break
-    }
-  }
-
-  if (workouts.length <= 0) {
-    return <div className="m-4 pl-6">No workouts to show ...</div>
-  } else
-    return (
-      <div>
-        <ul>
-          {workouts.map((workout) => (
-            <Link href={Routes.ShowWorkoutPage({ workoutId: workout.id })} key={workout.id}>
-              <li className="itemrow">
-                <a>
-                  {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
-                </a>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </div>
-    )
+export type FormContextTypes = {
+  show: boolean
+  setShow: Dispatch<SetStateAction<boolean>>
+  setWorkoutsState: Dispatch<SetStateAction<boolean>>
 }
+const FormContextInitialValues: FormContextTypes = {
+  show: false,
+  setShow: () => {},
+  setWorkoutsState: () => {},
+}
+export const FormContext = createContext(FormContextInitialValues)
 
 const WorkoutsPage: BlitzPage = () => {
-  const router = useRouter()
-  const [modalState, setModalState] = useState(false)
-  const openModal = () => {
-    router.push(Routes.NewWorkoutPage())
+  const [{ workouts }] = usePaginatedQuery(getWorkouts, {
+    orderBy: { id: "asc" },
+  })
+
+  const [workoutsState, setWorkoutsState] = useState(uuid())
+
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    setWorkoutsState(uuid())
+  }, [workouts])
+
+  const showPage = () => {
+    setShow(true)
   }
-  const closeModal = () => {
-    setModalState(false)
-    router.push("/workouts")
-  }
+  const formIn = useTransition(show, {
+    from: { opacity: 0.5, x: 2000 },
+    enter: { opacity: 1, x: 600, y: -15 },
+    leave: { opacity: 0.5, x: 2000, display: "hidden" },
+    delay: 20,
+  })
 
   return (
-    <>
+    <FormContext.Provider
+      value={{ show: show, setShow: setShow, setWorkoutsState: setWorkoutsState }}
+    >
       <Head>
         <title>Workouts</title>
       </Head>
-      <div className="card-container-parent">
+      <div className="card-container-parent" id={workoutsState}>
         <div className="list-card rounded-sm">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
               <h1 className="ml-2 mt-4">
                 Workouts
-                <button
-                  className="btn add float-right ml-10 mr-3 align-middle "
-                  onClick={openModal}
-                >
+                <button className="btn add float-right ml-10 mr-3 align-middle " onClick={showPage}>
                   {" "}
                   <a>
                     <FontAwesomeIcon icon="plus" size="1x" className="mr-2 cursor-pointer" />
@@ -88,31 +74,31 @@ const WorkoutsPage: BlitzPage = () => {
                 </button>
               </h1>
             </div>
+            {formIn(
+              (styles, item) =>
+                item && (
+                  <animated.div style={styles} className="absolute z-50 ml-12 h-1/2 w-1/3 ">
+                    <NewWorkoutPage />
+                  </animated.div>
+                )
+            )}
             <div className="inner-scroll">
-              <div className="">
-                <Suspense fallback={<LoadingAnimation />}>
-                  <WorkoutsList />
-                </Suspense>
-              </div>
+              <Suspense fallback={<LoadingAnimation />}>
+                <WorkoutsList />
+              </Suspense>
             </div>
           </div>
         </div>
       </div>
-
-      <Modal
-        className="modal"
-        isOpen={modalState}
-        setOpen={setModalState}
-        onRequestClose={closeModal}
-        portalClassName="reg-modal"
-      >
-        <NewWorkoutPage />
-      </Modal>
-    </>
+    </FormContext.Provider>
   )
 }
 
 WorkoutsPage.authenticate = true
-WorkoutsPage.getLayout = (page) => <Layout>{page}</Layout>
+WorkoutsPage.getLayout = (page) => (
+  <Suspense fallback={<LoadingAnimation />}>
+    <Layout>{page}</Layout>
+  </Suspense>
+)
 
 export default WorkoutsPage

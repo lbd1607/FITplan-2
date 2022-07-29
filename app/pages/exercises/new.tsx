@@ -4,10 +4,15 @@ import createExercise from "app/exercises/mutations/createExercise"
 import { ExerciseForm, FORM_ERROR } from "app/exercises/components/ExerciseForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { useContext } from "react"
+import { v4 as uuid } from "uuid"
+import { FormContext } from "."
 
 const NewExercisePage: BlitzPage = () => {
   const router = useRouter()
   const [createExerciseMutation] = useMutation(createExercise)
+
+  const { setShow, setExerciseState } = useContext(FormContext)
 
   return (
     <div className="flex items-center justify-center ">
@@ -17,54 +22,53 @@ const NewExercisePage: BlitzPage = () => {
             <div className="grid grid-cols-8">
               <h1 className="col-span-7 mb-5 pl-0">Create New Exercise</h1>
               <Link href={Routes.ExercisesPage()}>
-                <span className="col-span-1 justify-end text-right">
+                <button
+                  className="col-span-1 justify-end text-right"
+                  onClick={() => setShow(false)}
+                >
                   <FontAwesomeIcon
                     icon="times"
                     size="lg"
                     className="mr-1 cursor-pointer text-slate-500"
                   />
-                </span>
+                </button>
               </Link>
             </div>
           </div>
 
-          <div className="px-8">
-            {" "}
-            <ExerciseForm
-              submitText="Create Exercise"
-              cancelText="Cancel"
-              cancelURL="/exercises"
-              onSubmit={async (values) => {
-                try {
-                  await createExerciseMutation(values)
-                  router.push(Routes.ExercisesPage())
-                } catch (error: any) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
-                  }
+          <ExerciseForm
+            submitText="Create Exercise"
+            cancelText="Cancel"
+            cancelURL="/exercises"
+            onSubmit={async (values) => {
+              try {
+                await createExerciseMutation(values)
+                setShow(false)
+                setExerciseState(uuid())
+                router.push(Routes.ExercisesPage())
+              } catch (error: any) {
+                console.error(error)
+                return {
+                  [FORM_ERROR]: error.toString(),
                 }
-              }}
-              onCancel={async () => {
-                try {
-                  Routes.ExercisesPage()
-                } catch (error) {
-                  console.error(error)
-                  return {
-                    [FORM_ERROR]: error.toString(),
-                  }
+              }
+            }}
+            onCancel={async () => {
+              setShow(false)
+              setExerciseState(uuid())
+
+              try {
+                router.push(Routes.ExercisesPage())
+              } catch (error) {
+                console.error(error)
+                return {
+                  [FORM_ERROR]: error.toString(),
                 }
-              }}
-            />
-          </div>
+              }
+            }}
+          />
         </div>
       </div>
-
-      {/*  <p>
-        <Link href={Routes.ExercisesPage()}>
-          <a>Exercises</a>
-        </Link>
-      </p> */}
     </div>
   )
 }
