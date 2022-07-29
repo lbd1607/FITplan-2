@@ -1,14 +1,12 @@
-import { Suspense, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
-import { useQuery, useParam, BlitzPage, Link } from "blitz"
+import { useQuery, useParam } from "blitz"
 import getWorkout from "app/workouts/queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { v4 as uuid } from "uuid"
-import { ExerciseForm } from "app/exercises/components/ExerciseForm"
 
 export { FORM_ERROR } from "app/core/components/Form"
 
@@ -122,11 +120,6 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
               <label className="formfieldlabel">Notes</label>
               <Field component="textarea" name="workoutNotes" label="Notes" className="inputbox" />
             </div>
-            {/*   <div>
-              <Suspense fallback={<div>Loading...</div>}>
-                <ExerciseForm {...props} />
-              </Suspense>
-            </div> */}
           </div>
         </div>
       </Form>

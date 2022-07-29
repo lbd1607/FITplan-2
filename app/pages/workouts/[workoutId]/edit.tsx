@@ -42,11 +42,9 @@ export const EditWorkout = () => {
                   </span>
                 </Link>
               </div>
-              {/*  <p className="">ID: {workout.id}</p> */}
               <p className="capitalize ">Type: {workout.workoutType}</p>
               <p className="">Notes: {workout.workoutNotes || "None"}</p>
               <p className="">Plan: {workout.planId || "None"}</p>
-              {/* <pre>{JSON.stringify(workout)}</pre> */}
             </div>
 
             <div className="px-8">
@@ -54,10 +52,6 @@ export const EditWorkout = () => {
                 submitText="Update Workout"
                 cancelText="Cancel"
                 cancelURL="/workouts"
-                // TODO use a zod schema for form validation
-                //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-                //         then import and use it here
-                // schema={UpdateWorkout}
                 initialValues={workout}
                 onSubmit={async (values) => {
                   try {

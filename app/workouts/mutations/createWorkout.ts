@@ -8,7 +8,6 @@ const CreateWorkout = z.object({
 })
 
 export default resolver.pipe(resolver.zod(CreateWorkout), resolver.authorize(), async (input) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const workout = await db.workout.create({ data: input })
 
   return workout

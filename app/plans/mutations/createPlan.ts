@@ -11,7 +11,6 @@ const CreatePlan = z.object({
 })
 
 export default resolver.pipe(resolver.zod(CreatePlan), resolver.authorize(), async (input) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const plan = await db.plan.create({ data: input })
 
   return plan

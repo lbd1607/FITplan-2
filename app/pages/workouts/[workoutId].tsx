@@ -8,9 +8,6 @@ import getExercises from "app/exercises/queries/getExercises"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-//import ExerciseForm from "../exercises/new"
-
-// Modal.setAppElement("#__next")
 
 export const Workout = () => {
   const router = useRouter()
@@ -24,7 +21,6 @@ export const Workout = () => {
   }
   function closeModal() {
     modalSetIsOpen(false)
-    // router.push("/")
     return <Link href={Routes.Home()} />
   }
 
@@ -89,18 +85,7 @@ export const Workout = () => {
                 )}
               </ul>
 
-              <div className="flex w-full justify-center border-0 object-center pt-2 pb-2 shadow-none">
-                {/* <Link href="/exercises/new"> */}
-
-                {/* <button className="formfieldlabel" onClick={addExercise}>
-                  <FontAwesomeIcon icon="plus-circle" size="2x" className="addicon ml-0" />
-                  Exercise
-                </button> */}
-                {/*    <Fragment>
-                  <ExerciseForm />
-                </Fragment> */}
-                {/*  </Link> */}
-              </div>
+              <div className="flex w-full justify-center border-0 object-center pt-2 pb-2 shadow-none"></div>
 
               <div className="mt-10 flex flex-row justify-between px-8">
                 <button className="btn edit" onClick={openModal}>

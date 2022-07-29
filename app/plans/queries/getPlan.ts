@@ -8,7 +8,6 @@ const GetPlan = z.object({
 })
 
 export default resolver.pipe(resolver.zod(GetPlan), resolver.authorize(), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const plan = await db.plan.findFirst({ where: { id } })
 
   if (!plan) throw new NotFoundError()

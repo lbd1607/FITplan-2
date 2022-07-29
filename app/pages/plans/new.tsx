@@ -1,4 +1,4 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes, usePaginatedQuery } from "blitz"
+import { Link, useRouter, useMutation, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createPlan from "app/plans/mutations/createPlan"
 import { PlanForm, FORM_ERROR } from "app/plans/components/PlanForm"
@@ -41,7 +41,6 @@ const NewPlanPage = () => {
             submitText="Create Plan"
             cancelText="Cancel"
             cancelURL="/plans"
-            // TODO: use a zod schema for form validation
             onSubmit={async (values) => {
               //Sort days of week as Mon - Sun before posting data
               let daysList = values.days || [],

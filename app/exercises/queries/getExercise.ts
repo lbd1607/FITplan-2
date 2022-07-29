@@ -8,7 +8,6 @@ const GetExercise = z.object({
 })
 
 export default resolver.pipe(resolver.zod(GetExercise), resolver.authorize(), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const exercise = await db.exercise.findFirst({ where: { id } })
 
   if (!exercise) throw new NotFoundError()

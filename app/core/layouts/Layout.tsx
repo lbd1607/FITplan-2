@@ -5,8 +5,6 @@ import logout from "app/auth/mutations/logout"
 import Modal from "react-modal"
 import Image from "next/image"
 
-// Modal.setAppElement("#__next")
-
 /* Set nav links to active when route == path for active styling */
 export const MyNav = () => {
   const router = useRouter()
@@ -159,10 +157,6 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
         <title>{title || "fitplan"}</title>
         <link rel="icon" href="/fitplanIcon.svg" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <Nav />
 

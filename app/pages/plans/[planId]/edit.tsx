@@ -27,19 +27,18 @@ export const EditPlan = () => {
       </Head>
 
       <div>
-        {/*    <h1>Edit {plan.planName}</h1> */}
         <div className="card-container-parent">
           <div className="card-container">
             <div className="card">
               <div className="my-6 px-6 ">
                 <div className="grid grid-cols-8">
-                  <h1 className="mb-10 col-span-7">Edit {plan.planName}</h1>
+                  <h1 className="col-span-7 mb-10">Edit {plan.planName}</h1>
                   <Link href={Routes.PlansPage()}>
                     <span className="col-span-1 justify-end text-right">
                       <FontAwesomeIcon
                         icon="times"
                         size="lg"
-                        className="text-gray-500 cursor-pointer mr-1"
+                        className="mr-1 cursor-pointer text-gray-500"
                       />
                     </span>
                   </Link>
@@ -50,10 +49,6 @@ export const EditPlan = () => {
                   submitText="Update Plan"
                   cancelText="Cancel"
                   cancelURL="/plans"
-                  // TODO use a zod schema for form validation
-                  //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-                  //         then import and use it here
-                  // schema={UpdatePlan}
                   initialValues={plan}
                   onSubmit={async (values) => {
                     let daysList = values.days,
@@ -109,12 +104,6 @@ const EditPlanPage: BlitzPage = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <EditPlan />
       </Suspense>
-
-      {/*  <p>
-        <Link href={Routes.PlansPage()}>
-          <a>Plans</a>
-        </Link>
-      </p> */}
     </div>
   )
 }

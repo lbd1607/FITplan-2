@@ -11,7 +11,6 @@ import LoginForm from "app/auth/components/LoginForm"
 
 import "app/core/styles/index.css"
 import { library } from "@fortawesome/fontawesome-svg-core"
-//import { fab } from "@fortawesome/free-brands-svg-icons"
 import {
   faBurn,
   faDumbbell,
@@ -29,7 +28,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 library.add(
-  //fab,
   faHeartbeat,
   faDumbbell,
   faBurn,

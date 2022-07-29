@@ -1,8 +1,7 @@
 import { Suspense } from "react"
-import { Image, Link, BlitzPage, useMutation, Routes } from "blitz"
+import { Link, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import logout from "app/auth/mutations/logout"
 import { WorkoutsList } from "app/pages/workouts/index"
 import PlansList from "../pages/plans/PlansList"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -11,42 +10,12 @@ import { ExercisesList } from "app/pages/exercises"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
 
   if (currentUser) {
-    return (
-      <>
-        {/*  <button
-          className="button small"
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-        </div> */}
-      </>
-    )
+    return <></>
   } else {
     Routes.LoginPage()
-    return (
-      <>
-        {/*  <Link href={Routes.SignupPage()}>
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link> */}
-      </>
-    )
+    return <></>
   }
 }
 

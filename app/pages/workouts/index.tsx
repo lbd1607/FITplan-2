@@ -1,29 +1,22 @@
-import React, { Fragment, Suspense, useState } from "react"
-import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes, useMutation } from "blitz"
+import React, { Suspense, useState } from "react"
+import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getWorkouts from "app/workouts/queries/getWorkouts"
-import deleteWorkout from "app/workouts/mutations/deleteWorkout"
 import NewWorkoutPage from "app/pages/workouts/new"
-//import ShowWorkoutPage from "app/pages/workouts/[workoutId]"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-
-// Modal.setAppElement("#__next")
 
 const ITEMS_PER_PAGE = 100
 
 export const WorkoutsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
-  const [{ workouts, hasMore }] = usePaginatedQuery(getWorkouts, {
+  const [{ workouts }] = usePaginatedQuery(getWorkouts, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
-
-  const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
-  const goToNextPage = () => router.push({ query: { page: page + 1 } })
 
   function getWorkoutIcon(worktype) {
     switch (worktype) {
@@ -64,13 +57,11 @@ const WorkoutsPage: BlitzPage = () => {
   const router = useRouter()
   const [modalState, setModalState] = useState(false)
   const openModal = () => {
-    // setModalState(true)
     router.push(Routes.NewWorkoutPage())
   }
   const closeModal = () => {
     setModalState(false)
     router.push("/workouts")
-    // return <Link href={Routes.WorkoutsPage()} />
   }
 
   return (

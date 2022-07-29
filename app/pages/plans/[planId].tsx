@@ -12,8 +12,6 @@ import getWorkouts from "app/workouts/queries/getWorkouts"
 import getExercises from "app/exercises/queries/getExercises"
 import { v4 as uuid } from "uuid"
 
-Modal.setAppElement("#__next")
-
 export const Plan = () => {
   const router = useRouter()
   const planId = useParam("planId", "number")
@@ -125,8 +123,6 @@ export const Plan = () => {
               </span>
 
               {/* Map through plan.workouts and get single assigned workout. If the name of assigned workout is the same as the workout name, then map the exercises to each workout. This only works because workoutName is required to be a unique value in the schema. */}
-              {/*     <p className="formfieldlabel">Workouts:</p> */}
-
               <ul className="ml-8">
                 {plan.workouts.map((assignedWorkout) =>
                   workouts.map((workout) =>
@@ -182,16 +178,6 @@ export const Plan = () => {
         </div>
       </div>
       <div>
-        {/*  <Modal
-          className="modal"
-          isOpen={confirmModalIsOpen}
-          onRequestClose={closeModal}
-          portalClassName="reg-modal"
-        >
-          Delete from Plans?
-          <button onClick={confirmDelete(false)}>Cancel</button>
-          <button onClick={confirmDelete(true)}>Delete</button>
-        </Modal> */}
         <Modal
           className="modal"
           isOpen={modalIsOpen}
@@ -199,7 +185,6 @@ export const Plan = () => {
           portalClassName="reg-modal"
         >
           <Link href={Routes.EditPlanPage({ planId: plan.id })}>
-            {/* Must wrap plan page in fragment to avoid ref error */}
             <Fragment>
               <EditPlanPage />
             </Fragment>

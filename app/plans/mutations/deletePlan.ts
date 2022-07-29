@@ -7,7 +7,6 @@ const DeletePlan = z.object({
 })
 
 export default resolver.pipe(resolver.zod(DeletePlan), resolver.authorize(), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const plan = await db.plan.deleteMany({ where: { id } })
 
   return plan

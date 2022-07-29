@@ -1,16 +1,12 @@
-import React, { Suspense, useState, useRef } from "react"
+import React, { Suspense } from "react"
 import { Form, FormProps } from "app/core/components/Form"
-import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
 import getWorkouts from "app/workouts/queries/getWorkouts"
-import { usePaginatedQuery, useQuery, useParam } from "blitz"
-export { FORM_ERROR } from "app/core/components/Form"
-/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome" */
+import { usePaginatedQuery } from "blitz"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-/* import { OnChange } from "react-final-form-listeners"
-import { Plan } from "app/pages/plans/[planId]" */
 import { DayOfWeek } from "../../pages/plans/planUtils"
+export { FORM_ERROR } from "app/core/components/Form"
 
 const DaysOfTheWeek = () => {
   return (
@@ -125,7 +121,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
     <Form<S> {...props}>
       <>
         <div className="modal-card-container-parent ">
-          <div className="card p-0 shadow-none mb-0">
+          <div className="card mb-0 p-0 shadow-none">
             <div className="inner-scroll-parent">
               <div className="inner-scroll mt-0 py-0">
                 <div className="cardcol py-0">
@@ -138,7 +134,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
                       aria-required="true"
                     />
 
-                    <div className="pt-4 mt-6">
+                    <div className="mt-6 pt-4">
                       <div className="input-container mb-1">
                         <div className="input-container">
                           <label className="formfieldlabel required-field">Days of the Week</label>
