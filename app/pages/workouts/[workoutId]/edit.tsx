@@ -6,6 +6,7 @@ import updateWorkout from "app/workouts/mutations/updateWorkout"
 import { WorkoutForm, FORM_ERROR } from "app/workouts/components/WorkoutForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
 
 export const EditWorkout = () => {
   const router = useRouter()
@@ -37,7 +38,7 @@ export const EditWorkout = () => {
                     <FontAwesomeIcon
                       icon="times"
                       size="lg"
-                      className="mr-1 cursor-pointer text-gray-500"
+                      className="mr-1 cursor-pointer text-slate-500"
                     />
                   </span>
                 </Link>
@@ -90,7 +91,7 @@ export const EditWorkout = () => {
 const EditWorkoutPage: BlitzPage = () => {
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingAnimation />}>
         <EditWorkout />
       </Suspense>
     </div>

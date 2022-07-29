@@ -15,13 +15,13 @@ const NewExercisePage: BlitzPage = () => {
         <div className="modal-card">
           <div className="cardcol">
             <div className="grid grid-cols-8">
-              <h1 className="mb-5 col-span-7 pl-0">Create New Exercise</h1>
+              <h1 className="col-span-7 mb-5 pl-0">Create New Exercise</h1>
               <Link href={Routes.ExercisesPage()}>
                 <span className="col-span-1 justify-end text-right">
                   <FontAwesomeIcon
                     icon="times"
                     size="lg"
-                    className="text-gray-500 cursor-pointer mr-1"
+                    className="mr-1 cursor-pointer text-slate-500"
                   />
                 </span>
               </Link>
@@ -34,11 +34,6 @@ const NewExercisePage: BlitzPage = () => {
               submitText="Create Exercise"
               cancelText="Cancel"
               cancelURL="/exercises"
-              // TODO use a zod schema for form validation
-              //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-              //         then import and use it here
-              // schema={CreateExercise}
-              // initialValues={{}}
               onSubmit={async (values) => {
                 try {
                   await createExerciseMutation(values)

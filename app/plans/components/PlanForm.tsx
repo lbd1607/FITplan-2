@@ -6,6 +6,7 @@ import getWorkouts from "app/workouts/queries/getWorkouts"
 import { usePaginatedQuery } from "blitz"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { DayOfWeek } from "../../pages/plans/planUtils"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
 export { FORM_ERROR } from "app/core/components/Form"
 
 const DaysOfTheWeek = () => {
@@ -181,7 +182,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
 export function PlanForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingAnimation />}>
         <PlanFormFields<S> {...props} />
       </Suspense>
     </div>

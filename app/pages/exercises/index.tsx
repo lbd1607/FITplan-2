@@ -6,20 +6,18 @@ import NewExercisePage from "app/pages/exercises/new"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
 
 const ITEMS_PER_PAGE = 100
 
 export const ExercisesList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
-  const [{ exercises, hasMore }] = usePaginatedQuery(getExercises, {
+  const [{ exercises }] = usePaginatedQuery(getExercises, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
-
-  const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
-  const goToNextPage = () => router.push({ query: { page: page + 1 } })
 
   if (exercises.length <= 0) {
     return <div className="m-4">No exercises to show ...</div>
@@ -35,12 +33,6 @@ export const ExercisesList = () => {
             </Link>
           ))}
         </ul>
-        {/*  <button disabled={page === 0} onClick={goToPreviousPage}>
-          Previous
-        </button>
-        <button disabled={!hasMore} onClick={goToNextPage}>
-          Next
-        </button> */}
       </div>
     )
 }
@@ -50,12 +42,10 @@ const ExercisesPage: BlitzPage = () => {
   /* Setup modal, contain modal open and close functions */
   const [modalIsOpen, modalSetIsOpen] = useState(false)
   const openModal = () => {
-    // modalSetIsOpen(true)
     router.push(Routes.NewExercisePage())
   }
   const closeModal = () => {
     modalSetIsOpen(false)
-    // router.push("/")
     return <Link href={Routes.ExercisesPage()} />
   }
   return (
@@ -81,7 +71,7 @@ const ExercisesPage: BlitzPage = () => {
             </div>
             <div className="inner-scroll">
               <div className="">
-                <Suspense fallback={<div className="m-3 px-6">Loading...</div>}>
+                <Suspense fallback={<LoadingAnimation />}>
                   <ExercisesList />
                 </Suspense>
               </div>
@@ -108,28 +98,6 @@ const ExercisesPage: BlitzPage = () => {
     </>
   )
 }
-
-/* const ExercisesPage: BlitzPage = () => {
-  return (
-    <>
-      <Head>
-        <title>Exercises</title>
-      </Head>
-
-      <div>
-        <p>
-          <Link href={Routes.NewExercisePage()}>
-            <a>Create Exercise</a>
-          </Link>
-        </p>
-
-        <Suspense fallback={<div>Loading...</div>}>
-          <ExercisesList />
-        </Suspense>
-      </div>
-    </>
-  )
-} */
 
 ExercisesPage.authenticate = true
 ExercisesPage.getLayout = (page) => <Layout>{page}</Layout>

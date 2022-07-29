@@ -1,13 +1,11 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
+import { Link, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import createWorkout from "app/workouts/mutations/createWorkout"
 import { WorkoutForm, FORM_ERROR } from "app/workouts/components/WorkoutForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 
 const NewWorkoutPage: BlitzPage = () => {
   const router = useRouter()
-  const [createWorkoutMutation] = useMutation(createWorkout)
 
   return (
     <div className="grid items-center justify-center">
@@ -22,7 +20,7 @@ const NewWorkoutPage: BlitzPage = () => {
                   <FontAwesomeIcon
                     icon="times"
                     size="lg"
-                    className="mr-1 cursor-pointer text-gray-500"
+                    className="mr-1 cursor-pointer text-slate-500"
                   />
                 </span>
               </Link>
@@ -35,7 +33,6 @@ const NewWorkoutPage: BlitzPage = () => {
             cancelURL="/workouts"
             onSubmit={async (values) => {
               try {
-                const workout = await createWorkoutMutation(values)
                 router.push(Routes.WorkoutsPage())
               } catch (error: any) {
                 if (!values.workoutName) {

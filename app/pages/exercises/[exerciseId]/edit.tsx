@@ -6,6 +6,7 @@ import updateExercise from "app/exercises/mutations/updateExercise"
 import { ExerciseForm, FORM_ERROR } from "app/exercises/components/ExerciseForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
 
 export const EditExercise = () => {
   const router = useRouter()
@@ -55,7 +56,7 @@ export const EditExercise = () => {
                     <FontAwesomeIcon
                       icon="times"
                       size="lg"
-                      className="mr-1 cursor-pointer text-gray-500"
+                      className="mr-1 cursor-pointer text-slate-500"
                     />
                   </span>
                 </Link>
@@ -73,11 +74,6 @@ export const EditExercise = () => {
                 submitText="Update Exercise"
                 cancelText="Cancel"
                 cancelURL="/exercises"
-                // TODO use a zod schema for form validation
-                //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-                //         then import and use it here
-                // schema={UpdateExercise}
-
                 initialValues={exercise}
                 onSubmit={async (values) => {
                   try {
@@ -116,15 +112,9 @@ export const EditExercise = () => {
 const EditExercisePage: BlitzPage = () => {
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingAnimation />}>
         <EditExercise />
       </Suspense>
-
-      {/*  <p>
-        <Link href={Routes.ExercisesPage()}>
-          <a>Exercises</a>
-        </Link>
-      </p> */}
     </div>
   )
 }

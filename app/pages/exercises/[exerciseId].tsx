@@ -9,6 +9,7 @@ import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import EditExercisePage from "app/pages/exercises/[exerciseId]/edit"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
 
 export const Exercise = () => {
   const router = useRouter()
@@ -59,7 +60,7 @@ export const Exercise = () => {
 
       <div className="card-container-parent w-2/6">
         <div className="card-container">
-          <div className="card border border-gray-200 py-6">
+          <div className="card border border-slate-200 py-6">
             <div className="mb-0 rounded-t px-6 py-6 ">
               <div className="grid grid-cols-8">
                 <h1 className="col-span-7 mb-10">{exercise.exName}</h1>
@@ -68,7 +69,7 @@ export const Exercise = () => {
                     <FontAwesomeIcon
                       icon="times"
                       size="lg"
-                      className="mr-1 cursor-pointer text-gray-500"
+                      className="mr-1 cursor-pointer text-slate-500"
                     />
                   </span>
                 </Link>
@@ -139,13 +140,7 @@ export const Exercise = () => {
 const ShowExercisePage: BlitzPage = () => {
   return (
     <div>
-      {/*   <p>
-        <Link href={Routes.ExercisesPage()}>
-          <a>Exercises</a>
-        </Link>
-      </p> */}
-
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingAnimation />}>
         <Exercise />
       </Suspense>
     </div>
@@ -156,9 +151,3 @@ ShowExercisePage.authenticate = true
 ShowExercisePage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default ShowExercisePage
-
-/* 
- <Link href={Routes.EditExercisePage({ exerciseId: exercise.id })}>
-          <a>Edit</a>
-        </Link>
-*/

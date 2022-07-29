@@ -1,7 +1,6 @@
-import { useRef, useState } from "react"
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { useQuery, useParam, useMutation } from "blitz"
+import { useQuery, useParam } from "blitz"
 import getWorkout from "app/workouts/queries/getWorkout"
 import * as z from "zod"
 import { Field } from "react-final-form"
@@ -16,16 +15,10 @@ export function ExerciseForm<S extends z.ZodType<any, any>>(props: FormProps<S>)
       {({ input: { value } }) => (value === is ? children : null)}
     </Field>
   )
-  const a11yRef = useRef(null)
 
   const workoutId = useParam("workoutId", "number")
   const [workout] = useQuery(getWorkout, { id: workoutId }, { enabled: false })
   const currentWorkoutId = workout?.id ?? 0
-
-  const editingId = useParam("workoutId", "number")
-  const [editWorkout] = useQuery(getWorkout, { id: editingId }, { enabled: false })
-  const currentWorkoutType = editWorkout?.workoutType ?? "resistance"
-  const [isSelected, setSelected] = useState(currentWorkoutType)
 
   return (
     <>

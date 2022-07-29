@@ -2,11 +2,12 @@ import { Suspense } from "react"
 import { Link, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import { WorkoutsList } from "app/pages/workouts/index"
 import PlansList from "../pages/plans/PlansList"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { ExercisesList } from "app/pages/exercises"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
+import { WorkoutsList } from "./workouts"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -23,7 +24,7 @@ const Home: BlitzPage = () => {
   return (
     <div className="">
       <main>
-        <Suspense fallback={<div className="pl-20">Loading...</div>}>
+        <Suspense fallback={<LoadingAnimation />}>
           <UserInfo />
         </Suspense>
 
@@ -51,7 +52,7 @@ const Home: BlitzPage = () => {
                   </div>
                   <div className="inner-scroll">
                     <div className="">
-                      <Suspense fallback={<div className="pl-20">Loading...</div>}>
+                      <Suspense fallback={<LoadingAnimation />}>
                         <PlansList />
                       </Suspense>
                     </div>
@@ -76,7 +77,7 @@ const Home: BlitzPage = () => {
                   </div>
                   <div className="inner-scroll">
                     <div className="">
-                      <Suspense fallback={<div className="pl-20">Loading...</div>}>
+                      <Suspense fallback={<LoadingAnimation />}>
                         <WorkoutsList />
                       </Suspense>
                     </div>
@@ -102,7 +103,7 @@ const Home: BlitzPage = () => {
                   </div>
                   <div className="inner-scroll">
                     <div className="">
-                      <Suspense fallback={<div className="pl-10">Loading...</div>}>
+                      <Suspense fallback={<LoadingAnimation />}>
                         <ExercisesList />
                       </Suspense>
                     </div>

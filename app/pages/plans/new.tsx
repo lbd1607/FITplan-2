@@ -30,7 +30,7 @@ const NewPlanPage = () => {
                   <FontAwesomeIcon
                     icon="times"
                     size="lg"
-                    className="mr-1 cursor-pointer text-gray-500"
+                    className="mr-1 cursor-pointer text-slate-500"
                   />
                 </button>
               </Link>
@@ -43,7 +43,7 @@ const NewPlanPage = () => {
             cancelURL="/plans"
             onSubmit={async (values) => {
               //Sort days of week as Mon - Sun before posting data
-              let daysList = values.days || [],
+              const daysList = values.days || [],
                 dayOrder = [
                   DayOfWeek.Monday.dayName,
                   DayOfWeek.Tuesday.dayName,

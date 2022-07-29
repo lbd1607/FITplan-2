@@ -3,11 +3,12 @@ import { Head, BlitzPage, usePaginatedQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import PlansList from "./PlansList"
 import { useTransition, animated } from "react-spring"
 import getPlans from "app/plans/queries/getPlans"
 import { v4 as uuid } from "uuid"
 import NewPlanPage from "./new"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
+import PlansList from "./PlansList"
 
 export type FormContextTypes = {
   show: boolean
@@ -28,7 +29,6 @@ const PlansPage: BlitzPage = () => {
   const [planState, setPlanState] = useState(uuid())
   const [show, setShow] = useState(false)
   useEffect(() => {
-    console.log("useEffect plans", plans)
     setPlanState(uuid())
   }, [plans])
 
@@ -48,7 +48,7 @@ const PlansPage: BlitzPage = () => {
       <Head>
         <title>Plans</title>
       </Head>
-      <div className="card-container-parent">
+      <div className="card-container-parent" id={planState}>
         <div className="list-card rounded-sm">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
@@ -71,13 +71,12 @@ const PlansPage: BlitzPage = () => {
                 item && (
                   <animated.div style={styles} className="absolute z-50 ml-12 h-1/2 w-1/3 ">
                     <NewPlanPage />
-                    {console.log(planState, show)}
                   </animated.div>
                 )
             )}
             <div className="inner-scroll">
               <div className={show === true ? "" : ""}>
-                <Suspense fallback={<div className="m-3 px-6">Loading...</div>}>
+                <Suspense fallback={<LoadingAnimation />}>
                   <PlansList />
                 </Suspense>
               </div>
@@ -91,7 +90,7 @@ const PlansPage: BlitzPage = () => {
 
 PlansPage.authenticate = true
 PlansPage.getLayout = (page) => (
-  <Suspense fallback={""}>
+  <Suspense fallback={<LoadingAnimation />}>
     <Layout>{page}</Layout>
   </Suspense>
 )

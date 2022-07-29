@@ -14,7 +14,7 @@ const ITEMS_PER_PAGE = 100
 const PlansList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
-  const [{ plans, hasMore }] = usePaginatedQuery(getPlans, {
+  const [{ plans }] = usePaginatedQuery(getPlans, {
     orderBy: { itemOrder: "asc" } || { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
@@ -109,7 +109,7 @@ const PlansList = () => {
 
     for (const item of newItems) {
       if (item) {
-        let newOrder = newItems.indexOf(item)
+        const newOrder = newItems.indexOf(item)
         item.itemOrder = newOrder
         item.groupOrder = newGroups.groupOrder
 
@@ -143,7 +143,7 @@ const PlansList = () => {
       <>
         <div className="mt-1 flex-1 list-none pt-12">
           <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, groups, setGroups)}>
-            {Object.entries(groups).map(([groupid, group], index) => {
+            {Object.entries(groups).map(([groupid, group]) => {
               return (
                 <Fragment key={groupid}>
                   <Droppable
@@ -159,7 +159,7 @@ const PlansList = () => {
                         <FontAwesomeIcon
                           icon="grip-lines"
                           size="lg"
-                          className="mr-3 text-gray-500"
+                          className="mr-3 text-slate-500"
                         />{" "}
                         {group?.items[rubric.source.index]?.planName}
                         <div className="float-right mr-4 grid grid-flow-col gap-2">
@@ -181,7 +181,7 @@ const PlansList = () => {
                                 <div
                                   className={
                                     group.name !== "Unassigned"
-                                      ? "my-1 rounded-sm border-l-4 border-purple-500 bg-gray-50 bg-opacity-70 px-8 pt-6 pb-12"
+                                      ? "my-1 rounded-sm border-l-4 border-purple-500 bg-slate-50 bg-opacity-70 px-8 pt-6 pb-12"
                                       : "my-1 rounded-sm border-l-4 border-pink-500 bg-red-50 bg-opacity-40 px-8 pt-6 pb-12"
                                   }
                                   style={{ minHeight: "10rem" }}
@@ -196,7 +196,7 @@ const PlansList = () => {
                                         draggableId={item.id.toString()}
                                         index={index}
                                       >
-                                        {(provided, snapshot) => (
+                                        {(provided) => (
                                           <Link href={`/plans/${item.id}`} key={item.id}>
                                             <ul className="list-none">
                                               <li
@@ -208,7 +208,7 @@ const PlansList = () => {
                                                 <FontAwesomeIcon
                                                   icon="grip-lines"
                                                   size="lg"
-                                                  className="mr-3 text-gray-500"
+                                                  className="mr-3 text-slate-500"
                                                 />{" "}
                                                 <a className="select-none">{item.planName}</a>
                                                 <div className="float-right mr-4 grid grid-flow-col gap-2">

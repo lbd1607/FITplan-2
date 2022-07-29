@@ -6,6 +6,7 @@ import NewWorkoutPage from "app/pages/workouts/new"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
 
 const ITEMS_PER_PAGE = 100
 
@@ -89,7 +90,7 @@ const WorkoutsPage: BlitzPage = () => {
             </div>
             <div className="inner-scroll">
               <div className="">
-                <Suspense fallback={<div className="m-3 px-6">Loading...</div>}>
+                <Suspense fallback={<LoadingAnimation />}>
                   <WorkoutsList />
                 </Suspense>
               </div>

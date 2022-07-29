@@ -4,6 +4,7 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import Modal from "react-modal"
 import Image from "next/image"
+import LoadingAnimation from "../components/LoadingAnimation"
 
 /* Set nav links to active when route == path for active styling */
 export const MyNav = () => {
@@ -41,7 +42,7 @@ export const MyNav = () => {
 export const Avatar = (props) => {
   const canvasRef = useRef(props) /* Init ref for canvas */
   const currentUser = useCurrentUser() /* Get user currently signed in for avatar */
-  var text = "" /* Init text as str */
+  let text = "" /* Init text as str */
   const [logoutMutation] = useMutation(logout)
 
   /* Get first character, capitalize it, and convert to string for avatar if user is signed in, otherwise set avatar char to question mark */
@@ -136,13 +137,13 @@ class Nav extends React.Component {
         <div className="grid grid-cols-10">
           <h3 className="brand tracking-wider">FITPLAN</h3>
         </div>
-        <Suspense fallback="">
+        <Suspense fallback={<LoadingAnimation />}>
           <div className="mr-6 flex-auto px-6 py-5">
             <MyNav />
           </div>
         </Suspense>
 
-        <Suspense fallback="Loading...">
+        <Suspense fallback={<LoadingAnimation />}>
           <Avatar />
         </Suspense>
       </div>

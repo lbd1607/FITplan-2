@@ -6,6 +6,7 @@ import updatePlan from "app/plans/mutations/updatePlan"
 import { PlanForm, FORM_ERROR } from "app/plans/components/PlanForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import LoadingAnimation from "app/core/components/LoadingAnimation"
 
 export const EditPlan = () => {
   const router = useRouter()
@@ -38,7 +39,7 @@ export const EditPlan = () => {
                       <FontAwesomeIcon
                         icon="times"
                         size="lg"
-                        className="mr-1 cursor-pointer text-gray-500"
+                        className="mr-1 cursor-pointer text-slate-500"
                       />
                     </span>
                   </Link>
@@ -51,7 +52,7 @@ export const EditPlan = () => {
                   cancelURL="/plans"
                   initialValues={plan}
                   onSubmit={async (values) => {
-                    let daysList = values.days,
+                    const daysList = values.days,
                       dayOrder = [
                         "Monday",
                         "Tuesday",
@@ -71,7 +72,7 @@ export const EditPlan = () => {
                       })
                       await setQueryData(updated)
                       router.push(Routes.ShowPlanPage({ planId: updated.id }))
-                    } catch (error: any) {
+                    } catch (error) {
                       console.error(error)
                       return {
                         [FORM_ERROR]: error.toString(),
@@ -101,7 +102,7 @@ export const EditPlan = () => {
 const EditPlanPage: BlitzPage = () => {
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingAnimation />}>
         <EditPlan />
       </Suspense>
     </div>

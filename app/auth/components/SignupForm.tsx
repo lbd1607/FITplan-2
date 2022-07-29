@@ -1,5 +1,4 @@
 import { useMutation, useRouter } from "blitz"
-import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import { Field } from "react-final-form"
 import signup from "app/auth/mutations/signup"
@@ -47,8 +46,6 @@ export const SignupForm = (props: SignupFormProps) => {
                 }
               }}
             >
-              {/* <LabeledTextField name="email" label="Email" placeholder="Email" />
-        <LabeledTextField name="password" label="Password" placeholder="Password" type="password" /> */}
               <div className="py-6 px-6">
                 <div className="">
                   <label className="formfieldlabel required-field">Email</label>
