@@ -85,7 +85,6 @@ export const Avatar = (props) => {
     }
     const closeModal = () => {
       modalSetIsOpen(false)
-      // router.push("/")
       return <Link href={Routes.Home()} />
     }
 

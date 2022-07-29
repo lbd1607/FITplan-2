@@ -5,14 +5,13 @@ import { ExerciseForm, FORM_ERROR } from "app/exercises/components/ExerciseForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { useContext } from "react"
-import { v4 as uuid } from "uuid"
 import { FormContext } from "."
 
 const NewExercisePage: BlitzPage = () => {
   const router = useRouter()
   const [createExerciseMutation] = useMutation(createExercise)
 
-  const { setShow, setExerciseState } = useContext(FormContext)
+  const { setShow } = useContext(FormContext)
 
   return (
     <div className="flex items-center justify-center ">
@@ -44,7 +43,6 @@ const NewExercisePage: BlitzPage = () => {
               try {
                 await createExerciseMutation(values)
                 setShow(false)
-                setExerciseState(uuid())
                 router.push(Routes.ExercisesPage())
               } catch (error: any) {
                 console.error(error)
@@ -55,8 +53,6 @@ const NewExercisePage: BlitzPage = () => {
             }}
             onCancel={async () => {
               setShow(false)
-              setExerciseState(uuid())
-
               try {
                 router.push(Routes.ExercisesPage())
               } catch (error) {

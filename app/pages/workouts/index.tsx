@@ -1,12 +1,5 @@
-import React, {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  Suspense,
-  useEffect,
-  useState,
-} from "react"
-import { Head, BlitzPage, usePaginatedQuery } from "blitz"
+import React, { createContext, Dispatch, SetStateAction, Suspense, useState } from "react"
+import { Head, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import NewWorkoutPage from "app/pages/workouts/new"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -15,32 +8,20 @@ import LoadingAnimation from "app/core/components/LoadingAnimation"
 import { v4 as uuid } from "uuid"
 import { useTransition, animated } from "react-spring"
 import WorkoutsList from "./WorkoutsList"
-import getWorkouts from "app/workouts/queries/getWorkouts"
 
 export type FormContextTypes = {
   show: boolean
   setShow: Dispatch<SetStateAction<boolean>>
-  setWorkoutsState: Dispatch<SetStateAction<boolean>>
 }
 const FormContextInitialValues: FormContextTypes = {
   show: false,
   setShow: () => {},
-  setWorkoutsState: () => {},
 }
+
 export const FormContext = createContext(FormContextInitialValues)
 
 const WorkoutsPage: BlitzPage = () => {
-  const [{ workouts }] = usePaginatedQuery(getWorkouts, {
-    orderBy: { id: "asc" },
-  })
-
-  const [workoutsState, setWorkoutsState] = useState(uuid())
-
   const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    setWorkoutsState(uuid())
-  }, [workouts])
 
   const showPage = () => {
     setShow(true)
@@ -54,12 +35,15 @@ const WorkoutsPage: BlitzPage = () => {
 
   return (
     <FormContext.Provider
-      value={{ show: show, setShow: setShow, setWorkoutsState: setWorkoutsState }}
+      value={{
+        show: show,
+        setShow: setShow,
+      }}
     >
       <Head>
         <title>Workouts</title>
       </Head>
-      <div className="card-container-parent" id={workoutsState}>
+      <div className="card-container-parent" key={uuid()}>
         <div className="list-card rounded-sm">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">

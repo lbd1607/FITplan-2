@@ -102,7 +102,7 @@ export const Workout = () => {
                   onClick={async () => {
                     if (window.confirm("Delete from Workouts?")) {
                       await deleteWorkoutMutation({ id: workout.id })
-                      router.push("/workouts")
+                      router.push(Routes.WorkoutsPage())
                     }
                   }}
                 >

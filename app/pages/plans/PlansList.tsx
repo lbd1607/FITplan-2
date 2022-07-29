@@ -121,7 +121,7 @@ const PlansList = () => {
 
   const [updatePlanMutation] = useMutation(updatePlan)
 
-  //Post updated itemOrder values to the planItem passed in from handleOnDragEnd
+  //Post updated itemOrder values to the planItem passed in from handleOnDragEnd()
   const postUpdatedOrder = async (values) => {
     try {
       const updated = await updatePlanMutation({
@@ -149,7 +149,7 @@ const PlansList = () => {
                   <Droppable
                     droppableId={groupid}
                     /* Reparents the draggable and re-renders the item being dragged to avoid issues with positioning during drag*/
-                    renderClone={(provided, rubric) => (
+                    renderClone={(provided, _snapshot, rubric) => (
                       <div
                         className="itemrow"
                         {...provided.draggableProps}

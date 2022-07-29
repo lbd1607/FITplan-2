@@ -6,14 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { DayOfWeek } from "./planUtils"
 import { useContext } from "react"
-import { v4 as uuid } from "uuid"
 import { FormContext } from "."
 
 const NewPlanPage = () => {
   const router = useRouter()
   const [createPlanMutation] = useMutation(createPlan)
 
-  const { setShow, setPlanState } = useContext(FormContext)
+  const { setShow } = useContext(FormContext)
 
   return (
     <div className="items-center justify-center">
@@ -60,7 +59,6 @@ const NewPlanPage = () => {
               try {
                 await createPlanMutation(values)
                 setShow(false)
-                setPlanState(uuid())
                 router.push(Routes.PlansPage())
               } catch (error: any) {
                 if (!values.planName) {
@@ -77,7 +75,6 @@ const NewPlanPage = () => {
             }}
             onCancel={async () => {
               setShow(false)
-              setPlanState(uuid())
 
               try {
                 router.push(Routes.PlansPage())

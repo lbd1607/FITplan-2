@@ -1,10 +1,9 @@
-import { createContext, Dispatch, SetStateAction, Suspense, useEffect, useState } from "react"
-import { Head, BlitzPage, usePaginatedQuery } from "blitz"
+import { createContext, Dispatch, SetStateAction, Suspense, useState } from "react"
+import { Head, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { useTransition, animated } from "react-spring"
-import getPlans from "app/plans/queries/getPlans"
 import { v4 as uuid } from "uuid"
 import NewPlanPage from "./new"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
@@ -13,27 +12,15 @@ import PlansList from "./PlansList"
 export type FormContextTypes = {
   show: boolean
   setShow: Dispatch<SetStateAction<boolean>>
-  setPlanState: Dispatch<SetStateAction<boolean>>
 }
 const FormContextInitialValues: FormContextTypes = {
   show: false,
   setShow: () => {},
-  setPlanState: () => {},
 }
 export const FormContext = createContext(FormContextInitialValues)
 
 const PlansPage: BlitzPage = () => {
-  const [{ plans }] = usePaginatedQuery(getPlans, {
-    orderBy: { itemOrder: "asc" } || { id: "asc" },
-  })
-
-  const [planState, setPlanState] = useState(uuid())
-
   const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    setPlanState(uuid())
-  }, [plans])
 
   const formIn = useTransition(show, {
     from: { opacity: 0.5, x: 2000 },
@@ -47,11 +34,11 @@ const PlansPage: BlitzPage = () => {
   }
 
   return (
-    <FormContext.Provider value={{ show: show, setShow: setShow, setPlanState: setPlanState }}>
+    <FormContext.Provider value={{ show: show, setShow: setShow }}>
       <Head>
         <title>Plans</title>
       </Head>
-      <div className="card-container-parent" id={planState}>
+      <div className="card-container-parent" key={uuid()}>
         <div className="list-card rounded-sm">
           <div className="inner-scroll-parent">
             <div className="inner-scroll-heading">
