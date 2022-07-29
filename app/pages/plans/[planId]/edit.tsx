@@ -47,7 +47,7 @@ export const EditPlan = () => {
               </div>
               <div className="px-8">
                 <PlanForm
-                  submitText="Update Plan"
+                  submitText="Save Changes"
                   cancelText="Cancel"
                   cancelURL="/plans"
                   initialValues={plan}

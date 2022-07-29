@@ -71,7 +71,7 @@ export const EditExercise = () => {
             <div className="px-8">
               {" "}
               <ExerciseForm
-                submitText="Update Exercise"
+                submitText="Save Changes"
                 cancelText="Cancel"
                 cancelURL="/exercises"
                 initialValues={exercise}

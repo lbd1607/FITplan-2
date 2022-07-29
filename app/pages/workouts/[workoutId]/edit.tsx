@@ -50,7 +50,7 @@ export const EditWorkout = () => {
 
             <div className="px-8">
               <WorkoutForm
-                submitText="Update Workout"
+                submitText="Save Changes"
                 cancelText="Cancel"
                 cancelURL="/workouts"
                 initialValues={workout}
