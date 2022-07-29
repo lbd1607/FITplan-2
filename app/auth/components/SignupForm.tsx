@@ -13,7 +13,7 @@ export const SignupForm = (props: SignupFormProps) => {
   const router = useRouter()
 
   return (
-    <div>
+    <div className="grid justify-center w-fit mx-auto">
       <div className="modal-card">
         <div className="cardcol">
           <h1 className="pl-0">Create an Account</h1>

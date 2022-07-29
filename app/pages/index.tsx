@@ -1,7 +1,6 @@
 import { Suspense } from "react"
 import { Link, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import PlansList from "../pages/plans/PlansList"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
@@ -9,25 +8,10 @@ import ExercisesList from "../pages/exercises/ExercisesList"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
 import WorkoutsList from "../pages/workouts/WorkoutsList"
 
-const UserInfo = () => {
-  const currentUser = useCurrentUser()
-
-  if (currentUser) {
-    return <></>
-  } else {
-    Routes.LoginPage()
-    return <></>
-  }
-}
-
 const Home: BlitzPage = () => {
   return (
     <div className="">
       <main>
-        <Suspense fallback={<LoadingAnimation />}>
-          <UserInfo />
-        </Suspense>
-
         <div className="card-container-parent">
           <div className="mx-9 my-0 mb-2 flex-1 px-6 pb-6 ">
             <div className="grid h-full grid-flow-row grid-cols-12 grid-rows-4 gap-4 ">
