@@ -1,17 +1,17 @@
 import React, { Fragment, Suspense, useState } from "react"
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getPlan from "app/plans/queries/getPlan"
-import deletePlan from "app/plans/mutations/deletePlan"
+import getPlan from "./queries/getPlan"
+import deletePlan from "./mutations/deletePlan"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import EditPlanPage from "app/pages/plans/[planId]/edit"
-import getWorkout from "app/workouts/queries/getWorkout"
-import getWorkouts from "app/workouts/queries/getWorkouts"
-import getExercises from "app/exercises/queries/getExercises"
 import { v4 as uuid } from "uuid"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
+import getExercises from "../exercises/queries/getExercises"
+import getWorkouts from "../workouts/queries/getWorkouts"
+import getWorkout from "../workouts/queries/getWorkout"
 
 export const Plan = () => {
   const router = useRouter()

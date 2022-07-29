@@ -1,10 +1,10 @@
 import React, { Fragment, Suspense, useState } from "react"
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getExercise from "app/exercises/queries/getExercise"
-import deleteExercise from "app/exercises/mutations/deleteExercise"
-import getWorkout from "app/workouts/queries/getWorkout"
-import getWorkouts from "app/workouts/queries/getWorkouts"
+import getExercise from "./queries/getExercise"
+import deleteExercise from "./mutations/deleteExercise"
+import getWorkout from "../workouts/queries/getWorkout"
+import getWorkouts from "../workouts/queries/getWorkouts"
 import Modal from "react-modal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
@@ -44,7 +44,7 @@ export const Exercise = () => {
       case "distance":
         return <p className="formfieldlabel">Distance: {exercise.exDistance || "None"}</p>
       case "rest":
-        return <p className="formfieldlabel">Rest: {exercise.rest || "None"}</p>
+        return <p className="formfieldlabel">Rest: {exercise.exRest || "None"}</p>
       case "":
         return <p className="formfieldlabel">None</p>
       default:
