@@ -13,7 +13,7 @@ export const MyNav = () => {
   if (currentUser) {
     return (
       <>
-        <ul className="">
+        <ul className="pr-4">
           <li className={router.asPath == "/" ? "active" : ""}>
             <Link href={Routes.Home()}>Home</Link>
           </li>

@@ -136,6 +136,8 @@ export const Plan = () => {
                 )}
               </ul>
 
+              <p className="formfieldlabel pr-2">Notes: {plan.planNotes ?? "None"}</p>
+
               <div className="mt-10 flex flex-row justify-between px-8">
                 <button className="btn edit" onClick={openModal}>
                   {" "}

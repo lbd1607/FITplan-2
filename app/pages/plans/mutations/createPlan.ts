@@ -8,6 +8,7 @@ const CreatePlan = z.object({
   days: z.array(z.string()),
   itemOrder: z.number(),
   groupOrder: z.number(),
+  planNotes: z.string(),
 })
 
 export default resolver.pipe(resolver.zod(CreatePlan), resolver.authorize(), async (input) => {

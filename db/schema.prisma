@@ -69,6 +69,7 @@ model Plan {
   days       String[]
   itemOrder  Int?
   groupOrder Int?
+  planNotes  String?
 
 }
 

@@ -166,6 +166,15 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
                         </div>
                       </div>
                     </div>
+                    <div className="input-container">
+                      <label className="formfieldlabel">Notes</label>
+                      <Field
+                        component="textarea"
+                        name="planNotes"
+                        label="Notes"
+                        className="inputbox"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

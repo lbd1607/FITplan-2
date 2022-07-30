@@ -5,6 +5,8 @@ import { z } from "zod"
 const UpdateWorkout = z.object({
   id: z.number(),
   workoutName: z.string(),
+  workoutType: z.string(),
+  workoutNotes: z.string(),
 })
 
 export default resolver.pipe(
