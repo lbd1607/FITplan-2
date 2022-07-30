@@ -3,10 +3,11 @@ import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
-import { useQuery, useParam } from "blitz"
+import { useQuery, useParam, usePaginatedQuery } from "blitz"
 import getWorkout from "../queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import getExercises from "app/pages/exercises/queries/getExercises"
 
 export { FORM_ERROR } from "app/core/components/Form"
 
@@ -18,6 +19,20 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
   const currentWorkoutType = editWorkout?.workoutType ?? "resistance"
 
   const [isSelected, setSelected] = useState(currentWorkoutType)
+
+  const [{ exercises }] = usePaginatedQuery(getExercises, {
+    orderBy: { id: "asc" },
+  })
+
+  const SelectExercises = () => {
+    return (
+      <div>
+        {exercises.map((exercise) => (
+          <p key={exercise.id}>{exercise.exName}</p>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <>

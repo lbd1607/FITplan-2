@@ -4,7 +4,7 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import Modal from "react-modal"
 import Image from "next/image"
-import LoadingAnimation from "../components/LoadingAnimation"
+import NavLoadingAnimation from "../components/NavLoadingAnimation"
 
 /* Set nav links to active when route == path for active styling */
 export const MyNav = () => {
@@ -126,28 +126,25 @@ export const Avatar = (props) => {
 }
 
 /* Navbar */
-class Nav extends React.Component {
-  render() {
-    return (
-      <div className="navbar grid grid-flow-col">
-        <div className="my-4 ml-7 mr-2 h-6">
-          <Image src="/fitplanIcon.svg" alt="" width={25} height={25} />
-        </div>
-        <div className="grid grid-cols-10">
+const Nav = () => {
+  return (
+    <Suspense fallback={<NavLoadingAnimation />}>
+      <div className="navbar grid grid-flow-col grid-cols-10">
+        <div className="flex col-span-4 items-center">
+          <div className="my-4 ml-7 mr-2 h-6">
+            <Image src="/fitplanIcon.svg" alt="" width={25} height={25} />
+          </div>
+
           <h3 className="brand tracking-wider">FITPLAN</h3>
         </div>
-        <Suspense fallback={<LoadingAnimation />}>
-          <div className="mr-6 flex-auto px-6 py-5">
-            <MyNav />
-          </div>
-        </Suspense>
 
-        <Suspense fallback={<LoadingAnimation />}>
+        <div className="col-span-6 flex flex-auto px-6 py-5 items-center justify-end">
+          <MyNav />
           <Avatar />
-        </Suspense>
+        </div>
       </div>
-    )
-  }
+    </Suspense>
+  )
 }
 
 const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
