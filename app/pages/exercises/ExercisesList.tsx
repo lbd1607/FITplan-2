@@ -15,7 +15,7 @@ const ExercisesList = () => {
   })
 
   if (exercises.length <= 0) {
-    return <div className="m-4">No exercises to show ...</div>
+    return <div className="m-4 pl-6">No exercises to show ...</div>
   } else
     return (
       <div>
