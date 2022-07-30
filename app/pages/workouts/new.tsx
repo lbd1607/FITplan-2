@@ -54,7 +54,7 @@ const NewWorkoutPage: BlitzPage = () => {
             onCancel={async () => {
               setShow(false)
               try {
-                router.push(Routes.PlansPage())
+                router.push(Routes.WorkoutsPage())
               } catch (error) {
                 console.error(error)
                 return {
