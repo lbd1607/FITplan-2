@@ -142,7 +142,7 @@ const PlansList = () => {
     return (
       <>
         <div className="mt-1 flex-1 list-none pt-12">
-          <DragDropContext onDragEnd={(result: any) => handleOnDragEnd(result, groups, setGroups)}>
+          <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, groups, setGroups)}>
             {Object.entries(groups).map(([groupid, group]) => {
               return (
                 <Fragment key={groupid}>
