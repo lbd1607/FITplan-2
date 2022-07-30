@@ -67,7 +67,6 @@ export const Workout = () => {
               </p>
               <p className="formfieldlabel">Notes: {workout.workoutNotes || "None"}</p>
               <p className="formfieldlabel">Plan: {workout.planId || "None"}</p>
-              <p className="formfieldlabel">Exercises: </p>
 
               <div className="flex w-full justify-center border-0 object-center pt-2 pb-2 shadow-none"></div>
 

@@ -118,7 +118,6 @@ export const Plan = () => {
                 </div>
               </span>
 
-              {/* Map through plan.workouts and get single assigned workout. If the name of assigned workout is the same as the workout name, then map the exercises to each workout. This only works because workoutName is required to be a unique value in the schema. */}
               <ul className="ml-8">
                 {plan.workouts.map((assignedWorkout) =>
                   workouts.map((workout) =>

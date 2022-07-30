@@ -18,21 +18,6 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
   const currentWorkoutType = editWorkout?.workoutType ?? "resistance"
 
   const [isSelected, setSelected] = useState(currentWorkoutType)
-  /* 
-TBI: Implement exercise selection
-  const [{ exercises }] = usePaginatedQuery(getExercises, {
-    orderBy: { id: "asc" },
-  })
-
-  const SelectExercises = () => {
-    return (
-      <div>
-        {exercises.map((exercise) => (
-          <p key={exercise.id}>{exercise.exName}</p>
-        ))}
-      </div>
-    )
-  } */
 
   return (
     <>
