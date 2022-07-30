@@ -45,8 +45,6 @@ model Token {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   hashedToken String
-  // type        String
-  // See note below about TokenType enum
   type        TokenType
   expiresAt   DateTime
   sentTo      String
@@ -57,22 +55,30 @@ model Token {
   @@unique([hashedToken, type])
 }
 
-// NOTE: It's highly recommended to use an enum for the token type
-//       but enums only work in Postgres.
-//       See: https://blitzjs.com/docs/database-overview#switch-to-postgresql
-
 enum TokenType {
   RESET_PASSWORD
 }
 
 //---------------------------- My Models -------------------------
 
+model Plan {
+  id         Int       @id @default(autoincrement())
+  planName   String    @unique
+  workouts   String[]
+  Workout    Workout[]
+  days       String[]
+  itemOrder  Int?
+  groupOrder Int?
+
+}
+
 model Workout {
   id           Int        @id @default(autoincrement())
   workoutName  String     @unique
   workoutType  String
   workoutNotes String?
-  exercises    Exercise[]
+  exercises    String[]
+  Exercise     Exercise[]
   Plan         Plan?      @relation(fields: [planId], references: [id])
   planId       Int?
 }
@@ -88,15 +94,4 @@ model Exercise {
   exNotes    String?
   Workout    Workout? @relation(fields: [workoutId], references: [id])
   workoutId  Int?
-}
-
-model Plan {
-  id         Int       @id @default(autoincrement())
-  planName   String    @unique
-  workouts   String[]
-  Workout    Workout[]
-  days       String[]
-  itemOrder  Int?
-  groupOrder Int?
-
 }
