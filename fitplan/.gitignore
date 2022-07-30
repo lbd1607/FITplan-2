@@ -1,8 +1,11 @@
 # dependencies
 node_modules
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 .pnp.*
 .npm
 web_modules/
@@ -11,8 +14,9 @@ web_modules/
 /.blitz/
 /.next/
 *.sqlite
+*.sqlite-journal
 .now
-.blitz-console-history
+.blitz**
 blitz-log.log
 
 # misc
@@ -52,5 +56,6 @@ lib-cov
 .vscode-test
 
 #Todos
+todo.txt
 todo
 scrap.txt

@@ -17,7 +17,7 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   const resetUrl = `${origin}/reset-password?token=${token}`
 
   const msg = {
-    from: "CustomerService@fitplan.com",
+    from: "TODO@example.com",
     to,
     subject: "Your Password Reset Instructions",
     html: `
@@ -25,7 +25,7 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
       <h3>NOTE: You must set up a production email integration in mailers/forgotPasswordMailer.ts</h3>
 
       <a href="${resetUrl}">
-        Set a new password
+        Click here to set a new password
       </a>
     `,
   }
