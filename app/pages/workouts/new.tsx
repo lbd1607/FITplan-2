@@ -45,9 +45,12 @@ const NewWorkoutPage: BlitzPage = () => {
                 setShow(false)
                 router.push(Routes.WorkoutsPage())
               } catch (error: any) {
-                console.error(error)
-                return {
-                  [FORM_ERROR]: error.toString(),
+                if (!values.workoutName) {
+                  return { [FORM_ERROR]: "Enter a workout name." }
+                } else if (!values.type) {
+                  return { [FORM_ERROR]: "Select a workout type." }
+                } else {
+                  return "An unknown error occurred."
                 }
               }
             }}

@@ -52,7 +52,7 @@ export function Form<S extends z.ZodType<any, any>>({
           {children}
           {submitError && (
             <div role="alert">
-              <p className="error">{submitError}</p>
+              <p className="error absolute bg-white mb-5 h-2 bottom-28">{submitError}</p>
             </div>
           )}
           <div className="btn-div w-full">

@@ -67,9 +67,8 @@ const NewPlanPage = () => {
                   return { [FORM_ERROR]: "Select a workout." }
                 } else if (!values.days) {
                   return { [FORM_ERROR]: "Select days." }
-                }
-                return {
-                  [FORM_ERROR]: error.toString(),
+                } else {
+                  return "An unknown error occurred."
                 }
               }
             }}

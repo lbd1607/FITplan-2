@@ -144,25 +144,23 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
 
                         <div className="input-container required-field">
                           <label className="formfieldlabel">Workouts</label>
-
                           <div>
-                            <fieldset className="dropdown-parent">
-                              <Field
-                                component="select"
-                                name="workouts"
-                                className="dropdown-field"
-                                aria-required="true"
-                                multiple
-                              >
-                                {workouts.map((workout) => (
-                                  <option
-                                    key={workout.id}
-                                    value={workout.workoutName}
-                                    label={workout.workoutName}
-                                    defaultValue={workout.workoutName[0] || []}
-                                  ></option>
-                                ))}
-                              </Field>
+                            <fieldset>
+                              {workouts.map((workout) => (
+                                <div key={workout.id}>
+                                  <label className="ml-4">
+                                    <Field
+                                      component="input"
+                                      type="checkbox"
+                                      key={workout.id}
+                                      value={workout.workoutName}
+                                      name="workouts"
+                                      aria-required="false"
+                                    />
+                                    <span className="ml-2">{workout.workoutName}</span>
+                                  </label>
+                                </div>
+                              ))}
                             </fieldset>
                           </div>
                         </div>

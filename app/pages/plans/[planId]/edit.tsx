@@ -72,10 +72,15 @@ export const EditPlan = () => {
                       })
                       await setQueryData(updated)
                       router.back()
-                    } catch (error) {
-                      console.error(error)
-                      return {
-                        [FORM_ERROR]: error.toString(),
+                    } catch (error: any) {
+                      if (!values.planName) {
+                        return { [FORM_ERROR]: "Enter a plan name." }
+                      } else if (!values.workouts) {
+                        return { [FORM_ERROR]: "Select a workout." }
+                      } else if (!values.days) {
+                        return { [FORM_ERROR]: "Select days." }
+                      } else {
+                        return "An unknown error occurred."
                       }
                     }
                   }}
