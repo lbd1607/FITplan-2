@@ -3,11 +3,10 @@ import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
-import { useQuery, useParam, usePaginatedQuery } from "blitz"
+import { useQuery, useParam } from "blitz"
 import getWorkout from "../queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import getExercises from "app/pages/exercises/queries/getExercises"
 
 export { FORM_ERROR } from "app/core/components/Form"
 

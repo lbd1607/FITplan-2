@@ -20,9 +20,6 @@ export const MyNav = () => {
           <li className={router.asPath == "/workouts" ? "active" : ""}>
             <Link href={Routes.WorkoutsPage()}>Workouts</Link>
           </li>
-          <li className={router.asPath == "/exercises" ? "active" : ""}>
-            <Link href={Routes.ExercisesPage()}>Exercises</Link>
-          </li>
           <li className={router.asPath == "/plans" ? "active" : ""}>
             <Link href={Routes.PlansPage()}>Plans</Link>
           </li>

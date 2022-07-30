@@ -9,7 +9,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import EditPlanPage from "app/pages/plans/[planId]/edit"
 import { v4 as uuid } from "uuid"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
-import getExercises from "../exercises/queries/getExercises"
 import getWorkouts from "../workouts/queries/getWorkouts"
 import getWorkout from "../workouts/queries/getWorkout"
 
@@ -28,9 +27,6 @@ export const Plan = () => {
     return <Link href={Routes.Home()} />
   }
 
-  const [{ exercises }] = useQuery(getExercises, {
-    orderBy: { id: "asc" },
-  })
   const workoutId = useParam("workoutId", "number")
 
   const [{ workouts }] = useQuery(getWorkouts, {
@@ -131,15 +127,6 @@ export const Plan = () => {
                         <div key={uuid()}>
                           <ul className="formfieldlabel" key={currentWorkoutId}>
                             Workout: {workout.workoutName}
-                            {exercises.map((exercise) =>
-                              exercise.workoutId === workout.id ? (
-                                <li className="ml-8 list-disc pl-2 leading-8" key={exercise.id}>
-                                  {exercise.exName}
-                                </li>
-                              ) : (
-                                ""
-                              )
-                            )}
                           </ul>
                         </div>
                       </ul>

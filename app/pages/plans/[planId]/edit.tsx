@@ -71,7 +71,7 @@ export const EditPlan = () => {
                         ...values,
                       })
                       await setQueryData(updated)
-                      router.push(Routes.ShowPlanPage({ planId: updated.id }))
+                      router.back()
                     } catch (error) {
                       console.error(error)
                       return {

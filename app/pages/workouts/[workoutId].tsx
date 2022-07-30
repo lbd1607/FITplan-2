@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
 import getWorkout from "./queries/getWorkout"
-import getExercises from "../exercises/queries/getExercises"
 
 export const Workout = () => {
   const router = useRouter()
@@ -24,10 +23,6 @@ export const Workout = () => {
     modalSetIsOpen(false)
     return <Link href={Routes.Home()} />
   }
-
-  const [{ exercises }] = useQuery(getExercises, {
-    orderBy: { id: "asc" },
-  })
 
   //Determine which icon to display according to workout type
   function getWorkoutIcon(worktype) {
@@ -73,17 +68,6 @@ export const Workout = () => {
               <p className="formfieldlabel">Notes: {workout.workoutNotes || "None"}</p>
               <p className="formfieldlabel">Plan: {workout.planId || "None"}</p>
               <p className="formfieldlabel">Exercises: </p>
-              <ul className="ml-8">
-                {exercises.map((exercise) =>
-                  exercise.workoutId === workout.id ? (
-                    <li className="ml-8 list-disc pl-2" key={exercise.id}>
-                      {exercise.exName}
-                    </li>
-                  ) : (
-                    ""
-                  )
-                )}
-              </ul>
 
               <div className="flex w-full justify-center border-0 object-center pt-2 pb-2 shadow-none"></div>
 

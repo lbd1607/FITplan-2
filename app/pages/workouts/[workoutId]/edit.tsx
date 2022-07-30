@@ -44,9 +44,6 @@ export const EditWorkout = () => {
                   </span>
                 </Link>
               </div>
-              <p className="capitalize ">Type: {workout.workoutType}</p>
-              <p className="">Notes: {workout.workoutNotes || "None"}</p>
-              <p className="">Plan: {workout.planId || "None"}</p>
             </div>
 
             <div className="px-8">
@@ -62,7 +59,7 @@ export const EditWorkout = () => {
                       ...values,
                     })
                     await setQueryData(updated)
-                    router.push(Routes.ShowWorkoutPage({ workoutId: updated.id }))
+                    router.back()
                   } catch (error: any) {
                     console.error(error)
                     return {

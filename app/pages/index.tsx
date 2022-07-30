@@ -4,7 +4,6 @@ import Layout from "app/core/layouts/Layout"
 import PlansList from "../pages/plans/PlansList"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import ExercisesList from "../pages/exercises/ExercisesList"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
 import WorkoutsList from "../pages/workouts/WorkoutsList"
 
@@ -43,7 +42,7 @@ const Home: BlitzPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="dash-card col-span-5 row-span-2">
+              <div className="dash-card col-span-5 row-span-4">
                 <div className="inner-scroll-parent">
                   <div className="inner-scroll-heading">
                     <h1>
@@ -63,32 +62,6 @@ const Home: BlitzPage = () => {
                     <div className="">
                       <Suspense fallback={<LoadingAnimation />}>
                         <WorkoutsList />
-                      </Suspense>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="dash-card col-span-5 row-span-2">
-                <div className="inner-scroll-parent">
-                  <div className="inner-scroll-heading">
-                    <h1>
-                      Exercises
-                      <Link href={Routes.WorkoutsPage()}>
-                        <span>
-                          <FontAwesomeIcon
-                            icon="chevron-right"
-                            size="sm"
-                            className="chevronicon float-right m-1"
-                          />
-                        </span>
-                      </Link>
-                    </h1>
-                  </div>
-                  <div className="inner-scroll">
-                    <div className="">
-                      <Suspense fallback={<LoadingAnimation />}>
-                        <ExercisesList />
                       </Suspense>
                     </div>
                   </div>
