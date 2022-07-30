@@ -31,7 +31,7 @@ export const EditExercise = () => {
       case "distance":
         return <p className="formfieldlabel">Distance: {exercise.exDistance || "None"}</p>
       case "rest":
-        return <p className="formfieldlabel">Rest: {exercise.rest || "None"}</p>
+        return <p className="formfieldlabel">Rest: {exercise.exRest || "None"}</p>
       case "":
         return <p className="formfieldlabel">None</p>
       default:
