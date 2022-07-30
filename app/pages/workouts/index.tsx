@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
 import { v4 as uuid } from "uuid"
-import { useTransition, animated } from "react-spring"
+import { useTransition, animated, config } from "react-spring"
 import WorkoutsList from "./WorkoutsList"
 
 export type FormContextTypes = {
@@ -27,10 +27,11 @@ const WorkoutsPage: BlitzPage = () => {
     setShow(true)
   }
   const formIn = useTransition(show, {
-    from: { opacity: 0.5, x: 2000 },
-    enter: { opacity: 1, x: 600, y: -15 },
-    leave: { opacity: 0.5, x: 2000, display: "hidden" },
+    from: { opacity: 0 },
+    enter: { opacity: 1, x: 600, y: -10 },
+    leave: { opacity: 0, display: "hidden" },
     delay: 20,
+    config: config.gentle,
   })
 
   return (
