@@ -15,13 +15,13 @@ const UserInfo = () => {
         <div className="modal-card">
           <div className="cardcol">
             <p className="formfieldlabel">
-              Username: <span className="font-bold">{currentUser.name || "None"}</span>
+              Username: <span className="font-bold">{currentUser.name ?? "None"}</span>
             </p>
             <p className="formfieldlabel">
-              Email: <span className="font-bold">{currentUser.email || "None"}</span>
+              Email: <span className="font-bold">{currentUser.email ?? "None"}</span>
             </p>
             <p className="formfieldlabel">
-              Password: <span className="font-bold">{"**********" || "None"}</span>
+              Password: <span className="font-bold">{"**********" ?? "None"}</span>
             </p>
             <div className="px-8 pb-6">
               <Link href={Routes.ResetPasswordPage()}>
@@ -34,7 +34,7 @@ const UserInfo = () => {
             <p className="formfieldlabel">
               Role:{" "}
               <span className="font-bold capitalize">
-                {currentUser.role.toLowerCase() || "None"}
+                {currentUser.role.toLowerCase() ?? "None"}
               </span>
             </p>
             <div className="grid grid-cols-2 gap-8 px-8">

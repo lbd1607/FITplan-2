@@ -25,13 +25,13 @@ export const EditExercise = () => {
   function getExTypeRates(exType) {
     switch (exType) {
       case "interval":
-        return <p className="formfieldlabel">Time: {exercise.exInterval || "None"}</p>
+        return <p className="formfieldlabel">Time: {exercise.exInterval ?? "None"}</p>
       case "reps":
-        return <p className="formfieldlabel">Reps: {exercise.exReps || "None"}</p>
+        return <p className="formfieldlabel">Reps: {exercise.exReps ?? "None"}</p>
       case "distance":
-        return <p className="formfieldlabel">Distance: {exercise.exDistance || "None"}</p>
+        return <p className="formfieldlabel">Distance: {exercise.exDistance ?? "None"}</p>
       case "rest":
-        return <p className="formfieldlabel">Rest: {exercise.exRest || "None"}</p>
+        return <p className="formfieldlabel">Rest: {exercise.exRest ?? "None"}</p>
       case "":
         return <p className="formfieldlabel">None</p>
       default:
@@ -63,9 +63,9 @@ export const EditExercise = () => {
               </div>
 
               <p className="formfieldlabel capitalize">Type: {exercise.exType}</p>
-              <span>{getExTypeRates(exercise.exType) || "None"}</span>
+              <span>{getExTypeRates(exercise.exType) ?? "None"}</span>
 
-              <p className="formfieldlabel">Notes: {exercise.exNotes || "None"}</p>
+              <p className="formfieldlabel">Notes: {exercise.exNotes ?? "None"}</p>
             </div>
 
             <div className="px-8">
