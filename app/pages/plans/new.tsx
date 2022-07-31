@@ -6,13 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { DayOfWeek } from "./planUtils"
 import { useContext } from "react"
-import { FormContext } from "."
+import { PlanFormContext } from "."
 
 const NewPlanPage = () => {
   const router = useRouter()
   const [createPlanMutation] = useMutation(createPlan)
 
-  const { setShow } = useContext(FormContext)
+  const { setShow } = useContext(PlanFormContext)
 
   return (
     <div className="items-center justify-center">
@@ -63,10 +63,10 @@ const NewPlanPage = () => {
               } catch (error: any) {
                 if (!values.planName) {
                   return { [FORM_ERROR]: "Enter a plan name." }
-                } else if (!values.workouts) {
-                  return { [FORM_ERROR]: "Select a workout." }
                 } else if (!values.days) {
                   return { [FORM_ERROR]: "Select days." }
+                } else if (!values.workouts) {
+                  return { [FORM_ERROR]: "Select a workout." }
                 } else {
                   return "An unknown error occurred."
                 }

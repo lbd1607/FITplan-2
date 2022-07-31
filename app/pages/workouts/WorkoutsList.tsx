@@ -1,8 +1,9 @@
-import React from "react"
-import { Link, usePaginatedQuery, useRouter, Routes } from "blitz"
+import React, { useContext } from "react"
+import { usePaginatedQuery, useRouter } from "blitz"
 import getWorkouts from "./queries/getWorkouts"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { WorkoutFormContext } from "."
 
 const ITEMS_PER_PAGE = 100
 
@@ -14,6 +15,14 @@ const WorkoutsList = () => {
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
+
+  const { setEdit, setCurrentWorkoutId, setCreate } = useContext(WorkoutFormContext)
+
+  const showPage = (id) => {
+    setCurrentWorkoutId(id)
+    setCreate(false)
+    setEdit(true)
+  }
 
   function getWorkoutIcon(worktype) {
     switch (worktype) {
@@ -34,21 +43,21 @@ const WorkoutsList = () => {
     return <div className="m-4 pl-6">No workouts to show ...</div>
   } else
     return (
-      <>
-        <div className="mt-1 flex-1 list-none pt-12">
-          <ul>
-            {workouts.map((workout) => (
-              <Link href={Routes.ShowWorkoutPage({ workoutId: workout.id })} key={workout.id}>
-                <li className="itemrow">
-                  <a>
-                    {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
-                  </a>
-                </li>
-              </Link>
-            ))}
-          </ul>
-        </div>
-      </>
+      <div className="mt-1 flex-1 list-none pt-12">
+        <ul>
+          {workouts.map((workout) => (
+            <button
+              className="itemrow flex w-full place-items-center items-start"
+              onClick={() => showPage(workout.id)}
+              key={workout.id}
+            >
+              <li className=" " key={workout.id}>
+                {getWorkoutIcon(workout.workoutType)} {workout.workoutName}
+              </li>
+            </button>
+          ))}
+        </ul>
+      </div>
     )
 }
 

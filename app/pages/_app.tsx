@@ -25,6 +25,7 @@ import {
   faCaretDown,
   faPlus,
   faGripLines,
+  faArrowDown,
 } from "@fortawesome/free-solid-svg-icons"
 
 library.add(
@@ -40,7 +41,8 @@ library.add(
   faChevronRight,
   faCaretDown,
   faPlus,
-  faGripLines
+  faGripLines,
+  faArrowDown
 )
 
 export default function App({ Component, pageProps }: AppProps) {

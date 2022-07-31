@@ -4,14 +4,14 @@ import { WorkoutForm, FORM_ERROR } from "app/pages/workouts/components/WorkoutFo
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { useContext } from "react"
-import { FormContext } from "."
+import { WorkoutFormContext } from "."
 import createWorkout from "./mutations/createWorkout"
 
 const NewWorkoutPage: BlitzPage = () => {
   const router = useRouter()
   const [createWorkoutMutation] = useMutation(createWorkout)
 
-  const { setShow } = useContext(FormContext)
+  const { setCreate } = useContext(WorkoutFormContext)
 
   return (
     <div className="flex items-center justify-center">
@@ -23,7 +23,7 @@ const NewWorkoutPage: BlitzPage = () => {
               <Link href={Routes.WorkoutsPage()}>
                 <button
                   className="col-span-1 justify-end text-right"
-                  onClick={() => setShow(false)}
+                  onClick={() => setCreate(false)}
                 >
                   <FontAwesomeIcon
                     icon="times"
@@ -42,12 +42,12 @@ const NewWorkoutPage: BlitzPage = () => {
             onSubmit={async (values) => {
               try {
                 await createWorkoutMutation(values)
-                setShow(false)
+                setCreate(false)
                 router.push(Routes.WorkoutsPage())
               } catch (error: any) {
                 if (!values.workoutName) {
                   return { [FORM_ERROR]: "Enter a workout name." }
-                } else if (!values.type) {
+                } else if (!values.workoutType) {
                   return { [FORM_ERROR]: "Select a workout type." }
                 } else {
                   return "An unknown error occurred."
@@ -55,7 +55,7 @@ const NewWorkoutPage: BlitzPage = () => {
               }
             }}
             onCancel={async () => {
-              setShow(false)
+              setCreate(false)
               try {
                 router.push(Routes.WorkoutsPage())
               } catch (error) {

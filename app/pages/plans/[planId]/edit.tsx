@@ -5,7 +5,6 @@ import getPlan from "../queries/getPlan"
 import { PlanForm, FORM_ERROR } from "app/pages/plans/components/PlanForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import LoadingAnimation from "app/core/components/LoadingAnimation"
 import updatePlan from "../mutations/updatePlan"
 
 export const EditPlan = () => {
@@ -107,7 +106,7 @@ export const EditPlan = () => {
 const EditPlanPage: BlitzPage = () => {
   return (
     <div>
-      <Suspense fallback={<LoadingAnimation />}>
+      <Suspense fallback={""}>
         <EditPlan />
       </Suspense>
     </div>

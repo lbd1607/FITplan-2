@@ -9,15 +9,15 @@ import NewPlanPage from "./new"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
 import PlansList from "./PlansList"
 
-export type FormContextTypes = {
+export type PlanFormContextTypes = {
   show: boolean
   setShow: Dispatch<SetStateAction<boolean>>
 }
-const FormContextInitialValues: FormContextTypes = {
+const FormContextInitialValues: PlanFormContextTypes = {
   show: false,
   setShow: () => {},
 }
-export const FormContext = createContext(FormContextInitialValues)
+export const PlanFormContext = createContext(FormContextInitialValues)
 
 const PlansPage: BlitzPage = () => {
   const [show, setShow] = useState(false)
@@ -30,12 +30,13 @@ const PlansPage: BlitzPage = () => {
     config: config.gentle,
   })
 
-  const showPage = () => {
-    setShow(true)
-  }
-
   return (
-    <FormContext.Provider value={{ show: show, setShow: setShow }}>
+    <PlanFormContext.Provider
+      value={{
+        show: show,
+        setShow: setShow,
+      }}
+    >
       <Head>
         <title>Plans</title>
       </Head>
@@ -45,7 +46,10 @@ const PlansPage: BlitzPage = () => {
             <div className="inner-scroll-heading">
               <h1 className="ml-2 mt-4">
                 Plans
-                <button className="btn add float-right ml-10 mr-3 align-middle" onClick={showPage}>
+                <button
+                  className="btn add float-right ml-10 mr-3 align-middle"
+                  onClick={() => setShow(true)}
+                >
                   {" "}
                   <a>
                     <FontAwesomeIcon icon="plus" size="1x" className="mr-2 cursor-pointer" />
@@ -70,7 +74,7 @@ const PlansPage: BlitzPage = () => {
           </div>
         </div>
       </div>
-    </FormContext.Provider>
+    </PlanFormContext.Provider>
   )
 }
 

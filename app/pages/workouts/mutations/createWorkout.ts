@@ -5,7 +5,7 @@ import { z } from "zod"
 const CreateWorkout = z.object({
   workoutName: z.string(),
   workoutType: z.string(),
-  workoutNotes: z.string(),
+  workoutNotes: z.optional(z.string()),
 })
 
 export default resolver.pipe(resolver.zod(CreateWorkout), resolver.authorize(), async (input) => {

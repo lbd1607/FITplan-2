@@ -1,21 +1,26 @@
-import { useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import * as z from "zod"
 import { Field } from "react-final-form"
-import { useQuery, useParam } from "blitz"
+import { useQuery } from "blitz"
 import getWorkout from "../queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import { WorkoutFormContext } from ".."
 
 export { FORM_ERROR } from "app/core/components/Form"
 
 export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const a11yRef = useRef(null)
-  const editingId = useParam("workoutId", "number")
+
+  const { currentWorkoutId, create } = useContext(WorkoutFormContext)
+
+  const editingId = !create ? currentWorkoutId : undefined
 
   const [editWorkout] = useQuery(getWorkout, { id: editingId }, { enabled: false })
-  const currentWorkoutType = editWorkout?.workoutType ?? "resistance"
+
+  const currentWorkoutType = editWorkout ? editWorkout.workoutType : "resistance"
 
   const [isSelected, setSelected] = useState(currentWorkoutType)
 
@@ -36,7 +41,12 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
             <div className="input-container required-field">
               <label className="formfieldlabel">Type</label>
 
-              <Field name="workoutType" defaultValue={"resistance"} aria-required="true">
+              <Field
+                id="workoutType"
+                name="workoutType"
+                defaultValue={"resistance"}
+                aria-required="true"
+              >
                 {(props) => {
                   return (
                     <div className="workoutTypeGrid">
@@ -47,6 +57,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                             ? "btn selectbtn selectedOption"
                             : "btn selectbtn"
                         }
+                        id="resistance"
                         name="resistance"
                         value="resistance"
                         type="button"
@@ -63,6 +74,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                         className={
                           isSelected === "cardio" ? "btn selectbtn selectedOption" : "btn selectbtn"
                         }
+                        id="cardio"
                         name="cardio"
                         value="cardio"
                         type="button"
@@ -84,6 +96,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                             ? "btn selectbtn selectedOption"
                             : "btn selectbtn"
                         }
+                        id="endurance"
                         name="endurance"
                         value="endurance"
                         type="button"
@@ -101,6 +114,7 @@ export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
                             ? "btn selectbtn selectedOption"
                             : "btn selectbtn"
                         }
+                        id="flexibility"
                         name="flexibility"
                         value="flexibility"
                         type="button"

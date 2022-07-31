@@ -11,7 +11,7 @@ export { FORM_ERROR } from "app/core/components/Form"
 
 const DaysOfTheWeek = () => {
   return (
-    <fieldset className="grid grid-flow-col">
+    <fieldset className="grid grid-flow-col" aria-required="true">
       <div className="dayParent">
         <Field
           name="days"
@@ -20,7 +20,6 @@ const DaysOfTheWeek = () => {
           component="input"
           type="checkbox"
           className="noCheckbox"
-          aria-required="true"
         />
         <label htmlFor={DayOfWeek.Monday.ref} className="daysChip ">
           {DayOfWeek.Monday.abbr}

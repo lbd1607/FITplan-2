@@ -8,37 +8,56 @@ import LoadingAnimation from "app/core/components/LoadingAnimation"
 import { v4 as uuid } from "uuid"
 import { useTransition, animated, config } from "react-spring"
 import WorkoutsList from "./WorkoutsList"
+import EditWorkoutPage from "./[workoutId]/edit"
 
-export type FormContextTypes = {
-  show: boolean
-  setShow: Dispatch<SetStateAction<boolean>>
+export type WorkoutFormContextTypes = {
+  create: boolean
+  setCreate: Dispatch<SetStateAction<boolean>>
+  edit: boolean
+  setEdit: Dispatch<SetStateAction<boolean>>
+  currentWorkoutId: number
+  setCurrentWorkoutId: Dispatch<SetStateAction<number>>
 }
-const FormContextInitialValues: FormContextTypes = {
-  show: false,
-  setShow: () => {},
+const FormContextInitialValues: WorkoutFormContextTypes = {
+  create: false,
+  setCreate: () => {},
+  edit: false,
+  setEdit: () => {},
+  currentWorkoutId: 0,
+  setCurrentWorkoutId: () => {},
 }
 
-export const FormContext = createContext(FormContextInitialValues)
+export const WorkoutFormContext = createContext(FormContextInitialValues)
 
 const WorkoutsPage: BlitzPage = () => {
-  const [show, setShow] = useState(false)
+  const [create, setCreate] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const [currentWorkoutId, setCurrentWorkoutId] = useState(0)
 
-  const showPage = () => {
-    setShow(true)
-  }
-  const formIn = useTransition(show, {
+  const createFormIn = useTransition(create, {
     from: { opacity: 0 },
-    enter: { opacity: 1, x: 600, y: -10 },
+    enter: { opacity: 1, x: 600 },
+    leave: { opacity: 0, display: "hidden" },
+    delay: 20,
+    config: config.gentle,
+  })
+  const editFormIn = useTransition(edit, {
+    from: { opacity: 0 },
+    enter: { opacity: 1, x: 600 },
     leave: { opacity: 0, display: "hidden" },
     delay: 20,
     config: config.gentle,
   })
 
   return (
-    <FormContext.Provider
+    <WorkoutFormContext.Provider
       value={{
-        show: show,
-        setShow: setShow,
+        create: create,
+        setCreate: setCreate,
+        edit: edit,
+        setEdit: setEdit,
+        currentWorkoutId: currentWorkoutId,
+        setCurrentWorkoutId: setCurrentWorkoutId,
       }}
     >
       <Head>
@@ -50,7 +69,10 @@ const WorkoutsPage: BlitzPage = () => {
             <div className="inner-scroll-heading">
               <h1 className="ml-2 mt-4">
                 Workouts
-                <button className="btn add float-right ml-10 mr-3 align-middle " onClick={showPage}>
+                <button
+                  className="btn add float-right ml-10 mr-3 align-middle "
+                  onClick={() => setCreate(true)}
+                >
                   {" "}
                   <a>
                     <FontAwesomeIcon icon="plus" size="1x" className="mr-2 cursor-pointer" />
@@ -59,11 +81,19 @@ const WorkoutsPage: BlitzPage = () => {
                 </button>
               </h1>
             </div>
-            {formIn(
-              (styles, item) =>
-                item && (
+            {createFormIn(
+              (styles, showNew) =>
+                showNew && (
                   <animated.div style={styles} className="absolute z-50 ml-12 h-1/2 w-1/3 ">
                     <NewWorkoutPage />
+                  </animated.div>
+                )
+            )}
+            {editFormIn(
+              (styles, showEdit) =>
+                showEdit && (
+                  <animated.div style={styles} className="absolute z-50 ml-12 h-1/2 w-1/3 ">
+                    <EditWorkoutPage workoutId={currentWorkoutId} />
                   </animated.div>
                 )
             )}
@@ -75,7 +105,7 @@ const WorkoutsPage: BlitzPage = () => {
           </div>
         </div>
       </div>
-    </FormContext.Provider>
+    </WorkoutFormContext.Provider>
   )
 }
 

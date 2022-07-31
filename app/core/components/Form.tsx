@@ -2,6 +2,8 @@ import { ReactNode, PropsWithoutRef, useRef } from "react"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 import * as z from "zod"
 import { Link } from "blitz"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import "@fortawesome/fontawesome-svg-core/styles.css"
 
 export { FORM_ERROR } from "final-form"
 
@@ -48,13 +50,21 @@ export function Form<S extends z.ZodType<any, any>>({
       onCancel={onCancel}
       render={({ handleSubmit, submitting, submitError }) => (
         <form onSubmit={handleSubmit} className="form" {...props}>
-          {/* Form fields supplied as children are rendered here */}
-          {children}
           {submitError && (
             <div role="alert">
-              <p className="error absolute bg-white mb-5 h-2 bottom-28">{submitError}</p>
+              <div className="error h-3 my-2">
+                <FontAwesomeIcon
+                  icon={"arrow-down"}
+                  size="1x"
+                  className="ml-4 mr-2 text-orange-500 "
+                />
+                {submitError}
+              </div>
             </div>
           )}
+          {/* Form fields supplied as children are rendered here */}
+          {children}
+
           <div className="btn-div w-full">
             {submitText && (
               <div>

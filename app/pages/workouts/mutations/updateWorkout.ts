@@ -6,7 +6,7 @@ const UpdateWorkout = z.object({
   id: z.number(),
   workoutName: z.string(),
   workoutType: z.string(),
-  workoutNotes: z.string(),
+  workoutNotes: z.optional(z.string()),
 })
 
 export default resolver.pipe(
