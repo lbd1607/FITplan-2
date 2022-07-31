@@ -40,6 +40,7 @@ export const EditWorkout = ({ workoutId }) => {
               onClick={async () => {
                 if (window.confirm("Delete from Workouts?")) {
                   await deleteWorkoutMutation({ id: workout.id })
+                  setEdit(false)
                   router.push(Routes.WorkoutsPage())
                 }
               }}
