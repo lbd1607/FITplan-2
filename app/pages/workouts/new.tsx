@@ -49,8 +49,14 @@ const NewWorkoutPage: BlitzPage = () => {
                   return { [FORM_ERROR]: "Enter a workout name." }
                 } else if (!values.workoutType) {
                   return { [FORM_ERROR]: "Select a workout type." }
+                } else if (
+                  error
+                    .toString()
+                    .includes("Unique constraint failed on the fields: (`workoutName`)")
+                ) {
+                  return { [FORM_ERROR]: "Workout name must be unique." }
                 } else {
-                  return "An unknown error occurred."
+                  return { [FORM_ERROR]: "An unknown error occurred." }
                 }
               }
             }}

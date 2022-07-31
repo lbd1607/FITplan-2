@@ -7,7 +7,7 @@ const UpdatePlan = z.object({
   planName: z.string(),
   itemOrder: z.number(),
   groupOrder: z.number(),
-  planNotes: z.string(),
+  planNotes: z.optional(z.string()),
 })
 
 export default resolver.pipe(

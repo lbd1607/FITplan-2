@@ -67,8 +67,12 @@ const NewPlanPage = () => {
                   return { [FORM_ERROR]: "Select days." }
                 } else if (!values.workouts) {
                   return { [FORM_ERROR]: "Select a workout." }
+                } else if (
+                  error.toString().includes("Unique constraint failed on the fields: (`planName`)")
+                ) {
+                  return { [FORM_ERROR]: "Plan name must be unique." }
                 } else {
-                  return "An unknown error occurred."
+                  return { [FORM_ERROR]: "An unknown error occurred." }
                 }
               }
             }}
