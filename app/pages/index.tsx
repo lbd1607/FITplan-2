@@ -1,11 +1,11 @@
 import { Suspense } from "react"
 import { Link, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import PlansList from "../pages/plans/PlansList"
+import PlansList from "../plans/components/PlansList"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
-import WorkoutsList from "../pages/workouts/WorkoutsList"
+import WorkoutsList from "../workouts/components/WorkoutsList"
 
 const Home: BlitzPage = () => {
   return (

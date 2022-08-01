@@ -3,11 +3,11 @@ import { usePaginatedQuery, useRouter, useMutation, Routes } from "blitz"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { FORM_ERROR } from "app/pages/plans/components/PlanForm"
-import updatePlan from "./mutations/updatePlan"
-import { GroupName, getDayChip } from "./planUtils"
-import getPlans from "./queries/getPlans"
-import { PlanFormContext } from "."
+import { FORM_ERROR } from "app/plans/components/PlanForm"
+import updatePlan from "../mutations/updatePlan"
+import { GroupName, getDayChip } from "../utils/planUtils"
+import getPlans from "../queries/getPlans"
+import { PlanFormContext } from "../../pages/plans"
 
 const ITEMS_PER_PAGE = 100
 

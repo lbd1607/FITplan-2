@@ -7,7 +7,7 @@ import { useTransition, animated, config } from "react-spring"
 import { v4 as uuid } from "uuid"
 import NewPlanPage from "./new"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
-import PlansList from "./PlansList"
+import PlansList from "../../plans/components/PlansList"
 import EditPlanPage from "./[planId]/edit"
 
 export type PlanFormContextTypes = {

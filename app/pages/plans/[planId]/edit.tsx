@@ -1,13 +1,13 @@
 import { Suspense, useContext } from "react"
 import { Head, Link, useRouter, useQuery, useMutation, Routes, BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getPlan from "../queries/getPlan"
-import { PlanForm, FORM_ERROR } from "app/pages/plans/components/PlanForm"
+import PlanForm, { FORM_ERROR } from "app/plans/components/PlanForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import updatePlan from "../mutations/updatePlan"
 import { PlanFormContext } from ".."
-import deletePlan from "../mutations/deletePlan"
+import getPlan from "app/plans/queries/getPlan"
+import deletePlan from "app/plans/mutations/deletePlan"
+import updatePlan from "app/plans/mutations/updatePlan"
 
 export const EditPlan = () => {
   const router = useRouter()
@@ -23,7 +23,6 @@ export const EditPlan = () => {
     }
   )
   const [updatePlanMutation] = useMutation(updatePlan)
-
   const [deletePlanMutation] = useMutation(deletePlan)
 
   return (

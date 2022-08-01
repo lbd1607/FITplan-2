@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
 import { usePaginatedQuery, useRouter } from "blitz"
-import getWorkouts from "./queries/getWorkouts"
+import getWorkouts from "../queries/getWorkouts"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { WorkoutFormContext } from "."
+import { WorkoutFormContext } from "../../pages/workouts"
 
 const ITEMS_PER_PAGE = 100
 

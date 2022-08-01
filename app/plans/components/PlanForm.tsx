@@ -4,9 +4,9 @@ import * as z from "zod"
 import { Field } from "react-final-form"
 import { usePaginatedQuery } from "blitz"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { DayOfWeek } from "../planUtils"
+import { DayOfWeek } from "../utils/planUtils"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
-import getWorkouts from "app/pages/workouts/queries/getWorkouts"
+import getWorkouts from "app/workouts/queries/getWorkouts"
 export { FORM_ERROR } from "app/core/components/Form"
 
 const DaysOfTheWeek = () => {
@@ -185,7 +185,7 @@ export function PlanFormFields<S extends z.ZodType<any, any>>(props: FormProps<S
   )
 }
 
-export function PlanForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
+export default function PlanForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   return (
     <div>
       <Suspense fallback={<LoadingAnimation />}>

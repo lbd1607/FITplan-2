@@ -1,11 +1,11 @@
 import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import { WorkoutForm, FORM_ERROR } from "app/pages/workouts/components/WorkoutForm"
+import WorkoutForm, { FORM_ERROR } from "app/workouts/components/WorkoutForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { useContext } from "react"
 import { WorkoutFormContext } from "."
-import createWorkout from "./mutations/createWorkout"
+import createWorkout from "app/workouts/mutations/createWorkout"
 
 const NewWorkoutPage: BlitzPage = () => {
   const router = useRouter()

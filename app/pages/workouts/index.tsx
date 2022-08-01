@@ -7,7 +7,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
 import { v4 as uuid } from "uuid"
 import { useTransition, animated, config } from "react-spring"
-import WorkoutsList from "./WorkoutsList"
+import WorkoutsList from "../../workouts/components/WorkoutsList"
 import EditWorkoutPage from "./[workoutId]/edit"
 
 export type WorkoutFormContextTypes = {

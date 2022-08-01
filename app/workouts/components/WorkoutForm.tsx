@@ -7,11 +7,11 @@ import { useQuery } from "blitz"
 import getWorkout from "../queries/getWorkout"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "@fortawesome/fontawesome-svg-core/styles.css"
-import { WorkoutFormContext } from ".."
+import { WorkoutFormContext } from "../../pages/workouts"
 
 export { FORM_ERROR } from "app/core/components/Form"
 
-export function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
+export default function WorkoutForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const a11yRef = useRef(null)
 
   const { currentWorkoutId, create } = useContext(WorkoutFormContext)
