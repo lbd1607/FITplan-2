@@ -12,7 +12,7 @@ const NewPlanPage = () => {
   const router = useRouter()
   const [createPlanMutation] = useMutation(createPlan)
 
-  const { setShow } = useContext(PlanFormContext)
+  const { setCreate } = useContext(PlanFormContext)
 
   return (
     <div className="items-center justify-center">
@@ -24,7 +24,7 @@ const NewPlanPage = () => {
               <Link href={Routes.PlansPage()}>
                 <button
                   className="col-span-1 justify-end text-right"
-                  onClick={() => setShow(false)}
+                  onClick={() => setCreate(false)}
                 >
                   <FontAwesomeIcon
                     icon="times"
@@ -58,7 +58,7 @@ const NewPlanPage = () => {
 
               try {
                 await createPlanMutation(values)
-                setShow(false)
+                setCreate(false)
                 router.push(Routes.PlansPage())
               } catch (error: any) {
                 if (!values.planName) {
@@ -77,7 +77,7 @@ const NewPlanPage = () => {
               }
             }}
             onCancel={async () => {
-              setShow(false)
+              setCreate(false)
 
               try {
                 router.push(Routes.PlansPage())

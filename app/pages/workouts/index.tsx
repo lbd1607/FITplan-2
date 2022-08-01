@@ -93,7 +93,7 @@ const WorkoutsPage: BlitzPage = () => {
               (styles, showEdit) =>
                 showEdit && (
                   <animated.div style={styles} className="absolute z-50 ml-12 h-1/2 w-1/3 ">
-                    <EditWorkoutPage workoutId={currentWorkoutId} />
+                    <EditWorkoutPage />
                   </animated.div>
                 )
             )}

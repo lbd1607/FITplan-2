@@ -7,6 +7,7 @@ const UpdatePlan = z.object({
   planName: z.string(),
   itemOrder: z.number(),
   groupOrder: z.number(),
+  workouts: z.array(z.string()),
   planNotes: z.optional(z.string()),
 })
 

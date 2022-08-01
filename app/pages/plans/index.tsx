@@ -8,23 +8,41 @@ import { v4 as uuid } from "uuid"
 import NewPlanPage from "./new"
 import LoadingAnimation from "app/core/components/LoadingAnimation"
 import PlansList from "./PlansList"
+import EditPlanPage from "./[planId]/edit"
 
 export type PlanFormContextTypes = {
-  show: boolean
-  setShow: Dispatch<SetStateAction<boolean>>
+  create: boolean
+  setCreate: Dispatch<SetStateAction<boolean>>
+  edit: boolean
+  setEdit: Dispatch<SetStateAction<boolean>>
+  currentPlanId: number
+  setCurrentPlanId: Dispatch<SetStateAction<number>>
 }
 const FormContextInitialValues: PlanFormContextTypes = {
-  show: false,
-  setShow: () => {},
+  create: false,
+  setCreate: () => {},
+  edit: false,
+  setEdit: () => {},
+  currentPlanId: 0,
+  setCurrentPlanId: () => {},
 }
 export const PlanFormContext = createContext(FormContextInitialValues)
 
 const PlansPage: BlitzPage = () => {
-  const [show, setShow] = useState(false)
+  const [create, setCreate] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const [currentPlanId, setCurrentPlanId] = useState(0)
 
-  const formIn = useTransition(show, {
+  const createFormIn = useTransition(create, {
     from: { opacity: 0 },
-    enter: { opacity: 1, x: 600, y: -10 },
+    enter: { opacity: 1, x: 600 },
+    leave: { opacity: 0, display: "hidden" },
+    delay: 20,
+    config: config.gentle,
+  })
+  const editFormIn = useTransition(edit, {
+    from: { opacity: 0 },
+    enter: { opacity: 1, x: 600 },
     leave: { opacity: 0, display: "hidden" },
     delay: 20,
     config: config.gentle,
@@ -33,8 +51,12 @@ const PlansPage: BlitzPage = () => {
   return (
     <PlanFormContext.Provider
       value={{
-        show: show,
-        setShow: setShow,
+        create: create,
+        setCreate: setCreate,
+        edit: edit,
+        setEdit: setEdit,
+        currentPlanId: currentPlanId,
+        setCurrentPlanId: setCurrentPlanId,
       }}
     >
       <Head>
@@ -48,7 +70,7 @@ const PlansPage: BlitzPage = () => {
                 Plans
                 <button
                   className="btn add float-right ml-10 mr-3 align-middle"
-                  onClick={() => setShow(true)}
+                  onClick={() => setCreate(true)}
                 >
                   {" "}
                   <a>
@@ -58,11 +80,19 @@ const PlansPage: BlitzPage = () => {
                 </button>
               </h1>
             </div>
-            {formIn(
-              (styles, item) =>
-                item && (
+            {createFormIn(
+              (styles, showNew) =>
+                showNew && (
                   <animated.div style={styles} className="absolute z-50 ml-12 h-1/2 w-1/3 ">
                     <NewPlanPage />
+                  </animated.div>
+                )
+            )}
+            {editFormIn(
+              (styles, showEdit) =>
+                showEdit && (
+                  <animated.div style={styles} className="absolute z-50 ml-12 h-1/2 w-1/3 ">
+                    <EditPlanPage />
                   </animated.div>
                 )
             )}
