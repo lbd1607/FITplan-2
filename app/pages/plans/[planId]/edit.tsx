@@ -38,7 +38,7 @@ export const EditPlan = () => {
               className="btn delete border-none w-fit px-3 py-1 absolute top-12 mt-0.5"
               type="button"
               onClick={async () => {
-                if (window.confirm("Delete from Workouts?")) {
+                if (window.confirm("Delete from Plans?")) {
                   await deletePlanMutation({ id: plan.id })
                   setEdit(false)
                   router.push(Routes.PlansPage())
