@@ -1,6 +1,7 @@
 {
   "name": "fitplan",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "dev": "blitz dev",
     "build": "blitz build",
